@@ -8,3 +8,4 @@ const RoleSchema = new Schema({
 })
 
 module.exports = model('Role',RoleSchema);
+// Los modelos siempre los vamos a poner con Mayuscula y en singular 'Role'

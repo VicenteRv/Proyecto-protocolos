@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const { urlMongo } = require("../config/config");
-console.log(urlMongo);
 const dbConnection = async() => {
     try {
         await mongoose.connect(urlMongo);
