@@ -18,11 +18,11 @@ router.post('/',[
     validarCampos
 ],crearUsuario);
 
-router.get('/:id',[
+router.get('/',[
     
 ],obtenerUsuarios);
 
-router.get('/',[
+router.get('/:id',[
     
 ],obtenerUsuario);
 

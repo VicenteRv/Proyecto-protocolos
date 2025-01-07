@@ -31,10 +31,27 @@ const crearUsuario = async(req = request, res = response) => {
         })
     }
 }
-const obtenerUsuarios = (req = request, res = response) => {
-    res.json({
-        msg: 'controller GETusarios'
-    })
+const obtenerUsuarios = async(req = request, res = response) => {
+    const {limite = 10, desde = 0} = req.query;
+    const query = {estado:true};
+
+    try {
+        const [total,usuarios] = await Promise.all([
+            Usuario.countDocuments(query),
+            Usuario.find(query)
+            .skip(desde)
+            .limit(limite)
+        ])
+        res.status(200).json({
+            total,
+            usuarios
+        })    
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({
+            msg: 'Error al btener usuarios'
+        })
+    }
 }
 const obtenerUsuario = (req = request, res = response) => {
     res.json({
