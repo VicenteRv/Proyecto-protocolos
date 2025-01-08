@@ -68,10 +68,28 @@ const obtenerUsuario = async(req = request, res = response) => {
         })
     }
 }
-const modificarUsuario = (req = request, res = response) => {
-    res.json({
-        msg: 'controller PUTusario'
-    })
+const modificarUsuario = async(req = request, res = response) => {
+    const {id} = req.params;
+    const {nombre,correo,password,rol} = req.body;
+    try {
+        const datosActualizados = { nombre, correo, password, rol };
+        if (password) {
+            const salt = bcryptjs.genSaltSync();
+            datosActualizados.password = bcryptjs.hashSync(password, salt);
+        }
+        datosActualizados.rol = await Role.findOne({rol});
+        // Actualizar el usuario en la base de datos
+        const usuario = await Usuario.findByIdAndUpdate(id, datosActualizados, { new: true })
+            .populate('rol','rol -_id');
+        res.status(200).json({
+            usuario
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            msg: 'Error al actualizar el usuario'
+        });
+    }
 }
 const borrarUsuario = (req = request, res = response) => {
     res.json({

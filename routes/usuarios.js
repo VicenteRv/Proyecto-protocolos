@@ -30,7 +30,18 @@ router.get('/:id',[
 ],obtenerUsuario);
 //ruta protegida
 router.put('/:id',[
-    
+    check('id').notEmpty().withMessage('El id es obligatorio'),
+    check('id').isMongoId().withMessage('No es un id valido de mongo'),
+    check('id').custom(existeUsuarioDB),
+    check('nombre').notEmpty().withMessage('El nombre es obligatorio'),
+    check('correo').notEmpty().withMessage('El correo es obligatorio')
+        .isEmail().withMessage('El correo no es valido')
+        .custom(usuarioExistente),
+    check('password').notEmpty().withMessage('La contraseña es obligatoria')
+        .isLength({min:8}).withMessage('La contraseña debe de tener mas de 8 caracteres'),
+    check('rol').notEmpty().withMessage('El rol es obligatorio')
+        .custom(validacionRol).withMessage('Los roles pueden ser "ADMIN_ROL,ALUMNO_ROL,SINODAL_ROL,DIRECTOR_ROL"'),
+    validarCampos
 ],modificarUsuario);
 //ruta protegida
 router.delete('/',[
