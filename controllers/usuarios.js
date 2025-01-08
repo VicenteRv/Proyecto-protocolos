@@ -91,10 +91,20 @@ const modificarUsuario = async(req = request, res = response) => {
         });
     }
 }
-const borrarUsuario = (req = request, res = response) => {
-    res.json({
-        msg: 'controller DELETEusario'
-    })
+const borrarUsuario = async(req = request, res = response) => {
+    const {id} = req.params;
+    try {
+        const usuario = await Usuario.findByIdAndUpdate(id,{estado:false},{new:true});
+        res.status(200).json({
+            msg: 'Usuario borrado',
+            usuario
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            msg: 'Error al borrar el usuario'
+        })
+    }
 }
 
 module.exports = {

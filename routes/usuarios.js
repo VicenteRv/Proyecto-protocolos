@@ -44,8 +44,12 @@ router.put('/:id',[
     validarCampos
 ],modificarUsuario);
 //ruta protegida
-router.delete('/',[
-    
+
+router.delete('/:id',[
+    check('id').notEmpty().withMessage('El id es obligatorio'),
+    check('id').isMongoId().withMessage('No es un id valido de mongo'),
+    check('id').custom(existeUsuarioDB),
+    validarCampos
 ],borrarUsuario)
 
 module.exports = router;
