@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="Multimedia/LogoImg.png">
     <link rel="stylesheet" href="Estilos/general.css">
-    <link rel="stylesheet" href="Estilos/home.css">
-    <title>ProSys - Inicio</title>
+    <link rel="stylesheet" href="Estilos/documentos.css">
+    <title>ProSys - Documentos Imoportantes</title>
 </head>
 
 <body>
@@ -48,48 +48,36 @@
     </nav>
     <!--    -->
 
-    <!--  PÁGINA PRINCIPAL  -->
+    <!--  PÁGINA   -->
     <div className="contenedor-principal">
-        <h1 class="home-title">Requerimientos de protocolos para trabajos terminales</h1>
-
-        <section class="home-section">
-            <h2 class="section-title">Descripción general</h2>
-            <p class="section-description">
-                Proyecto con finalidad de conocer el proceso de desarrollo de un sistema destinado a la gestión
-                automatizada
-                de los
-                Protocolos de Trabajos Terminales (TT) en la Comisión Académica de Trabajos Terminales (CATT) de la
-                Escuela Superior de Cómputo (ESCOM), perteneciente al Instituto Politécnico Nacional (IPN). El sistema
-                tiene
-                como
-                objetivo principal mejorar la eficiencia, transparencia y precisión en los procedimientos relacionados
-                con
-                el registro,
-                seguimiento, evaluación y aprobación de los protocolos de TT, tanto para los alumnos como para los
-                académicos involucrados.
-
-            </p>
-        </section>
-
-        <section class="home-section home-section-alt">
-            <h2 class="section-title">Requisitos específicos</h2>
-            <ul class="requirements-list">
-                <li>Formato establecido por la institución</li>
-                <li>Entrega digital en formato PDF</li>
-                <li>Máximo de 50 páginas</li>
-                <li>Presentación del documento con portada oficial</li>
-                <li>Entrega de prototipo o demostración funcional</li>
-            </ul>
-        </section>
-
-        <section class="home-section">
-            <h2 class="section-title">Recursos y enlaces de interés</h2>
-            <ul class="resources-list">
-                <li><a href="/manual-protocolos.pdf" target="_blank">Manual de Protocolos</a></li>
-                <li><a href="/ejemplo-trabajo-terminal.pdf" target="_blank">Ejemplo de Trabajo Terminal</a></li>
-                <li><a href="/contacto">Contacto con el Comité Evaluador</a></li>
-            </ul>
-        </section>
+        <header>
+            <h1>Descarga de Documentos</h1>
+        </header>
+        <div class="documentos-contenedor">
+            <section class="documentos">
+                <div class="documento">
+                    <h2>Documento Rector</h2>
+                    <p>Este documento detalla la manera en la cual los Protocolos de Trabajos Terminales se llevan a
+                        cabo,
+                        así como los roles de cada uno de los participantes en el seguimiento de Trabajos</p>
+                    <img src="Multimedia/DocRector.jpg" alt="Documento Rector" class="documentoImg" />
+                    <br /><br />
+                    <a href="Documentos/DocRector.pdf" download="Documento-Rector" class="btn-descargar">
+                        Descargar
+                    </a>
+                </div>
+                <div class="documento">
+                    <h2>Preguntas de Evaluación</h2>
+                    <p>En este docuemnto se muestran los puntos que se evaluarán en las presentaciones de Trabajos
+                        Terminales. Estas preguntas son respondidas por los Sinodales encargados de los Protocolos</p>
+                    <img src="Multimedia/EvaProtocolo.jpg" alt="Documento 2" class="documentoImg" />
+                    <br /><br />
+                    <a href="Documentos/EvaProtocolo.pdf" download="Preguntas-De-Evaluacion" class="btn-descargar">
+                        Descargar
+                    </a>
+                </div>
+            </section>
+        </div>
     </div>
     <!--    -->
 

@@ -1,0 +1,141 @@
+/* Restante del CSS sigue igual que antes */
+
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f4f6f9;
+}
+
+.login-box {
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  max-width: 90%;
+  text-align: center;
+}
+
+h2 {
+  margin-bottom: 20px;
+  font-size: 26px;
+  color: #333;
+  font-weight: 600;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #333;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background-color: #f9fafb;
+  transition: all 0.3s ease;
+  font-size: 16px;
+}
+
+input:focus {
+  border-color: #4a90e2;
+  background-color: #fff;
+  box-shadow: 0 0 8px rgba(74, 144, 226, 0.2);
+  outline: none;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  /* Espacio entre ambos botones */
+}
+
+.login-button,
+.create-button {
+  width: 48%;
+  /* Ambos botones ocupan el 48% del contenedor */
+  padding: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+/* Estilos para el botón de iniciar sesión */
+.login-button {
+  background-color: #4a90e2;
+  color: white;
+}
+
+.login-button:hover {
+  background-color: #002A7C;
+}
+
+.login-button:active {
+  background-color: #2c6aa6;
+  transform: scale(0.98);
+}
+
+/* Estilos para el botón de crear usuario */
+.create-button {
+  background-color: #4a90e2;
+  color: white;
+}
+
+.create-button:hover {
+  background-color: #002A7C;
+}
+
+.create-button:active {
+  background-color: #267b3c;
+  transform: scale(0.98);
+}
+
+.login-box a {
+  display: block;
+  margin-top: 15px;
+  font-size: 14px;
+  color: #4a90e2;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.login-box a:hover {
+  color: #357ABD;
+}
+
+/* Estilo para el selector (select) */
+select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background-color: #f9fafb;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+select:focus {
+  border-color: #4a90e2;
+  background-color: #fff;
+  box-shadow: 0 0 8px rgba(74, 144, 226, 0.2);
+  outline: none;
+}

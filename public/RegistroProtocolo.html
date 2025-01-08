@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="Multimedia/LogoImg.png">
+    <link rel="stylesheet" href="Estilos/general.css">
+    <link rel="stylesheet" href="Estilos/registroProtocolo.css">
+    <title>ProSys - Registrar Protocolo</title>
+</head>
+
+<body>
+
+    <!--  BARRA DE NAVEGACIÓN  -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-logo">
+                <img class="navbar-image" src="Multimedia/LogoHorizontal.png" alt="">
+            </a>
+            <ul class="navbar-menu">
+                <li class="navbar-item">
+                    <a href="index.html" class="navbar-link">Inicio</a>
+                </li>
+                <li class="navbar-item">
+                    <a href="Documentos.html" class="navbar-link">Documentos</a>
+                </li>
+                <li class="navbar-item">
+                    <a href="Perfil.html" class="navbar-link">Perfil</a>
+                </li>
+                <li class="navbar-item">
+                    <a href="Login.html" class="navbar-link">Inicio de sesión</a>
+                </li>
+                <li class="navbar-item">
+                    <a href="RegistroUsuario.html" class="navbar-link">Registro Usuario</a>
+                </li>
+                <li class="navbar-item">
+                    <a href="RegistroProtocolo.html" class="navbar-link">Registro Protocolo</a>
+                </li>
+                <li class="navbar-item">
+                    <a href="EvaluarProtocolo.html" class="navbar-link">Evaluar Protocolo</a>
+                </li>
+                <li class="navbar-item">
+                    <a href="Protocolo.html" class="navbar-link">Protocolo</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!--    -->
+
+    <!--  PÁGINA   -->
+
+    <div class="registro-tt-container">
+        <div class="registro-tt-box">
+            <h1>Registrar Protocolo</h1>
+            <form action="submit.php" method="post" encType="multipart/form-data" class="registro-tt-formulario">
+                <label htmlFor="nombre">Nombre del Proyecto</label>
+                <input type="text" id="nombre" name="nombre" class="registro-tt-input"
+                    placeholder="Ingrese el nombre del proyecto" required="" />
+                <label htmlFor="integrantes">Integrantes del Equipo (Máximo 3)</label>
+                <div class="registro-tt-integrantes">
+                    <input type="text" id="integrante1" name="integrante1" class="registro-tt-input"
+                        placeholder="Integrante 1" required="" />
+                    <input type="text" id="integrante2" name="integrante2" class="registro-tt-input"
+                        placeholder="Integrante 2" required="" />
+                    <input type="text" id="integrante3" name="integrante3" class="registro-tt-input"
+                        placeholder="Integrante 3" required="" />
+                </div>
+                <label htmlFor="lider">Líder del Equipo</label>
+                <select id="lider" name="lider" class="registro-tt-select" required="">
+                    <option value="">Seleccione al líder</option>
+                    <option value="integrante1">Integrante 1</option>
+                    <option value="integrante2">Integrante 2</option>
+                    <option value="integrante3">Integrante 3</option>
+                </select>
+                <label htmlFor="correos">Correos Electrónicos de los Integrantes</label>
+                <div class="registro-tt-correos">
+                    <input type="email" id="correo1" name="correo1" class="registro-tt-input"
+                        placeholder="Correo Integrante 1" required="" />
+                    <input type="email" id="correo2" name="correo2" class="registro-tt-input"
+                        placeholder="Correo Integrante 2" required="" />
+                    <input type="email" id="correo3" name="correo3" class="registro-tt-input"
+                        placeholder="Correo Integrante 3" required="" />
+                </div>
+                <label htmlFor="descripcion">Descripción del Proyecto</label>
+                <textarea id="descripcion" name="descripcion" class="registro-tt-textarea"
+                    placeholder="Describa brevemente el proyecto" rows={5} required="" defaultValue=""></textarea>
+                <label htmlFor="documento">Subir Documento</label>
+                <input type="file" id="documento" name="documento" class="registro-tt-file" accept=".pdf,.doc,.docx"
+                    required="" />
+                <button type="submit" class="registro-tt-btn-submit">
+                    Registrar
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!--    -->
+
+    <!--  FOOTER  -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <img src="Multimedia/LogoPrincipal.png" alt="Logo" class="footer-logo-img">
+            </div>
+            <div class="footer-aside">
+                <p class="footer-text">
+                    Todos los derechos reservados.
+                </p>
+                <ul class="footer-menu">
+                    <li class="footer-item">
+                        <a href="/politica" class="footer-link">Política de Privacidad</a>
+                    </li>
+                    <li class="footer-item">
+                        <a href="/terminos" class="footer-link">Términos y Condiciones</a>
+                    </li>
+                    <li class="footer-item">
+                        <a href="/contacto" class="footer-link">Contacto</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    <!--    -->
+
+</body>
+
+</html>

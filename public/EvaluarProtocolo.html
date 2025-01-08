@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="Multimedia/LogoImg.png">
+    <link rel="stylesheet" href="Estilos/general.css">
+    <link rel="stylesheet" href="Estilos/evaluarProtocolo.css">
+    <title>ProSys - Evaluar Protocolo</title>
+</head>
+
+<body>
+
+    <script>
+        function RedireccionarInicio() {
+            window.location.replace("index.html");
+        }
+    </script>
+
+    <!--  BARRA DE NAVEGACIÓN  -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-logo">
+                <img class="navbar-image" src="Multimedia/LogoHorizontal.png" alt="">
+            </a>
+            <ul class="navbar-menu">
+                <li class="navbar-item">
+                    <a href="index.html" class="navbar-link">Inicio</a>
+                </li>
+                <li class="navbar-item">
+                    <a href="Documentos.html" class="navbar-link">Documentos</a>
+                </li>
+                <li class="navbar-item">
+                    <a href="Perfil.html" class="navbar-link">Perfil</a>
+                </li>
+                <li class="navbar-item">
+                    <a href="Login.html" class="navbar-link">Inicio de sesión</a>
+                </li>
+                <li class="navbar-item">
+                    <a href="RegistroUsuario.html" class="navbar-link">Registro Usuario</a>
+                </li>
+                <li class="navbar-item">
+                    <a href="RegistroProtocolo.html" class="navbar-link">Registro Protocolo</a>
+                </li>
+                <li class="navbar-item">
+                    <a href="EvaluarProtocolo.html" class="navbar-link">Evaluar Protocolo</a>
+                </li>
+                <li class="navbar-item">
+                    <a href="Protocolo.html" class="navbar-link">Protocolo</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!--    -->
+
+    <!--  PÁGINA   -->
+
+    <div class="contenedor-principal">
+        <div class="evaluar-contenedor">
+            <div class="evaluar-protocolo-info">
+                <div class="protocolo-info">
+                    <div class="protocolo-info-nombre">
+                        <h2>Nombre de Protocolo</h2>
+                    </div>
+                    <div class="protocolo-datos">
+                        <div class="protocolo-info-texto">
+                            <h4>Integrantes de Equipo:</h4>
+                        </div>
+                        <div class="protocolo-info-integrantes">
+                            <li>Integrante 1</li>
+                            <li>Integrante 2</li>
+                            <li>Integrante 3</li>
+                        </div>
+                        <div class="protocolo-info-texto">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae quaerat, debitis temporibus
+                            optio accusantium rerum amet laborum, suscipit ex iste deserunt aliquam nobis alias magni
+                            doloribus harum corporis dolorum provident Lorem ipsum dolor sit amet, consectetur
+                            adipisicing elit. Hic doloribus deleniti natus accusamus molestias blanditiis, culpa optio,
+                            minima exercitationem doloremque iure nam amet. Dolore voluptas consequuntur cumque velit
+                            dolorum eum? lor
+                        </div>
+                    </div>
+                </div>
+                <div class="protocolo-documento">
+                    <div class="documento">
+                        <img src="Multimedia/DocRector.jpg" alt="Documento Rector" class="documentoImg" />
+                        <br /><br />
+                        <a href="Documentos/DocRector.pdf" download="Documento-Rector" class="btn-descargar">
+                            Descargar
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="evaluar-protocolo-calificar">
+                <h2>Evaluación</h2>
+                <div class="evaluar-pregunta">
+                    <div class="evaluar-pregunta-texto">
+                        1. ¿El título corresponde al producto esperado?
+                    </div>
+                    <div class="evaluar-pregunta-botones">
+                        <input type="radio" id="q1-1" name="q1" value="1">
+                        <label for="q1-1">1</label>
+                        <input type="radio" id="q1-2" name="q1" value="2">
+                        <label for="q1-2">2</label>
+                        <input type="radio" id="q1-3" name="q1" value="3">
+                        <label for="q1-3">3</label>
+                    </div>
+                </div>
+                <div class="evaluar-pregunta">
+                    <div class="evaluar-pregunta-texto">
+                        2. ¿El resumen expresa claramente la propuesta de TT?
+                    </div>
+                    <div class="evaluar-pregunta-botones">
+                        <input type="radio" id="q2-1" name="q2" value="1">
+                        <label for="q2-1">1</label>
+                        <input type="radio" id="q2-2" name="q2" value="2">
+                        <label for="q2-2">2</label>
+                        <input type="radio" id="q2-3" name="q2" value="3">
+                        <label for="q2-3">3</label>
+                    </div>
+                </div>
+                <div class="evaluar-pregunta">
+                    <div class="evaluar-pregunta-texto">
+                        3. ¿Las palabras clave han sido clasificadas adecuadamente?
+                    </div>
+                    <div class="evaluar-pregunta-botones">
+                        <input type="radio" id="q3-1" name="q3" value="1">
+                        <label for="q3-1">1</label>
+                        <input type="radio" id="q3-2" name="q3" value="2">
+                        <label for="q3-2">2</label>
+                        <input type="radio" id="q3-3" name="q3" value="3">
+                        <label for="q3-3">3</label>
+                    </div>
+                </div>
+                <div class="evaluar-pregunta">
+                    <div class="evaluar-pregunta-texto">
+                        4. ¿La presentación del problema a resolver es comprensible?
+                    </div>
+                    <div class="evaluar-pregunta-botones">
+                        <input type="radio" id="q4-1" name="q4" value="1">
+                        <label for="q4-1">1</label>
+                        <input type="radio" id="q4-2" name="q4" value="2">
+                        <label for="q4-2">2</label>
+                        <input type="radio" id="q4-3" name="q4" value="3">
+                        <label for="q4-3">3</label>
+                    </div>
+                </div>
+                <div class="evaluar-pregunta">
+                    <div class="evaluar-pregunta-texto">
+                        5. ¿El objetivo es preciso y relevante?
+                    </div>
+                    <div class="evaluar-pregunta-botones">
+                        <input type="radio" id="q5-1" name="q5" value="1">
+                        <label for="q5-1">1</label>
+                        <input type="radio" id="q5-2" name="q5" value="2">
+                        <label for="q5-2">2</label>
+                        <input type="radio" id="q5-3" name="q5" value="3">
+                        <label for="q5-3">3</label>
+                    </div>
+                </div>
+                <div class="evaluar-pregunta">
+                    <div class="evaluar-pregunta-texto">
+                        6. ¿El planteamiento del problema y la tentativa de solución son claros?
+                    </div>
+                    <div class="evaluar-pregunta-botones">
+                        <input type="radio" id="q6-1" name="q6" value="1">
+                        <label for="q6-1">1</label>
+                        <input type="radio" id="q6-2" name="q6" value="2">
+                        <label for="q6-2">2</label>
+                        <input type="radio" id="q6-3" name="q6" value="3">
+                        <label for="q6-3">3</label>
+                    </div>
+                </div>
+                <div class="evaluar-pregunta">
+                    <div class="evaluar-pregunta-texto">
+                        7. ¿Sus contribuciones o beneficios están completamente justificados?
+                    </div>
+                    <div class="evaluar-pregunta-botones">
+                        <input type="radio" id="q7-1" name="q7" value="1">
+                        <label for="q7-1">1</label>
+                        <input type="radio" id="q7-2" name="q7" value="2">
+                        <label for="q7-2">2</label>
+                        <input type="radio" id="q7-3" name="q7" value="3">
+                        <label for="q7-3">3</label>
+                    </div>
+                </div>
+                <div class="evaluar-pregunta">
+                    <div class="evaluar-pregunta-texto">
+                        8. ¿Su viabilidad es adecuada?
+                    </div>
+                    <div class="evaluar-pregunta-botones">
+                        <input type="radio" id="q8-1" name="q8" value="1">
+                        <label for="q8-1">1</label>
+                        <input type="radio" id="q8-2" name="q8" value="2">
+                        <label for="q8-2">2</label>
+                        <input type="radio" id="q8-3" name="q8" value="3">
+                        <label for="q8-3">3</label>
+                    </div>
+                </div>
+                <div class="evaluar-pregunta">
+                    <div class="evaluar-pregunta-texto">
+                        9. ¿La propuesta metodológica es pertinente?
+                    </div>
+                    <div class="evaluar-pregunta-botones">
+                        <input type="radio" id="q9-1" name="q9" value="1">
+                        <label for="q9-1">1</label>
+                        <input type="radio" id="q9-2" name="q9" value="2">
+                        <label for="q9-2">2</label>
+                        <input type="radio" id="q9-3" name="q9" value="3">
+                        <label for="q9-3">3</label>
+                    </div>
+                </div>
+                <div class="evaluar-pregunta">
+                    <div class="evaluar-pregunta-texto">
+                        10. ¿El calendario de actividades es adecuado?
+                    </div>
+                    <div class="evaluar-pregunta-botones">
+                        <input type="radio" id="q10-1" name="q10" value="1">
+                        <label for="q10-1">1</label>
+                        <input type="radio" id="q10-2" name="q10" value="2">
+                        <label for="q10-2">2</label>
+                        <input type="radio" id="q10-3" name="q10" value="3">
+                        <label for="q10-3">3</label>
+                    </div>
+                </div>
+                <div class="evaluar-pregunta">
+                    <div class="evaluar-pregunta-comentario-texto">
+                        Comentarios
+                    </div>
+                    <div class="evaluar-pregunta-comentario-input">
+                        <textarea class="pregunta-comentario" name="comentario" id="comentario" rows="5"></textarea>
+                    </div>
+                </div>
+                <div class="evaluar-enviar">
+                    <button type="submit" onclick="RedireccionarInicio()" class="evaluar-enviar-boton">Enviar
+                        Evaluación</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--    -->
+
+    <!--  FOOTER  -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <img src="Multimedia/LogoPrincipal.png" alt="Logo" class="footer-logo-img">
+            </div>
+            <div class="footer-aside">
+                <p class="footer-text">
+                    Todos los derechos reservados.
+                </p>
+                <ul class="footer-menu">
+                    <li class="footer-item">
+                        <a href="/politica" class="footer-link">Política de Privacidad</a>
+                    </li>
+                    <li class="footer-item">
+                        <a href="/terminos" class="footer-link">Términos y Condiciones</a>
+                    </li>
+                    <li class="footer-item">
+                        <a href="/contacto" class="footer-link">Contacto</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    <!--    -->
+
+</body>
+
+</html>

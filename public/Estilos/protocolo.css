@@ -1,0 +1,142 @@
+.protocolo-contenedor{
+    margin: 1rem 5rem 1rem 5rem;
+}
+
+.ver-protocolo-info, .ver-protocolo-seguimiento{
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 1rem;
+    padding: 3rem;
+    margin-top: 1.5rem;
+    display: flex;
+}
+
+.ver-protocolo-seguimiento{
+    flex-direction: column;
+}
+
+.protocolo-info{
+    width: auto;
+}
+.protocolo-documento{
+    width: auto;
+}
+
+.protocolo-datos{
+    margin: 1rem;
+}
+
+.protocolo-info-texto{
+    margin: 1rem;
+    font-size: 1.25rem;
+}
+
+.protocolo-info-integrantes{
+    margin: 1rem;
+    font-size: 1.25rem;
+}
+
+.protocolo-info-estado{
+    display: flex;
+}
+.protocolo-aprobado{
+    padding: 0.5rem;
+    background-color: green;
+    color: #fff;
+    border-radius: 0.5rem;
+}
+.protocolo-enproceso{
+    padding: 0.5rem;
+    background-color: orange;
+    color: #fff;
+    border-radius: 0.5rem;
+}
+.protocolo-noaprobado{
+    padding: 0.5rem;
+    background-color: red;
+    color: #fff;
+    border-radius: 0.5rem;
+}
+
+.documento {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    text-align: center;
+    width: 400px;
+}
+
+.documentoImg{
+    width: 75%;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 4px 4px 4px;
+}
+
+.btn-descargar {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #007BFF;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-descargar:hover {
+    background-color: #0056b3;
+}
+
+.ver-protocolo-seguimiento{
+    flex-direction: column;
+}
+
+.seguimiento-elemento{
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 4px 4px 4px;
+    padding: 1rem;
+    margin: 0.75rem 0rem 0.75rem 0rem;
+}
+
+.seguimiento-elemento-calificacion{
+    display: flex;
+    margin: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.seguimiento-elemento-comentarios{
+    display: flex;
+    align-items: center;
+    margin: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 0.15rem solid #ddd;
+}
+
+.seguimiento-elemento-comentarios-texto{
+    width: 20%;
+}
+.seguimiento-elemento-comentarios-input{
+    width: 80%;
+}
+
+.ver-comentario{
+    width: 100%;
+    border: 0.15rem solid #007BFF;
+}
+
+
+h2 {
+    font-size: 1.8rem;
+    color: #000000;
+}
+
+h4{
+    margin: 0.5rem 0rem 0.5rem 0rem;
+}
+
+.seguimiento-elemento-noencontrado{
+    text-align: center;
+}
+
+textarea{
+    resize: none;
+}

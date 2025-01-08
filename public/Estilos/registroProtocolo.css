@@ -1,0 +1,73 @@
+.registro-tt-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f4f6f9;
+}
+
+.registro-tt-box {
+    background-color: #fff;
+    margin: 30px;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    width: 500px;
+    max-width: 90%;
+    text-align: center;
+  }
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+}
+
+.registro-tt-formulario {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.registro-tt-input, 
+.registro-tt-select, 
+.registro-tt-textarea, 
+.registro-tt-file {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    width: 100%;
+}
+
+.registro-tt-textarea {
+    resize: none;
+}
+
+.registro-tt-integrantes, 
+.registro-tt-correos {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.registro-tt-btn-submit {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.registro-tt-btn-submit:hover {
+    background-color: #2980b9;
+}

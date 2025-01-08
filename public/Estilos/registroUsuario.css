@@ -1,0 +1,25 @@
+.create-button-registro {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+/* Estilos para el botón de crear usuario */
+.create-button-registro {
+    background-color: hsl(212, 72%, 59%);
+    color: white;
+}
+
+.create-button-registro:hover {
+    background-color: #002A7C;
+}
+
+.create-button-registro:active {
+    background-color: #267b3c;
+    transform: scale(0.98);
+}

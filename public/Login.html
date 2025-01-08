@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="Multimedia/LogoImg.png">
+    <link rel="stylesheet" href="Estilos/general.css">
+    <link rel="stylesheet" href="Estilos/login.css">
+    <title>ProSys - Inicio de Sesión</title>
+</head>
+
+<body>
+
+    <script>
+        function RedireccionarCrear(){
+            window.location.replace("RegistroUsuario.html");
+        }
+        function RedireccionarInicio(){
+            window.location.replace("index.html");
+        }
+    </script>
+
+    <!--  PÁGINA   -->
+
+    <div class="login-container">
+        <div class="login-box">
+            <h2>Iniciar sesión</h2>
+            <form class="login-form">
+                <div class="form-group">
+                    <label htmlFor="username">Nombre de usuario:</label>
+                    <input type="text" id="username" placeholder="Ingrese su usuario" required />
+                </div>
+                <div class="form-group">
+                    <label htmlFor="password">Contraseña:</label>
+                    <input type="password" id="password" placeholder="Ingrese su contraseña" required />
+                </div>
+                <div class="button-group">
+                    <button type="submit" onclick="RedireccionarInicio()" class="login-button">Iniciar sesión</button>
+                    <button type="button" onclick="RedireccionarCrear()" class="create-button">Crear usuario</button>
+                </div>
+            </form>
+            <a class="login-lower-text" href="#">¿Olvidaste tu contraseña?</a>
+        </div>
+    </div>
+
+    <!--    -->
+
+</body>
+
+</html>

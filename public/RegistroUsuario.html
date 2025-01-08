@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="Multimedia/LogoImg.png">
+    <link rel="stylesheet" href="Estilos/general.css">
+    <link rel="stylesheet" href="Estilos/login.css">
+    <link rel="stylesheet" href="Estilos/registroUsuario.css">
+    <title>ProSys - Registro de Usuario</title>
+</head>
+
+<body>
+
+    <script>
+        function Redireccionar(){
+            window.location.replace("index.html");
+        }
+    </script>
+
+    <!--  PÁGINA   -->
+
+    <div class="login-container">
+        <div class="login-box">
+            <h2>Registro</h2>
+            <form class="login-form">
+                <div class="form-group">
+                    <label htmlFor="username">Nombre de usuario:</label>
+                    <input type="text" id="username" placeholder="Ingrese su usuario" required />
+                </div>
+                <div class="form-group">
+                    <label htmlFor="password">Contraseña:</label>
+                    <input type="password" id="password" placeholder="Ingrese su contraseña" required />
+                </div>
+                <div class="form-group">
+                    <label htmlFor="role">Tipo de usuario:</label>
+                    <select id="role" required>
+                        <option value="">Seleccione una opción</option>
+                        <option value="alumno">Alumno</option>
+                        <option value="administrativo">Administrativo</option>
+                    </select>
+                </div>
+                <div class="button-group">
+                    <button type="button" onclick="Redireccionar()" class="create-button-registro">Crear usuario</button>
+                </div>
+            </form>
+            <a href="Login.html">¿Ya tienes una cuenta?</a>
+        </div>
+    </div>
+
+    <!--    -->
+
+</body>
+
+</html>
