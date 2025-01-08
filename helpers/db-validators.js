@@ -13,7 +13,14 @@ const validacionRol = async(rol = '')=>{
         throw new Error(`El rol ${rol} no esta registrado en la bd`)
     }
 }
+const existeUsuarioDB = async(id)=>{
+    const existe = await Usuario.findById(id);
+    if(!existe){
+        throw new Error(`El usuario con id: ${id} no existe`)
+    }
+}
 module.exports = {
     usuarioExistente,
    validacionRol,
+   existeUsuarioDB,
 };

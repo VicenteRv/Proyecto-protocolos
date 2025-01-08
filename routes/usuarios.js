@@ -2,7 +2,7 @@ const { Router } = require("express");
 const { crearUsuario, obtenerUsuarios, obtenerUsuario, modificarUsuario, borrarUsuario } = require("../controllers/usuarios");
 const { validarCampos } = require("../middlewares/validar-campos");
 const { check } = require("express-validator");
-const { validacionRol, usuarioExistente } = require("../helpers/db-validators");
+const { validacionRol, usuarioExistente, existeUsuarioDB } = require("../helpers/db-validators");
 
 const router = Router();
 
@@ -17,19 +17,22 @@ router.post('/',[
         .custom(validacionRol),
     validarCampos
 ],crearUsuario);
-
+//ruta protegida
 router.get('/',[
     
 ],obtenerUsuarios);
-
+//ruta protegida
 router.get('/:id',[
-    
+    check('id').notEmpty().withMessage('El id es obligatorio'),
+    check('id').isMongoId().withMessage('No es un id valido de mongo'),
+    check('id').custom(existeUsuarioDB),
+    validarCampos
 ],obtenerUsuario);
-
-router.put('/',[
+//ruta protegida
+router.put('/:id',[
     
 ],modificarUsuario);
-
+//ruta protegida
 router.delete('/',[
     
 ],borrarUsuario)

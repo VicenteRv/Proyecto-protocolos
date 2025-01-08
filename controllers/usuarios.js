@@ -48,15 +48,25 @@ const obtenerUsuarios = async(req = request, res = response) => {
         })    
     } catch (error) {
         console.log(error);
-        res.status(400).json({
-            msg: 'Error al btener usuarios'
+        res.status(500).json({
+            msg: 'Error al obtener usuarios'
         })
     }
 }
-const obtenerUsuario = (req = request, res = response) => {
-    res.json({
-        msg: 'controller GETusario'
-    })
+const obtenerUsuario = async(req = request, res = response) => {
+    const {id} = req.params;
+    try {
+        const usuario = await Usuario.findById(id)
+            .populate('rol','rol -_id');
+        res.status(200).json({
+            usuario
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            msg: `Error al obtener el usuario con id: ${id} fallo`
+        })
+    }
 }
 const modificarUsuario = (req = request, res = response) => {
     res.json({

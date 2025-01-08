@@ -17,7 +17,6 @@ const UsuarioSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Role',
         required: true,
-        default: 'USER_ROLE'
     },
     estado: {
         type: Boolean,
