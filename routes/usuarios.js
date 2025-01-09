@@ -2,7 +2,7 @@ const { Router } = require("express");
 const { crearUsuario, obtenerUsuarios, obtenerUsuario, modificarUsuario, borrarUsuario, activarUsuario } = require("../controllers/usuarios");
 const { validarCampos } = require("../middlewares/validar-campos");
 const { check } = require("express-validator");
-const { validacionRol, usuarioExistente, existeUsuarioDB, existeUsuarioDBdesactivado } = require("../helpers/db-validators");
+const { validacionRol, usuarioExistente, existeUsuarioDB, existeUsuarioDBdesactivado, existeUsuarioActivo } = require("../helpers/db-validators");
 
 const router = Router();
 
@@ -48,6 +48,7 @@ router.delete('/:id',[
     check('id').notEmpty().withMessage('El id es obligatorio'),
     check('id').isMongoId().withMessage('No es un id valido de mongo'),
     check('id').custom(existeUsuarioDB),
+    check('id').custom(existeUsuarioActivo),
     validarCampos
 ],borrarUsuario)
 //ruta protegida - solo admin reactivar usuario

@@ -19,6 +19,14 @@ const existeUsuarioDB = async(id)=>{
         throw new Error(`El usuario con id: ${id} no existe`)
     }
 }
+const existeUsuarioActivo = async(id)=>{
+    const existe = await Usuario.findOne({_id:id,estado:true});
+    if(!existe){
+        throw new Error(`El usuario con id: ${id} no existe o esta desactivado`)
+    }
+}
+
+
 const existeUsuarioDBdesactivado = async(id)=>{
     const existe = await Usuario.findOne({_id:id,estado:false});
     if(!existe){
@@ -29,5 +37,6 @@ module.exports = {
     usuarioExistente,
    validacionRol,
    existeUsuarioDB,
+   existeUsuarioActivo,
    existeUsuarioDBdesactivado,
 };
