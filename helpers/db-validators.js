@@ -25,6 +25,12 @@ const existeUsuarioActivo = async(id)=>{
         throw new Error(`El usuario con id: ${id} no existe o esta desactivado`)
     }
 }
+const exceptoActual = async(correo,id)=>{
+    const existeUsuario = await Usuario.findOne({correo});
+    if(existeUsuario && existeUsuario._id != id){
+        throw new Error(`El correo: ${correo} ya esta registrado en la bd`)
+    }
+}
 
 
 const existeUsuarioDBdesactivado = async(id)=>{
@@ -39,4 +45,5 @@ module.exports = {
    existeUsuarioDB,
    existeUsuarioActivo,
    existeUsuarioDBdesactivado,
+   exceptoActual,
 };
