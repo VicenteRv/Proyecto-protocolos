@@ -1,8 +1,8 @@
 const { Router } = require("express");
-const { crearUsuario, obtenerUsuarios, obtenerUsuario, modificarUsuario, borrarUsuario } = require("../controllers/usuarios");
+const { crearUsuario, obtenerUsuarios, obtenerUsuario, modificarUsuario, borrarUsuario, activarUsuario } = require("../controllers/usuarios");
 const { validarCampos } = require("../middlewares/validar-campos");
 const { check } = require("express-validator");
-const { validacionRol, usuarioExistente, existeUsuarioDB } = require("../helpers/db-validators");
+const { validacionRol, usuarioExistente, existeUsuarioDB, existeUsuarioDBdesactivado } = require("../helpers/db-validators");
 
 const router = Router();
 
@@ -43,13 +43,18 @@ router.put('/:id',[
         .custom(validacionRol).withMessage('Los roles pueden ser "ADMIN_ROL,ALUMNO_ROL,SINODAL_ROL,DIRECTOR_ROL"'),
     validarCampos
 ],modificarUsuario);
-//ruta protegida
-
+//ruta protegida - solo admin
 router.delete('/:id',[
     check('id').notEmpty().withMessage('El id es obligatorio'),
     check('id').isMongoId().withMessage('No es un id valido de mongo'),
     check('id').custom(existeUsuarioDB),
     validarCampos
 ],borrarUsuario)
-
+//ruta protegida - solo admin reactivar usuario
+router.patch('/:id',[
+    check('id').notEmpty().withMessage('El id es obligatorio'),
+    check('id').isMongoId().withMessage('No es un id valido de mongo'),
+    check('id').custom(existeUsuarioDBdesactivado),
+    validarCampos
+],activarUsuario)
 module.exports = router;
