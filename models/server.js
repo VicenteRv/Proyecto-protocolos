@@ -10,6 +10,7 @@ class Server {
         this.port = port;
         this.paths = {
             usuarios:   '/api/usuarios',
+            auth:       '/api/auth',
         }
         //Conectar a BD
         this.conectarDB();
@@ -31,6 +32,7 @@ class Server {
     }
     routes() {
         this.app.use(this.paths.usuarios,require('../routes/usuarios'));
+        this.app.use(this.paths.auth,require('../routes/auth'));
 
     }
     listen() {
