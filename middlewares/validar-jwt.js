@@ -4,12 +4,12 @@ const { Usuario } = require('../models');
 const { jwtSPK } = require('../config/config');
 
 const validarJWT = async (req = request, res = response, next) => {
-    const {token} = req.cookies;
-    if (!token) {
+    if(!req.cookies || !req.cookies.token) {
         return res.status(401).json({
-            msg: 'No hay token en la petición',
+            msg: 'Token no válido - no existe token en las cookies',
         });
     }
+    const {token} = req.cookies;
     try {
         const { uid } = jwt.verify(token, jwtSPK);
         const usuario = await Usuario.findById(uid);

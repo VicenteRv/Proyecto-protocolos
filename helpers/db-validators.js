@@ -1,3 +1,4 @@
+const ROLES = require("../config/roles");
 const {Role,Usuario} = require("../models");
 
 //Usuarios
@@ -45,6 +46,47 @@ const validarCorreoUsuario = async(correo = '')=>{
         throw new Error(`El correo/contraseña son incorrectos - correo`)
     }
 }
+//verificar roles
+const roleAdmin = async(id)=>{
+    const esRolAdmin = await Role.findById(id);
+    if(!esRolAdmin){
+        throw new Error(`El rol con id ${id} no existe en la bd`)
+    }
+    if(esRolAdmin.rol !== ROLES.ADMIN){
+        throw new Error(`El usuario no es un administrador`)
+    }
+    return true;
+}
+const roleAlumno = async(id)=>{
+    const esRolAlumno = await Role.findById(id);
+    if(!esRolAlumno){
+        throw new Error(`El rol con id ${id} no existe en la bd`)
+    }
+    if(esRolAlumno.rol !== ROLES.ALUMNO){
+        throw new Error(`El usuario no es un alumno`)
+    }
+    return true;
+}
+const roleSinodal = async(id)=>{
+    const esRolSinodal = await Role.findById(id);
+    if(!esRolSinodal){
+        throw new Error(`El rol con id ${id} no existe en la bd`)
+    }
+    if(esRolSinodal.rol !== ROLES.SINODAL){
+        throw new Error(`El usuario no es un sinodal`)
+    }
+    return true;
+}
+const roleDirector = async(id)=>{
+    const esRolDirector = await Role.findById(id);
+    if(!esRolDirector){
+        throw new Error(`El rol con id ${id} no existe en la bd`)
+    }
+    if(esRolDirector.rol !== ROLES.DIRECTOR){
+        throw new Error(`El usuario no es un director `)
+    }
+    return true;
+}
 
 module.exports = {
     usuarioExistente,
@@ -54,4 +96,8 @@ module.exports = {
     existeUsuarioDBdesactivado,
     exceptoActual,
     validarCorreoUsuario,
+    roleAdmin,
+    roleAlumno,
+    roleSinodal,
+    roleDirector
 };
