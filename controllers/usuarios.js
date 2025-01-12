@@ -56,8 +56,7 @@ const obtenerUsuarios = async(req = request, res = response) => {
 const obtenerUsuario = async(req = request, res = response) => {
     const {id} = req.params;
     try {
-        const usuario = await Usuario.findById(id)
-            .populate('rol','rol -_id');
+        const usuario = await Usuario.findById(id);
         res.status(200).json({
             usuario
         })
@@ -79,8 +78,7 @@ const modificarUsuario = async(req = request, res = response) => {
         }
         datosActualizados.rol = await Role.findOne({rol});
         // Actualizar el usuario en la base de datos
-        const usuario = await Usuario.findByIdAndUpdate(id, datosActualizados, { new: true })
-            .populate('rol','rol -_id');
+        const usuario = await Usuario.findByIdAndUpdate(id, datosActualizados, { new: true });
         res.status(200).json({
             usuario
         });
@@ -106,11 +104,27 @@ const borrarUsuario = async(req = request, res = response) => {
         })
     }
 }
+const activarUsuario = async(req = request, res = response) => {
+    const {id} = req.params;
+    try {
+        const usuario = await Usuario.findByIdAndUpdate(id,{estado:true},{new:true});
+        res.status(200).json({
+            msg: 'Usuario activado',
+            usuario
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            msg: 'Error al activar el usuario'
+        })
+    }
+}
 
 module.exports = {
    crearUsuario,
    obtenerUsuarios,
    obtenerUsuario,
    modificarUsuario,
-   borrarUsuario
+   borrarUsuario,
+   activarUsuario
 };
