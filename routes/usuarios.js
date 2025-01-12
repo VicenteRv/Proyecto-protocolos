@@ -4,6 +4,8 @@ const { crearUsuario, obtenerUsuarios, obtenerUsuario, modificarUsuario, borrarU
 const { validarCampos } = require("../middlewares/validar-campos");
 const { validacionRol, usuarioExistente, existeUsuarioDB, existeUsuarioDBdesactivado, existeUsuarioActivo } = require("../helpers/db-validators");
 const { validarCorreoUnico } = require("../middlewares/validar-correounico");
+const { validarJWT } = require("../middlewares/validar-jwt");
+const { validarAdminRole } = require("../middlewares/validar-roles");
 
 const router = Router();
 
@@ -20,10 +22,12 @@ router.post('/',[
 ],crearUsuario);
 //ruta protegida
 router.get('/',[
-    
+    validarJWT,
+    validarCampos
 ],obtenerUsuarios);
 //ruta protegida
 router.get('/:id',[
+    validarJWT,
     check('id').notEmpty().withMessage('El id es obligatorio'),
     check('id').isMongoId().withMessage('No es un id valido de mongo'),
     check('id').custom(existeUsuarioDB),
@@ -32,6 +36,7 @@ router.get('/:id',[
 ],obtenerUsuario);
 //ruta protegida
 router.put('/:id',[
+    validarJWT,
     check('id').notEmpty().withMessage('El id es obligatorio'),
     check('id').isMongoId().withMessage('No es un id valido de mongo'),
     check('id').custom(existeUsuarioDB),
@@ -48,6 +53,8 @@ router.put('/:id',[
 ],modificarUsuario);
 //ruta protegida - solo admin
 router.delete('/:id',[
+    validarJWT,
+    validarAdminRole,
     check('id').notEmpty().withMessage('El id es obligatorio'),
     check('id').isMongoId().withMessage('No es un id valido de mongo'),
     check('id').custom(existeUsuarioDB),
@@ -56,6 +63,8 @@ router.delete('/:id',[
 ],borrarUsuario)
 //ruta protegida - solo admin reactivar usuario
 router.patch('/:id',[
+    validarJWT,
+    validarAdminRole,
     check('id').notEmpty().withMessage('El id es obligatorio'),
     check('id').isMongoId().withMessage('No es un id valido de mongo'),
     check('id').custom(existeUsuarioDBdesactivado),

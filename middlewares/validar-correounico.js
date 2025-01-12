@@ -1,4 +1,3 @@
-const { validationResult } = require('express-validator');
 const { exceptoActual } = require('../helpers/db-validators');
 
 const validarCorreoUnico = async(req,res,next) => {
