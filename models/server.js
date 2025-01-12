@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const { port } = require('../config/config');
+const cookieParser = require('cookie-parser');  // Importa cookie-parser
 const { dbConnection } = require('../database/config');
 
 class Server {
@@ -27,6 +28,8 @@ class Server {
         this.app.use( cors() );
         //lectura y parse del body 
         this.app.use(express.json());
+        // Configuración de cookie-parser
+        this.app.use(cookieParser());
         // Directorio Público
         this.app.use( express.static('public') );
     }
