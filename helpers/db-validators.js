@@ -67,26 +67,17 @@ const roleAlumno = async(id)=>{
     }
     return true;
 }
-const roleSinodal = async(id)=>{
+const roleProfesor = async(id)=>{
     const esRolSinodal = await Role.findById(id);
     if(!esRolSinodal){
         throw new Error(`El rol con id ${id} no existe en la bd`)
     }
-    if(esRolSinodal.rol !== ROLES.SINODAL){
+    if(esRolSinodal.rol !== ROLES.PROFESOR){
         throw new Error(`El usuario no es un sinodal`)
     }
     return true;
 }
-const roleDirector = async(id)=>{
-    const esRolDirector = await Role.findById(id);
-    if(!esRolDirector){
-        throw new Error(`El rol con id ${id} no existe en la bd`)
-    }
-    if(esRolDirector.rol !== ROLES.DIRECTOR){
-        throw new Error(`El usuario no es un director `)
-    }
-    return true;
-}
+
 
 module.exports = {
     usuarioExistente,
@@ -98,6 +89,5 @@ module.exports = {
     validarCorreoUsuario,
     roleAdmin,
     roleAlumno,
-    roleSinodal,
-    roleDirector
+    roleProfesor
 };

@@ -31,6 +31,14 @@ const crearUsuario = async(req = request, res = response) => {
         })
     }
 }
+const obtenerUsuarioActual = async(req = request, res = response) => {
+    const {nombre,correo} = req.usuario;
+    res.status(200).json({
+        nombre,
+        correo
+    })
+}
+
 const obtenerUsuarios = async(req = request, res = response) => {
     const {limite = 10, desde = 0} = req.query;
     const query = {estado:true};
@@ -121,10 +129,11 @@ const activarUsuario = async(req = request, res = response) => {
 }
 
 module.exports = {
-   crearUsuario,
-   obtenerUsuarios,
-   obtenerUsuario,
-   modificarUsuario,
-   borrarUsuario,
-   activarUsuario
+    crearUsuario,
+    obtenerUsuarios,
+    obtenerUsuario,
+    modificarUsuario,
+    borrarUsuario,
+    activarUsuario,
+    obtenerUsuarioActual
 };

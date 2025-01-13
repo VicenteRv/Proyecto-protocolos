@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const { check } = require("express-validator");
-const { crearUsuario, obtenerUsuarios, obtenerUsuario, modificarUsuario, borrarUsuario, activarUsuario } = require("../controllers/usuarios");
+const { crearUsuario, obtenerUsuarios, obtenerUsuario, modificarUsuario, borrarUsuario, activarUsuario, obtenerUsuarioActual } = require("../controllers/usuarios");
 const { validarCampos } = require("../middlewares/validar-campos");
 const { validacionRol, usuarioExistente, existeUsuarioDB, existeUsuarioDBdesactivado, existeUsuarioActivo } = require("../helpers/db-validators");
 const { validarCorreoUnico } = require("../middlewares/validar-correounico");
@@ -16,10 +16,15 @@ router.post('/',[
         .custom(usuarioExistente),
     check('password').notEmpty().withMessage('La contraseña es obligatoria')
         .isLength({min:8}).withMessage('La contraseña debe de tener mas de 8 caracteres'),
-    check('rol').notEmpty().withMessage('El rol es obligatorio')
+    check('rol').notEmpty().withMessage('El tipo de usuario es obligatorio')
         .custom(validacionRol),
     validarCampos
 ],crearUsuario);
+//ruta protegida
+router.get('/me',[
+    validarJWT,
+    validarCampos
+],obtenerUsuarioActual);
 //ruta protegida
 router.get('/',[
     validarJWT,
