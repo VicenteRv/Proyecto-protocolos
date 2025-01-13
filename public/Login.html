@@ -58,7 +58,9 @@
                             document.getElementById('errorMessages').innerHTML = errorMessages;
                             document.getElementById('errorMessages').style.display = 'block';
                         } else {
-                            alert(data.msg);  // Si no se encuentra el formato de errores, muestra el mensaje genérico
+                            errorMessage = `<p><strong>${data.msg}</strong></p>`;
+                            document.getElementById('errorMessages').innerHTML = errorMessage;
+                            document.getElementById('errorMessages').style.display = 'block';
                         }
                     }
                 } catch (error) {
@@ -89,10 +91,9 @@
                 </div>
             </form>
             <!-- Contenedor para mostrar los errores -->
-            <div id="errorMessages" style="color: red; display: none;">
+            <div id="errorMessages" style="color: red;">
                 <!-- Los errores se mostrarán aquí -->
             </div>
-
             <!-- <a class="login-lower-text" href="#">¿Olvidaste tu contraseña?</a>  -->
         </div>
     </div>

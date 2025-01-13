@@ -7,6 +7,25 @@
     <link rel="icon" href="Multimedia/LogoImg.png">
     <link rel="stylesheet" href="Estilos/general.css">
     <link rel="stylesheet" href="Estilos/perfil.css">
+    <script>
+        /*document.addEventListener('DOMContentLoaded', async function () {
+            try {
+                const response = await fetch('/api/auth/verificarJWT', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include'
+                });
+                if (!response.ok) {
+                    window.location.href = '/Login.html';
+                }
+            } catch (error) {
+                console.error('Error al verificar el JWT:', error);
+                window.location.href = '/Login.html';
+            }
+        });*/
+    </script>
     <title>ProSys - Perfil</title>
 </head>
 
@@ -124,7 +143,44 @@
         </div>
     </div>
 
-    <!--    -->
+    <!--  SCRIPT DE CONSULTA  -->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async function () {
+            try {
+                const protocolosContainer = document.querySelector('.perfil-grid');
+                // Realizar la petición al backend para obtener el saldo
+                const response = await fetch('/api/operaciones/consulta-Movimientos', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    credentials: "include"
+                });
+                const data = await response.json();
+
+                data.movimientos.forEach(protocolo => {
+                    console.log(protocolo);
+                    const protocoloDiv = document.createElement('div');
+                    protocoloDiv.classList.add('protocol');
+                    protocoloDiv.innerHTML = `
+                        <a href="Protocolo.html" class="perfil-card">
+                            <h4>${protocolo.nombre}</h4>
+                            <p>Fecha: ${protocolo.fecha}</p>
+                            <p>${protocolo.sinodal1}</p>
+                            <p>${protocolo.sinodal2}</p>
+                            <p>${protocolo.sinodal3}</p>
+                            <p>${protocolo.descripcion}</p>
+                        </a>
+                    `;
+                    protocolosContainer.appendChild(protocoloDiv);
+                });
+            } catch (error) {
+                console.error('Error en la petición:', error);
+                alert('Hubo un error al intentar obtener los datos.');
+            }
+        });
+    </script>
 
     <!--  FOOTER  -->
     <footer class="footer">
