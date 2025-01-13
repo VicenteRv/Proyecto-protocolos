@@ -72,20 +72,15 @@
     <div class="perfil-container">
         <div class="perfil-sidebar">
             <img src="Multimedia/FotoPerfil.jpg" alt="Foto de perfil" class="perfil-img" />
-            <h2>Nombre del Estudiante</h2>
-            <p>Número de Boleta: 12345678</p>
+            <h2 id="usuario-nombre">Nombre del Estudiante</h2>
+            <p id="usuario-boleta">Número de Boleta: 12345678</p>
+            <p id="usuario-correo">Correo: estudiante@correo.com</p>
         </div>
         <div class="perfil-main-content">
             <div class="perfil-section">
                 <h3>Biografía</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum
+                <p id="usuario-biografia">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum
                     vestibulum. Cras venenatis euismod malesuada.</p>
-                <h4>Datos Personales</h4>
-                <ul>
-                    <li>Edad: 25 años</li>
-                    <li>Correo: estudiante@correo.com</li>
-                    <li>Teléfono: +52 123 456 7890</li>
-                </ul>
             </div>
             <div class="perfil-grid-section">
                 <h3>Tus Protocolos</h3>
@@ -146,6 +141,35 @@
     <!--  SCRIPT DE CONSULTA  -->
 
     <script>
+
+        // Obtener Usuario
+
+        document.addEventListener('DOMContentLoaded', async function () {
+            try {
+                const response = await fetch('/api/usuarios/obtenerUsuario', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    credentials: "include"
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    // Actualizar datos de usuario en la interfaz de usuario
+                    document.getElementById('usuario-nombre').innerText = data.nombre;
+                    document.getElementById('usuario-boleta').innerText = `Boleta: ${data.boleta}`;
+                    document.getElementById('usuario-correo').innerText = `Correo: ${data.correo}`;
+                    document.getElementById('usuario-biografia').innerText = data.biografia;
+                } else {
+                    console.error('Error al obtener el usuario:', data.msg);
+                }
+            } catch (error) {
+                console.error('Error en la petición:', error);
+                alert('Hubo un error al intentar obtener el usuario.');
+            }
+        });
+
+        // Obtener Protocolos
         document.addEventListener('DOMContentLoaded', async function () {
             try {
                 const protocolosContainer = document.querySelector('.perfil-grid');
@@ -177,7 +201,7 @@
                 });
             } catch (error) {
                 console.error('Error en la petición:', error);
-                alert('Hubo un error al intentar obtener los datos.');
+                alert('Hubo un error al intentar obtener los protocolos.');
             }
         });
     </script>
