@@ -10,17 +10,8 @@
     <link rel="stylesheet" href="styles/registroUsuario.css">
     <title>ProSys - Registro de Usuario</title>
 </head>
-
 <body>
-
-    <script>
-        function Redireccionar(){
-            window.location.replace("index.html");
-        }
-    </script>
-
     <!--  PÁGINA   -->
-
     <div class="login-container">
         <div class="login-box">
             <h2>Registro</h2>
@@ -39,21 +30,55 @@
                 </div>
                 <div class="form-group">
                     <label htmlFor="role">Tipo de usuario:</label>
-                    <select id="role" required>
+                    <select id="rol" required>
                         <option value="">Seleccione una opción</option>
-                        <option value="alumno">Alumno</option>
-                        <option value="profesor">Profesor</option>
+                        <option value="ALUMNO_ROL">Alumno</option>
+                        <option value="PROFESOR_ROL">Profesor</option>
                     </select>
                 </div>
+                <div class="form-group">
+                    <label htmlFor="boleta">Número de boleta:</label>
+                    <input type="text" id="boleta" placeholder="Ingrese su número de boleta" required />
+                </div>                
                 <div class="button-group">
-                    <button type="button" onclick="Redireccionar()" class="create-button-registro">Crear usuario</button>
+                    <button type="button" onclick="crearUsuario()" class="create-button-registro">Crear usuario</button>
                 </div>
             </form>
             <a href="Login.html">¿Ya tienes una cuenta?</a>
         </div>
     </div>
+    <script>
+        async function crearUsuario(){
+            let nombre = document.getElementById('username').value;
+            let correo = document.getElementById('email').value;
+            let password = document.getElementById('password').value;
+            let rol = document.getElementById('rol').value;
+            let boleta = document.getElementById('boleta').value;
 
-    <!--    -->
+            console.log(nombre, correo, password, rol, boleta);
+            try {
+                const response = await fetch('/api/usuarios',{
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({nombre, correo, password, rol, boleta}),
+                    credentials: 'include'
+                });
+                const data = await response.json();
+                if(response.ok){
+                    console.log('Usuario creado:', data);
+                    window.location.href = 'Login.html';
+                }else{
+                    console.log('Respuesta del servidor:', data.errors.map(error => error.msg).join('\n'));
+                }
+            } catch (error) {
+                console.log('Error:', error);
+                alert(error)
+            }
+        }
+
+    </script>
 
 </body>
 
