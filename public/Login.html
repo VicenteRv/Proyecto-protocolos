@@ -38,9 +38,7 @@
         function RedireccionarCrear() {
             window.location.replace("RegistroUsuario.html");
         }
-
         //Control de Inicio de Sesión
-
         document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('login-Form').addEventListener('submit', async (e) => {
                 e.preventDefault(); // Evita que el formulario se envíe de manera tradicional
@@ -64,9 +62,11 @@
 
                     const data = await response.json();
                     if (response.ok) {
+                        console.log('Usuario loggeado:', data);
                         window.location.href = 'index.html'; // Redirige a la página principal
                     } else {
                         // Mostrar los errores en la interfaz de usuario
+                        console.log('Respuesta del servidor:', data.errors.map(error => error.msg).join('\n'));
                         if (data.errors && data.errors.length > 0) {
                             let errorMessages = '';
                             data.errors.forEach(error => {
