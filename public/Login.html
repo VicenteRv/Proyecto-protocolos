@@ -13,12 +13,60 @@
 <body>
 
     <script>
-        function RedireccionarCrear(){
+
+        //Funciones temporales
+
+        function RedireccionarCrear() {
             window.location.replace("RegistroUsuario.html");
         }
-        function RedireccionarInicio(){
-            window.location.replace("index.html");
-        }
+
+        //Control de Inicio de Sesión
+
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('login-Form').addEventListener('submit', async (e) => {
+                e.preventDefault(); // Evita que el formulario se envíe de manera tradicional
+
+                const correo = document.getElementById('correo').value;
+                const password = document.getElementById('password').value;
+
+                // Limpiar mensajes de error previos
+                document.getElementById('errorMessages').innerHTML = '';
+                document.getElementById('errorMessages').style.display = 'none';
+
+                try {
+                    const response = await fetch('/api/auth/login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ correo, password }),
+                        credentials: 'include'
+                    });
+
+                    const data = await response.json();
+                    if (response.ok) {
+                        window.location.href = 'index.html'; // Redirige a la página principal
+                    } else {
+                        // Mostrar los errores en la interfaz de usuario
+                        if (data.errors && data.errors.length > 0) {
+                            let errorMessages = '';
+                            data.errors.forEach(error => {
+                                errorMessages += `<p><strong>${error.msg}</strong> en el campo: ${error.path}</p>`;
+                            });
+
+                            // Mostrar los errores en el contenedor
+                            document.getElementById('errorMessages').innerHTML = errorMessages;
+                            document.getElementById('errorMessages').style.display = 'block';
+                        } else {
+                            alert(data.msg);  // Si no se encuentra el formato de errores, muestra el mensaje genérico
+                        }
+                    }
+                } catch (error) {
+                    console.log('Error:', error);
+                    alert('Hubo un error en el proceso de login');
+                }
+            });
+        });
     </script>
 
     <!--  PÁGINA   -->
@@ -26,20 +74,25 @@
     <div class="login-container">
         <div class="login-box">
             <h2>Iniciar sesión</h2>
-            <form class="login-form">
+            <form class="loginform" id="login-Form">
                 <div class="form-group">
-                    <label htmlFor="email">Correo</label>
-                    <input type="text" id="email" placeholder="Ingrese su correo" required />
+                    <label htmlFor="correo">Correo</label>
+                    <input type="text" id="correo" placeholder="Ingrese su correo" required />
                 </div>
                 <div class="form-group">
                     <label htmlFor="password">Contraseña:</label>
                     <input type="password" id="password" placeholder="Ingrese su contraseña" required />
                 </div>
                 <div class="button-group">
-                    <button type="submit" onclick="RedireccionarInicio()" class="login-button">Iniciar sesión</button>
+                    <button type="submit" class="login-button">Iniciar sesión</button>
                     <button type="button" onclick="RedireccionarCrear()" class="create-button">Crear usuario</button>
                 </div>
             </form>
+            <!-- Contenedor para mostrar los errores -->
+            <div id="errorMessages" style="color: red; display: none;">
+                <!-- Los errores se mostrarán aquí -->
+            </div>
+
             <!-- <a class="login-lower-text" href="#">¿Olvidaste tu contraseña?</a>  -->
         </div>
     </div>
