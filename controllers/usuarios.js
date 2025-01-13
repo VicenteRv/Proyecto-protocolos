@@ -2,8 +2,9 @@ const { request, response } = require("express");
 const bcryptjs = require('bcryptjs');
 const Usuario = require("../models/usuario");
 const Role = require("../models/role");
+
 const crearUsuario = async(req = request, res = response) => {
-    const {nombre, correo, password, rol} = req.body;
+    const {nombre, correo, password, rol, boleta} = req.body;
     try {
         //buscar el rol en bd para asignarlo
         const newRol = await Role.findOne({rol})
@@ -12,7 +13,8 @@ const crearUsuario = async(req = request, res = response) => {
             nombre,
             correo,
             password,
-            rol: newRol._id
+            rol: newRol._id,
+            boleta
         })
         //encryptar contraseña
         const salt = bcryptjs.genSaltSync();
@@ -32,10 +34,11 @@ const crearUsuario = async(req = request, res = response) => {
     }
 }
 const obtenerUsuarioActual = async(req = request, res = response) => {
-    const {nombre,correo} = req.usuario;
+    const {nombre,correo,boleta} = req.usuario;
     res.status(200).json({
         nombre,
-        correo
+        correo,
+        boleta
     })
 }
 

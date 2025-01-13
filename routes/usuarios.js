@@ -2,7 +2,7 @@ const { Router } = require("express");
 const { check } = require("express-validator");
 const { crearUsuario, obtenerUsuarios, obtenerUsuario, modificarUsuario, borrarUsuario, activarUsuario, obtenerUsuarioActual } = require("../controllers/usuarios");
 const { validarCampos } = require("../middlewares/validar-campos");
-const { validacionRol, usuarioExistente, existeUsuarioDB, existeUsuarioDBdesactivado, existeUsuarioActivo } = require("../helpers/db-validators");
+const { validacionRol, usuarioExistente, existeUsuarioDB, existeUsuarioDBdesactivado, existeUsuarioActivo, boletaExistente } = require("../helpers/db-validators");
 const { validarCorreoUnico } = require("../middlewares/validar-correounico");
 const { validarJWT } = require("../middlewares/validar-jwt");
 const { validarAdminRole } = require("../middlewares/validar-roles");
@@ -11,6 +11,8 @@ const router = Router();
 
 router.post('/',[
     check('nombre').notEmpty().withMessage('El nombre es obligatorio'),
+    check('boleta').notEmpty().withMessage('La boleta es obligatoria')
+        .custom(boletaExistente),
     check('correo').notEmpty().withMessage('El correo es obligatorio')
         .isEmail().withMessage('El correo no es valido')
         .custom(usuarioExistente),
@@ -39,9 +41,10 @@ router.get('/:id',[
     check('id').custom(existeUsuarioActivo),
     validarCampos
 ],obtenerUsuario);
-//ruta protegida
+//ruta protegida - solo amdnin
 router.put('/:id',[
     validarJWT,
+    validarAdminRole,
     check('id').notEmpty().withMessage('El id es obligatorio'),
     check('id').isMongoId().withMessage('No es un id valido de mongo'),
     check('id').custom(existeUsuarioDB),

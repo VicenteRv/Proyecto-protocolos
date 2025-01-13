@@ -8,6 +8,12 @@ const usuarioExistente = async(correo = '')=>{
         throw new Error(`El correo: ${correo} ya esta registrado en la bd`)
     }
 }
+const boletaExistente = async(boleta = '')=>{
+    const existeBoleta = await Usuario.findOne({boleta});
+    if(existeBoleta){
+        throw new Error(`La boleta: ${boleta} ya esta registrada en la bd`)
+    }
+}
 const validacionRol = async(rol = '')=>{
     const existeRol = await Role.findOne({rol});
     if(!existeRol){
@@ -89,5 +95,6 @@ module.exports = {
     validarCorreoUsuario,
     roleAdmin,
     roleAlumno,
-    roleProfesor
+    roleProfesor,
+    boletaExistente
 };
