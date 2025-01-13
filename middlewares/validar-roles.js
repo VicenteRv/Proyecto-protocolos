@@ -12,7 +12,6 @@ const validarAdminRole = async(req = request, res = response, next) => {
         await roleAdmin(rolId);
         next();
     } catch (error) {
-        console.log(error);
         return res.status(403).json({
             msg: 'No tienes permisos para realizar esta acción',
         });
