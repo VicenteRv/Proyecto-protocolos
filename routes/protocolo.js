@@ -22,6 +22,8 @@ router.post('/',[
 ],crearProtocolo);
 //ruta para obtener el protocolo del usuario loggeado
 router.get('/me',[
+    validarJWT,
+    validarCampos
 ],obtenerProtocoloActual);
 //ruta para obtener todos los protocolos
 router.get('/',[

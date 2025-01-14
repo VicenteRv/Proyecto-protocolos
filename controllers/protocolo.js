@@ -38,9 +38,36 @@ const crearProtocolo = async(req = request, res = response) => {
 }
 
 const obtenerProtocoloActual = async(req = request, res = response) => {
-    res.json({
-        msg: 'controlador get-protocolo actual'
-    });
+    const { _id } = req.usuario;
+    try {
+        const lider = await Protocolo.findOne({ lider: _id })
+            .populate('lider', 'nombre -_id')
+            .populate('integrantes', 'nombre -_id');
+        if (!lider) {
+            const integrante = await Protocolo.findOne({ integrantes: _id })
+                .populate('lider', 'nombre -_id')
+                .populate('integrantes', 'nombre -_id');
+            if (!integrante) {
+                return res.status(400).json({
+                    msg: 'No se encontró un protocolo asignado a este usuario'
+                });
+            }
+            res.status(200).json({
+                msg: 'Protocolo obtenido correctamente',
+                protocolo: integrante,
+            });
+        }else{
+            res.status(200).json({
+                msg: 'Protocolo obtenido correctamente',
+                protocolo: lider,
+            });
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            msg: 'Hubo un problema al obtener el protocolo, inténtelo de nuevo'
+        });
+    }
 }
 const obtenerProtocolos = (req = request, res = response) => {
     res.json({
