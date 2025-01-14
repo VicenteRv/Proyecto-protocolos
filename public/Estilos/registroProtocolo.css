@@ -16,6 +16,12 @@
     text-align: center;
   }
 
+.hr{
+    height: 3px;
+    background-color: #333;
+    margin-bottom: 0.75rem;
+}
+
 h1 {
     text-align: center;
     color: #333;
@@ -44,6 +50,29 @@ label {
     border-radius: 5px;
     font-size: 1em;
     width: 100%;
+}
+
+.registro-tt-input-director {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    width: 69%;
+}
+
+.registro-tt-select {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    width: 25%;
+}
+
+.director-datos{
+    display: flex;
+    justify-content: space-evenly;
 }
 
 .registro-tt-textarea {

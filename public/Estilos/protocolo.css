@@ -1,8 +1,9 @@
-.protocolo-contenedor{
+.protocolo-contenedor {
     margin: 1rem 5rem 1rem 5rem;
 }
 
-.ver-protocolo-info, .ver-protocolo-seguimiento{
+.ver-protocolo-info,
+.ver-protocolo-seguimiento {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     border-radius: 1rem;
     padding: 3rem;
@@ -10,47 +11,51 @@
     display: flex;
 }
 
-.ver-protocolo-seguimiento{
+.ver-protocolo-seguimiento {
     flex-direction: column;
 }
 
-.protocolo-info{
-    width: auto;
-}
-.protocolo-documento{
+.protocolo-info {
     width: auto;
 }
 
-.protocolo-datos{
+.protocolo-documento {
+    width: auto;
+}
+
+.protocolo-datos {
     margin: 1rem;
 }
 
-.protocolo-info-texto{
+.protocolo-info-texto {
     margin: 1rem;
     font-size: 1.25rem;
 }
 
-.protocolo-info-integrantes{
+.protocolo-info-integrantes {
     margin: 1rem;
     font-size: 1.25rem;
 }
 
-.protocolo-info-estado{
+.protocolo-info-estado {
     display: flex;
 }
-.protocolo-aprobado{
+
+.protocolo-aprobado {
     padding: 0.5rem;
     background-color: green;
     color: #fff;
     border-radius: 0.5rem;
 }
-.protocolo-enproceso{
+
+.protocolo-enproceso {
     padding: 0.5rem;
     background-color: orange;
     color: #fff;
     border-radius: 0.5rem;
 }
-.protocolo-noaprobado{
+
+.protocolo-noaprobado {
     padding: 0.5rem;
     background-color: red;
     color: #fff;
@@ -67,7 +72,7 @@
     width: 400px;
 }
 
-.documentoImg{
+.documentoImg {
     width: 75%;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 4px 4px 4px;
 }
@@ -87,23 +92,23 @@
     background-color: #0056b3;
 }
 
-.ver-protocolo-seguimiento{
+.ver-protocolo-seguimiento {
     flex-direction: column;
 }
 
-.seguimiento-elemento{
+.seguimiento-elemento {
     box-shadow: rgba(100, 100, 111, 0.2) 0px 4px 4px 4px;
     padding: 1rem;
     margin: 0.75rem 0rem 0.75rem 0rem;
 }
 
-.seguimiento-elemento-calificacion{
+.seguimiento-elemento-calificacion {
     display: flex;
     margin: 0.5rem;
     padding-bottom: 0.5rem;
 }
 
-.seguimiento-elemento-comentarios{
+.seguimiento-elemento-comentarios {
     display: flex;
     align-items: center;
     margin: 0.5rem;
@@ -111,14 +116,15 @@
     border-bottom: 0.15rem solid #ddd;
 }
 
-.seguimiento-elemento-comentarios-texto{
+.seguimiento-elemento-comentarios-texto {
     width: 20%;
 }
-.seguimiento-elemento-comentarios-input{
+
+.seguimiento-elemento-comentarios-input {
     width: 80%;
 }
 
-.ver-comentario{
+.ver-comentario {
     width: 100%;
     border: 0.15rem solid #007BFF;
 }
@@ -129,14 +135,14 @@ h2 {
     color: #000000;
 }
 
-h4{
+h4 {
     margin: 0.5rem 0rem 0.5rem 0rem;
 }
 
-.seguimiento-elemento-noencontrado{
+.seguimiento-elemento-noencontrado {
     text-align: center;
 }
 
-textarea{
+textarea {
     resize: none;
 }

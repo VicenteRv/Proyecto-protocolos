@@ -54,34 +54,47 @@
         <div class="registro-tt-box">
             <h1>Registrar Protocolo</h1>
             <form action="submit.php" method="post" encType="multipart/form-data" class="registro-tt-formulario">
+                <div class="hr"></div>
                 <label htmlFor="nombre">Nombre del Proyecto</label>
                 <input type="text" id="nombre" name="nombre" class="registro-tt-input"
                     placeholder="Ingrese el nombre del proyecto" required="" />
+                <div class="hr"></div>
                 <label htmlFor="integrantes">Integrantes del Equipo (Máximo 3)</label>
+                <p>Por favor ingresa la boleta de los integrantes.</p>
                 <div class="registro-tt-integrantes">
                     <input type="text" id="integrante1" name="integrante1" class="registro-tt-input"
-                        placeholder="Integrante 1" required="" />
+                        placeholder="Integrante 1 (Líder)" required="" />
                     <input type="text" id="integrante2" name="integrante2" class="registro-tt-input"
                         placeholder="Integrante 2" required="" />
                     <input type="text" id="integrante3" name="integrante3" class="registro-tt-input"
                         placeholder="Integrante 3" required="" />
                 </div>
-                <label htmlFor="lider">Líder del Equipo</label>
-                <select id="lider" name="lider" class="registro-tt-select" required="">
-                    <option value="">Seleccione al líder</option>
-                    <option value="integrante1">Integrante 1</option>
-                    <option value="integrante2">Integrante 2</option>
-                    <option value="integrante3">Integrante 3</option>
-                </select>
-                <label htmlFor="correos">Correos Electrónicos de los Integrantes</label>
-                <div class="registro-tt-correos">
-                    <input type="email" id="correo1" name="correo1" class="registro-tt-input"
-                        placeholder="Correo Integrante 1" required="" />
-                    <input type="email" id="correo2" name="correo2" class="registro-tt-input"
-                        placeholder="Correo Integrante 2" required="" />
-                    <input type="email" id="correo3" name="correo3" class="registro-tt-input"
-                        placeholder="Correo Integrante 3" required="" />
+                <div class="hr"></div>
+                <label htmlFor="integrantes">Directores de Protocolo</label>
+                <p>Por favor ingresa el Nombre del Director e Indica si es un profesor interno o un externo.</p>
+                <div class="registro-tt-integrantes">
+                    <div class="director-datos">
+                        <input type="text" id="director1" name="director1" class="registro-tt-input-director"
+                            placeholder="Director 1" required="" />
+                        <select id="lider" name="lider" class="registro-tt-select" required="">
+                            <option value="interno">Interno</option>
+                            <option value="externo">Externo</option>
+                        </select>
+                    </div>
+                    <input type="text" id="cedula1" name="cedula1" class="registro-tt-input"
+                        placeholder="Cédula Profesional" required="" />
+                    <div class="director-datos">
+                        <input type="text" id="director2" name="director2" class="registro-tt-input-director"
+                            placeholder="Director 2" required="" />
+                        <select id="lider" name="lider" class="registro-tt-select" required="">
+                            <option value="interno">Interno</option>
+                            <option value="externo">Externo</option>
+                        </select>
+                    </div>
+                    <input type="text" id="cedula2" name="cedula2" class="registro-tt-input"
+                        placeholder="Cédula Profesional" required="" />
                 </div>
+                <div class="hr"></div>
                 <label htmlFor="descripcion">Descripción del Proyecto</label>
                 <textarea id="descripcion" name="descripcion" class="registro-tt-textarea"
                     placeholder="Describa brevemente el proyecto" rows="5" required="" defaultValue=""></textarea>

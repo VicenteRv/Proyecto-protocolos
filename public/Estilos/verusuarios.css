@@ -1,0 +1,90 @@
+.titulo{
+    text-align: center;
+    margin: 1.5rem;
+    color: #000000;
+    font-size: 2.5rem;
+}
+
+.usuarios-section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.navegacion-usuarios{
+    border-bottom: 3px solid #00569D;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    justify-content: space-evenly;
+    width: 75%;
+    padding: 0.25rem;
+}
+
+.navegacion-activa{
+    color: #00569D;
+    padding: 1rem;
+    text-decoration: none;
+    width: 40%;
+    border-radius: 1rem;
+}
+
+.navegacion-inactiva{
+    color: white;
+    padding: 1rem;
+    text-decoration: none;
+    background-color: #00569D;
+    width: 40%;
+    border-radius: 1rem;
+}
+
+.navegacion-inactiva:hover{
+    color: white;
+    padding: 1rem;
+    text-decoration: none;
+    background-color: #64829b;
+}
+
+.usuarios-contenedor{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1rem;
+}
+
+.usuario-card{
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    margin: 0.5rem;
+    padding: 0.5rem;
+    display: flex;
+    width: 70%;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    align-content: center;
+    color: #000000;
+    text-decoration: none;
+    display: flex;
+}
+
+.usuario-card:hover{
+    scale: 1.025;
+}
+
+.inactivo{
+    background-color: #c8c9ca;
+}
+
+.img-perfil-usuario{
+    width: 20%;
+}
+
+.datos-usuario{
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+}
+
+.usuario-nombre{
+    font-size: 1.5rem;
+}
