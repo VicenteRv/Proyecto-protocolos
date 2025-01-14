@@ -3,7 +3,7 @@ const { check } = require("express-validator");
 const { validarCampos } = require("../middlewares/validar-campos");
 const { validarJWT } = require("../middlewares/validar-jwt");
 const { crearProtocolo, obtenerProtocoloActual, obtenerProtocolos, modificarProtocolo, eliminarProtocolo } = require("../controllers/protocolo");
-const { validarAlumnoRole } = require("../middlewares/validar-roles");
+const { validarAlumnoRole, validarAdminRole } = require("../middlewares/validar-roles");
 const { validarIntegrantesUsuarioRol } = require("../middlewares/validar-integrantes");
 
 const router = Router();
@@ -27,6 +27,9 @@ router.get('/me',[
 ],obtenerProtocoloActual);
 //ruta para obtener todos los protocolos
 router.get('/',[
+    validarJWT,
+    validarAdminRole,
+    validarCampos
 ],obtenerProtocolos);
 //ruta para modificar protocolo - admin
 router.put('/:id',[

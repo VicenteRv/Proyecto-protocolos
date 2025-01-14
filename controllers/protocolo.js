@@ -69,10 +69,27 @@ const obtenerProtocoloActual = async(req = request, res = response) => {
         });
     }
 }
-const obtenerProtocolos = (req = request, res = response) => {
-    res.json({
-        msg: 'controlador get-protocolos'
-    });
+const obtenerProtocolos = async(req = request, res = response) => {
+    const { limite = 10, desde = 0 } = req.query;
+    try {
+        const [total,protocolos] = await Promise.all([
+            Protocolo.countDocuments(),
+            Protocolo.find()
+            .skip(desde)
+            .limit(limite)
+            .populate('lider', 'nombre -_id')
+            .populate('integrantes', 'nombre -_id'),
+        ])
+        res.status(200).json({
+            total,
+            protocolos
+        })    
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            msg: 'Error al obtener protocolos'
+        })
+    }
 }
 const modificarProtocolo = (req = request, res = response) => {
     res.json({
