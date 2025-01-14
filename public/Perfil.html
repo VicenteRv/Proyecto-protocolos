@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="Multimedia/LogoImg.png">
-    <link rel="stylesheet" href="Estilos/general.css">
-    <link rel="stylesheet" href="Estilos/perfil.css">
+    <link rel="icon" href="assets/LogoImg.png">
+    <link rel="stylesheet" href="styles/general.css">
+    <link rel="stylesheet" href="styles/perfil.css">
     <script>
         /*document.addEventListener('DOMContentLoaded', async function () {
             try {
@@ -28,14 +28,12 @@
     </script>
     <title>ProSys - Perfil</title>
 </head>
-
 <body>
-
     <!--  BARRA DE NAVEGACIÓN  -->
     <nav class="navbar">
         <div class="navbar-container">
             <a href="index.html" class="navbar-logo">
-                <img class="navbar-image" src="Multimedia/LogoHorizontal.png" alt="">
+                <img class="navbar-image" src="assets/LogoHorizontal.png" alt="">
             </a>
             <ul class="navbar-menu">
                 <li class="navbar-item">
@@ -66,12 +64,10 @@
         </div>
     </nav>
     <!--    -->
-
     <!--  PÁGINA   -->
-
     <div class="perfil-container">
         <div class="perfil-sidebar">
-            <img src="Multimedia/FotoPerfil.jpg" alt="Foto de perfil" class="perfil-img" />
+            <img src="assets/FotoPerfil.jpg" alt="Foto de perfil" class="perfil-img" />
             <h2 id="usuario-nombre">Nombre del Estudiante</h2>
             <p id="usuario-boleta">Número de Boleta: 12345678</p>
             <p id="usuario-correo">Correo: estudiante@correo.com</p>
@@ -139,42 +135,11 @@
     </div>
 
     <!--  SCRIPT DE CONSULTA  -->
-
     <script>
-
         // Obtener Usuario
-
         document.addEventListener('DOMContentLoaded', async function () {
             try {
-                const response = await fetch('/api/usuarios/obtenerUsuario', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    credentials: "include"
-                });
-                const data = await response.json();
-                if (response.ok) {
-                    // Actualizar datos de usuario en la interfaz de usuario
-                    document.getElementById('usuario-nombre').innerText = data.nombre;
-                    document.getElementById('usuario-boleta').innerText = `Boleta: ${data.boleta}`;
-                    document.getElementById('usuario-correo').innerText = `Correo: ${data.correo}`;
-                    document.getElementById('usuario-biografia').innerText = data.biografia;
-                } else {
-                    console.error('Error al obtener el usuario:', data.msg);
-                }
-            } catch (error) {
-                console.error('Error en la petición:', error);
-                alert('Hubo un error al intentar obtener el usuario.');
-            }
-        });
-
-        // Obtener Protocolos
-        document.addEventListener('DOMContentLoaded', async function () {
-            try {
-                const protocolosContainer = document.querySelector('.perfil-grid');
-                // Realizar la petición al backend para obtener el saldo
-                const response = await fetch('/api/operaciones/consulta-Movimientos', {
+                const response = await fetch('/api/usuarios/me', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -182,35 +147,65 @@
                     credentials: "include"
                 });
                 const data = await response.json();
-
-                data.movimientos.forEach(protocolo => {
-                    console.log(protocolo);
-                    const protocoloDiv = document.createElement('div');
-                    protocoloDiv.classList.add('protocol');
-                    protocoloDiv.innerHTML = `
-                        <a href="Protocolo.html" class="perfil-card">
-                            <h4>${protocolo.nombre}</h4>
-                            <p>Fecha: ${protocolo.fecha}</p>
-                            <p>${protocolo.sinodal1}</p>
-                            <p>${protocolo.sinodal2}</p>
-                            <p>${protocolo.sinodal3}</p>
-                            <p>${protocolo.descripcion}</p>
-                        </a>
-                    `;
-                    protocolosContainer.appendChild(protocoloDiv);
-                });
+                if (response.ok) {
+                    console.log('Usuario:', data);
+                    // // Actualizar datos de usuario en la interfaz de usuario
+                    document.getElementById('usuario-nombre').innerText = data.nombre;
+                    document.getElementById('usuario-boleta').innerText = `Boleta: ${data.boleta}`;
+                    document.getElementById('usuario-correo').innerText = `Correo: ${data.correo}`;
+                    document.getElementById('usuario-biografia').innerText = data.biografia;
+                }
+                if(response.ok === false){
+                    console.log('Respuesta del servidor:', data.msg);
+                }
             } catch (error) {
                 console.error('Error en la petición:', error);
-                alert('Hubo un error al intentar obtener los protocolos.');
+                alert('Hubo un error al intentar obtener el usuario.');
             }
         });
+
+        // // Obtener Protocolos
+        // document.addEventListener('DOMContentLoaded', async function () {
+        //     try {
+        //         const protocolosContainer = document.querySelector('.perfil-grid');
+        //         // Realizar la petición al backend para obtener el saldo
+        //         const response = await fetch('/api/operaciones/consulta-Movimientos', {
+        //             method: 'GET',
+        //             headers: {
+        //                 'Content-Type': 'application/json',
+        //             },
+        //             credentials: "include"
+        //         });
+        //         const data = await response.json();
+
+        //         data.movimientos.forEach(protocolo => {
+        //             console.log(protocolo);
+        //             const protocoloDiv = document.createElement('div');
+        //             protocoloDiv.classList.add('protocol');
+        //             protocoloDiv.innerHTML = `
+        //                 <a href="Protocolo.html" class="perfil-card">
+        //                     <h4>${protocolo.nombre}</h4>
+        //                     <p>Fecha: ${protocolo.fecha}</p>
+        //                     <p>${protocolo.sinodal1}</p>
+        //                     <p>${protocolo.sinodal2}</p>
+        //                     <p>${protocolo.sinodal3}</p>
+        //                     <p>${protocolo.descripcion}</p>
+        //                 </a>
+        //             `;
+        //             protocolosContainer.appendChild(protocoloDiv);
+        //         });
+        //     } catch (error) {
+        //         console.error('Error en la petición:', error);
+        //         alert('Hubo un error al intentar obtener los protocolos.');
+        //     }
+        // });
     </script>
 
     <!--  FOOTER  -->
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-logo">
-                <img src="Multimedia/LogoPrincipal.png" alt="Logo" class="footer-logo-img">
+                <img src="assets/LogoPrincipal.png" alt="Logo" class="footer-logo-img">
             </div>
             <div class="footer-aside">
                 <p class="footer-text">

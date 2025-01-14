@@ -2,8 +2,9 @@ const { request, response } = require("express");
 const bcryptjs = require('bcryptjs');
 const Usuario = require("../models/usuario");
 const Role = require("../models/role");
+
 const crearUsuario = async(req = request, res = response) => {
-    const {nombre, correo, password, rol} = req.body;
+    const {nombre, correo, password, rol, boleta} = req.body;
     try {
         //buscar el rol en bd para asignarlo
         const newRol = await Role.findOne({rol})
@@ -12,7 +13,8 @@ const crearUsuario = async(req = request, res = response) => {
             nombre,
             correo,
             password,
-            rol: newRol._id
+            rol: newRol._id,
+            boleta
         })
         //encryptar contraseña
         const salt = bcryptjs.genSaltSync();
@@ -31,6 +33,15 @@ const crearUsuario = async(req = request, res = response) => {
         })
     }
 }
+const obtenerUsuarioActual = async(req = request, res = response) => {
+    const {nombre,correo,boleta} = req.usuario;
+    res.status(200).json({
+        nombre,
+        correo,
+        boleta
+    })
+}
+
 const obtenerUsuarios = async(req = request, res = response) => {
     const {limite = 10, desde = 0} = req.query;
     const query = {estado:true};
@@ -67,17 +78,54 @@ const obtenerUsuario = async(req = request, res = response) => {
         })
     }
 }
-const modificarUsuario = async(req = request, res = response) => {
-    const {id} = req.params;
-    const {nombre,correo,password,rol} = req.body;
+const modificarUsuarioActual = async(req = request, res = response) => {
+    const {id} = req.usuario;
+    const {nombre,correo,password} = req.body;
     try {
-        const datosActualizados = { nombre, correo, password, rol };
+        const datosActualizados = { };
         if (password) {
             const salt = bcryptjs.genSaltSync();
             datosActualizados.password = bcryptjs.hashSync(password, salt);
         }
-        datosActualizados.rol = await Role.findOne({rol});
+        if (nombre) {
+            datosActualizados.nombre = nombre;
+        }
+        if (correo) {
+            datosActualizados.correo = correo;
+        }
+        if (Object.keys(datosActualizados).length === 0) {
+            return res.status(400).json({
+                msg: 'No se proporcionaron datos para modificar',
+            });
+        }
         // Actualizar el usuario en la base de datos
+        const usuario = await Usuario.findByIdAndUpdate(id, datosActualizados, { new: true });
+        res.status(200).json({
+            usuario
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            msg: 'Error al actualizar el usuario'
+        });
+    }
+}
+const modificarUsuarioAdmin = async(req = request, res = response) => {
+    const {id} = req.params;
+    const {rol,boleta} = req.body;
+    try {
+        const datosActualizados = {};
+        if (rol) {
+            datosActualizados.rol = await Role.findOne({rol});
+        }
+        if (boleta) {
+            datosActualizados.boleta = boleta;
+        }
+        if (Object.keys(datosActualizados).length === 0) {
+            return res.status(400).json({
+                msg: 'No se proporcionaron datos para modificar',
+            });
+        }
         const usuario = await Usuario.findByIdAndUpdate(id, datosActualizados, { new: true });
         res.status(200).json({
             usuario
@@ -121,10 +169,12 @@ const activarUsuario = async(req = request, res = response) => {
 }
 
 module.exports = {
-   crearUsuario,
-   obtenerUsuarios,
-   obtenerUsuario,
-   modificarUsuario,
-   borrarUsuario,
-   activarUsuario
+    crearUsuario,
+    obtenerUsuarios,
+    obtenerUsuario,
+    modificarUsuarioActual,
+    borrarUsuario,
+    activarUsuario,
+    obtenerUsuarioActual,
+    modificarUsuarioAdmin
 };

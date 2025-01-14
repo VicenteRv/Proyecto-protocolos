@@ -21,7 +21,12 @@ const UsuarioSchema = new Schema({
     estado: {
         type: Boolean,
         default: true,  
-    }, 
+    },
+    boleta: {
+        type: String,
+        required: true,
+        unique: true
+    }
 });
 
 UsuarioSchema.methods.toJSON = function(){
