@@ -5,7 +5,7 @@ const ProtocoloSchema = new Schema({
         type: String,
         required: [true, 'El nombre del protocolo es obligatorio']
     },
-    liderEquipo: {
+    lider: {
         type: Schema.Types.ObjectId,
         ref: 'Usuario',
         required: [true, 'El líder del equipo es obligatorio'],

@@ -14,6 +14,16 @@ const boletaExistente = async(boleta = '')=>{
         throw new Error(`La boleta: ${boleta} ya esta registrada en la bd`)
     }
 }
+const esAlumnoBoleta = async(boleta = '')=>{
+    const existeBoleta = await Usuario.findOne({boleta});
+    const rol = await Role.findById(existeBoleta.rol);
+    if(!rol){
+        throw new Error(`El rol del usuario con boleta: ${boleta} no esta registrado en la bd`)
+    }
+    if(rol.rol !== ROLES.ALUMNO){
+        throw new Error(`La boleta: ${boleta} no pertenece a un alumno`)
+    }
+}
 const validacionRol = async(rol = '')=>{
     const existeRol = await Role.findOne({rol});
     if(!existeRol){
@@ -96,5 +106,6 @@ module.exports = {
     roleAdmin,
     roleAlumno,
     roleProfesor,
-    boletaExistente
+    boletaExistente,
+    esAlumnoBoleta,
 };
