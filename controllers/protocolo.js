@@ -91,6 +91,11 @@ const obtenerProtocolos = async(req = request, res = response) => {
         })
     }
 }
+const obtenerBoletasProtocoloEditar = async(req = request, res = response) => {
+    res.json({
+        msg: 'controlador get-protocolo-editar'
+    });
+}
 const modificarProtocolo = async(req = request, res = response) => {
     const { id } = req.params;
     const { nombre, boletalider, boleta1, boleta2 } = req.body;
@@ -131,6 +136,7 @@ module.exports = {
     crearProtocolo,
     obtenerProtocoloActual,
     obtenerProtocolos,
+    obtenerBoletasProtocoloEditar,
     modificarProtocolo,
     eliminarProtocolo,
 };

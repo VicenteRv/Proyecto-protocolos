@@ -2,7 +2,7 @@ const { Router } = require("express");
 const { check } = require("express-validator");
 const { validarCampos } = require("../middlewares/validar-campos");
 const { validarJWT } = require("../middlewares/validar-jwt");
-const { crearProtocolo, obtenerProtocoloActual, obtenerProtocolos, modificarProtocolo, eliminarProtocolo } = require("../controllers/protocolo");
+const { crearProtocolo, obtenerProtocoloActual, obtenerProtocolos, modificarProtocolo, eliminarProtocolo, obtenerBoletasProtocoloEditar } = require("../controllers/protocolo");
 const { validarAlumnoRole, validarAdminRole } = require("../middlewares/validar-roles");
 const { validarIntegrantesUsuarioRol, validarIntegrantesUsuarioRolEditar } = require("../middlewares/validar-integrantes");
 const { existeProtocoloDB } = require("../helpers/db-validators");
@@ -32,6 +32,9 @@ router.get('/',[
     validarAdminRole,
     validarCampos
 ],obtenerProtocolos);
+//ruta para obtener datos del protocolo a editar (boletas)
+router.get('/modificar/:id',[
+],obtenerBoletasProtocoloEditar);
 //ruta para modificar protocolo - admin
 router.put('/:id',[
     validarJWT,
