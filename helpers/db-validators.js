@@ -1,5 +1,5 @@
 const ROLES = require("../config/roles");
-const {Role,Usuario} = require("../models");
+const {Role,Usuario,Protocolo} = require("../models");
 
 //Usuarios
 const usuarioExistente = async(correo = '')=>{
@@ -12,6 +12,16 @@ const boletaExistente = async(boleta = '')=>{
     const existeBoleta = await Usuario.findOne({boleta});
     if(existeBoleta){
         throw new Error(`La boleta: ${boleta} ya esta registrada en la bd`)
+    }
+}
+const esAlumnoBoleta = async(boleta = '')=>{
+    const existeBoleta = await Usuario.findOne({boleta});
+    const rol = await Role.findById(existeBoleta.rol);
+    if(!rol){
+        throw new Error(`El rol del usuario con boleta: ${boleta} no esta registrado en la bd`)
+    }
+    if(rol.rol !== ROLES.ALUMNO){
+        throw new Error(`La boleta: ${boleta} no pertenece a un alumno`)
     }
 }
 const validacionRol = async(rol = '')=>{
@@ -61,7 +71,6 @@ const roleAdmin = async(id)=>{
     if(esRolAdmin.rol !== ROLES.ADMIN){
         throw new Error(`El usuario no es un administrador`)
     }
-    return true;
 }
 const roleAlumno = async(id)=>{
     const esRolAlumno = await Role.findById(id);
@@ -71,7 +80,6 @@ const roleAlumno = async(id)=>{
     if(esRolAlumno.rol !== ROLES.ALUMNO){
         throw new Error(`El usuario no es un alumno`)
     }
-    return true;
 }
 const roleProfesor = async(id)=>{
     const esRolSinodal = await Role.findById(id);
@@ -81,9 +89,14 @@ const roleProfesor = async(id)=>{
     if(esRolSinodal.rol !== ROLES.PROFESOR){
         throw new Error(`El usuario no es un sinodal`)
     }
-    return true;
 }
-
+//potocolos
+const existeProtocoloDB = async(id)=>{
+    const existe = await Protocolo.findById(id);
+    if(!existe){
+        throw new Error(`El protocolo con id: ${id} no existe`)
+    }
+}
 
 module.exports = {
     usuarioExistente,
@@ -96,5 +109,7 @@ module.exports = {
     roleAdmin,
     roleAlumno,
     roleProfesor,
-    boletaExistente
+    boletaExistente,
+    esAlumnoBoleta,
+    existeProtocoloDB,
 };

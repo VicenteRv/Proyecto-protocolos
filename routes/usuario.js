@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const { check } = require("express-validator");
-const { crearUsuario, obtenerUsuarios, obtenerUsuario, borrarUsuario, activarUsuario, obtenerUsuarioActual, modificarUsuarioAdmin, modificarUsuarioActual } = require("../controllers/usuarios");
+const { crearUsuario, obtenerUsuarios, obtenerUsuario, borrarUsuario, activarUsuario, obtenerUsuarioActual, modificarUsuarioAdmin, modificarUsuarioActual } = require("../controllers/usuario");
 const { validarCampos } = require("../middlewares/validar-campos");
 const { validacionRol, usuarioExistente, existeUsuarioDB, existeUsuarioDBdesactivado, existeUsuarioActivo, boletaExistente } = require("../helpers/db-validators");
 const { validarCorreoUnico } = require("../middlewares/validar-correounico");

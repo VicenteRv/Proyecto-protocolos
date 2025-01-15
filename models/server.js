@@ -12,6 +12,7 @@ class Server {
         this.paths = {
             usuarios:   '/api/usuarios',
             auth:       '/api/auth',
+            protocolos: '/api/protocolos',
         }
         //Conectar a BD
         this.conectarDB();
@@ -34,8 +35,9 @@ class Server {
         this.app.use( express.static('public') );
     }
     routes() {
-        this.app.use(this.paths.usuarios,require('../routes/usuarios'));
+        this.app.use(this.paths.usuarios,require('../routes/usuario'));
         this.app.use(this.paths.auth,require('../routes/auth'));
+        this.app.use(this.paths.protocolos,require('../routes/protocolo'));
 
     }
     listen() {
