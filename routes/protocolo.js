@@ -2,7 +2,7 @@ const { Router } = require("express");
 const { check } = require("express-validator");
 const { validarCampos } = require("../middlewares/validar-campos");
 const { validarJWT } = require("../middlewares/validar-jwt");
-const { crearProtocolo, obtenerProtocoloActual, obtenerProtocolos, modificarProtocolo, eliminarProtocolo, obtenerBoletasProtocoloEditar } = require("../controllers/protocolo");
+const { crearProtocolo, obtenerProtocoloActual, obtenerProtocolos, modificarProtocolo, eliminarProtocolo, obtenerBoletasProtocoloEditar, estadoProtocolo } = require("../controllers/protocolo");
 const { validarAlumnoRole, validarAdminRole } = require("../middlewares/validar-roles");
 const { validarIntegrantesUsuarioRol, validarIntegrantesUsuarioRolEditar } = require("../middlewares/validar-integrantes");
 const { existeProtocoloDB } = require("../helpers/db-validators");
@@ -27,13 +27,13 @@ router.get('/me',[
     validarCampos
 ],obtenerProtocoloActual);
 //ruta para obtener todos los protocolos
-router.get('/',[
+router.get('/admin',[
     validarJWT,
     validarAdminRole,
     validarCampos
 ],obtenerProtocolos);
 //ruta para obtener datos del protocolo a editar (boletas)
-router.get('/modificar/:id',[
+router.get('/admin/modificar/:id',[
     validarJWT,
     validarAdminRole,
     check('id').isMongoId().withMessage('No es un id valido de mongo'),
@@ -41,7 +41,7 @@ router.get('/modificar/:id',[
     validarCampos
 ],obtenerBoletasProtocoloEditar);
 //ruta para modificar protocolo - admin
-router.put('/:id',[
+router.put('/admin/:id',[
     validarJWT,
     validarAdminRole,
     check('id').isMongoId().withMessage('No es un id valido de mongo'),
@@ -53,6 +53,9 @@ router.put('/:id',[
     check('boleta2').optional().notEmpty().withMessage('Faltan datos del tercer integrante'),
     validarCampos
 ],modificarProtocolo);
+//ruta para cambiar estado del protocolo
+router.patch('/admin/:id',[
+],estadoProtocolo)
 //ruta para eliminar protocolo - admin
 router.delete('/:id',[
 ],eliminarProtocolo);

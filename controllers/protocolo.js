@@ -140,6 +140,11 @@ const modificarProtocolo = async(req = request, res = response) => {
         });
     }
 }
+const estadoProtocolo = async(req = request, res = response) => {
+    res.json({
+        msg:'controlador patch - protocolo'
+    })
+}
 const eliminarProtocolo = (req = request, res = response) => {
     res.json({
         msg: 'controlador delete-protocolo'
@@ -152,5 +157,6 @@ module.exports = {
     obtenerProtocolos,
     obtenerBoletasProtocoloEditar,
     modificarProtocolo,
+    estadoProtocolo,
     eliminarProtocolo,
 };
