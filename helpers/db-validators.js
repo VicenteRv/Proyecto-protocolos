@@ -1,5 +1,5 @@
 const ROLES = require("../config/roles");
-const {Role,Usuario} = require("../models");
+const {Role,Usuario,Protocolo} = require("../models");
 
 //Usuarios
 const usuarioExistente = async(correo = '')=>{
@@ -71,7 +71,6 @@ const roleAdmin = async(id)=>{
     if(esRolAdmin.rol !== ROLES.ADMIN){
         throw new Error(`El usuario no es un administrador`)
     }
-    return true;
 }
 const roleAlumno = async(id)=>{
     const esRolAlumno = await Role.findById(id);
@@ -81,7 +80,6 @@ const roleAlumno = async(id)=>{
     if(esRolAlumno.rol !== ROLES.ALUMNO){
         throw new Error(`El usuario no es un alumno`)
     }
-    return true;
 }
 const roleProfesor = async(id)=>{
     const esRolSinodal = await Role.findById(id);
@@ -91,9 +89,14 @@ const roleProfesor = async(id)=>{
     if(esRolSinodal.rol !== ROLES.PROFESOR){
         throw new Error(`El usuario no es un sinodal`)
     }
-    return true;
 }
-
+//potocolos
+const existeProtocoloDB = async(id)=>{
+    const existe = await Protocolo.findById(id);
+    if(!existe){
+        throw new Error(`El protocolo con id: ${id} no existe`)
+    }
+}
 
 module.exports = {
     usuarioExistente,
@@ -108,4 +111,5 @@ module.exports = {
     roleProfesor,
     boletaExistente,
     esAlumnoBoleta,
+    existeProtocoloDB,
 };

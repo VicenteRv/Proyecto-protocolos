@@ -91,10 +91,35 @@ const obtenerProtocolos = async(req = request, res = response) => {
         })
     }
 }
-const modificarProtocolo = (req = request, res = response) => {
-    res.json({
-        msg: 'controlador put-protocolo'
-    });
+const modificarProtocolo = async(req = request, res = response) => {
+    const { id } = req.params;
+    const { nombre, boletalider, boleta1, boleta2 } = req.body;
+    try {
+        const protocolo = await Protocolo.findById(id);
+        protocolo.nombre = nombre;
+        lider = await Usuario.findOne({ boleta: boletalider });
+        const nuevosIntegrantes = [];
+        if (boleta1) {
+            nuevosIntegrantes.push((await Usuario.findOne({ boleta: boleta1 }))._id);
+        }
+        if (boleta2) {
+            nuevosIntegrantes.push((await Usuario.findOne({ boleta: boleta2 }))._id);
+        }
+        protocolo.integrantes = nuevosIntegrantes;
+        await protocolo.save();
+        const protocoloEditado = await Protocolo.findById(id)
+            .populate('lider', 'nombre -_id')
+            .populate('integrantes', 'nombre -_id');
+        res.status(200).json({
+            msg: 'Protocolo modificado correctamente',
+            protocoloEditado
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            msg: 'Hubo un problema al modificar el protocolo, inténtelo de nuevo'
+        });
+    }
 }
 const eliminarProtocolo = (req = request, res = response) => {
     res.json({
