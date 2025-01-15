@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="assets/LogoImg.png">
+    <link rel="stylesheet" href="styles/general.css">
+    <link rel="stylesheet" href="styles/registroProtocolo.css">
+    <title>ProSys - Editar Protocolo</title>
+</head>
+
+<body>
+
+    <!--  BARRA DE NAVEGACIÓN  -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-logo">
+                <img class="navbar-image" src="assets/LogoHorizontal.png" alt="">
+            </a>
+            <ul class="navbar-menu">
+                <li class="navbar-item">
+                    <a href="index.html" class="navbar-link">Inicio</a>
+                </li>
+                <li class="navbar-item">
+                    <a href="Documentos.html" class="navbar-link">Documentos</a>
+                </li>
+                <li class="navbar-item">
+                    <a href="Perfil.html" class="navbar-link">Perfil</a>
+                </li>
+                <li class="navbar-item">
+                    <a href="Login.html" class="navbar-link">Inicio de sesión</a>
+                </li>
+                <li class="navbar-item">
+                    <a href="RegistroUsuario.html" class="navbar-link">Registro Usuario</a>
+                </li>
+                <li class="navbar-item">
+                    <a href="RegistroProtocolo.html" class="navbar-link">Registro Protocolo</a>
+                </li>
+                <li class="navbar-item">
+                    <a href="EvaluarProtocolo.html" class="navbar-link">Evaluar Protocolo</a>
+                </li>
+                <li class="navbar-item">
+                    <a href="Protocolo.html" class="navbar-link">Protocolo</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!--    -->
+
+    <!--  PÁGINA   -->
+
+    <div class="registro-tt-container">
+        <div class="registro-tt-box">
+            <h1>Editar Protocolo</h1>
+            <form action="submit.php" method="post" encType="multipart/form-data" class="registro-tt-formulario">
+                <div class="hr"></div>
+                <label htmlFor="nombre">Nombre del Proyecto</label>
+                <input type="text" id="nombre" name="nombre" class="registro-tt-input"
+                    placeholder="Ingrese el nombre del proyecto" required="" />
+                <div class="hr"></div>
+                <label htmlFor="integrantes">Integrantes del Equipo (Máximo 3)</label>
+                <p>Por favor ingresa la boleta de los integrantes.</p>
+                <div class="registro-tt-integrantes">
+                    <input type="text" id="integrante1" name="integrante1" class="registro-tt-input"
+                        placeholder="Integrante 1 (Líder)" required="" />
+                    <input type="text" id="integrante2" name="integrante2" class="registro-tt-input"
+                        placeholder="Integrante 2" required="" />
+                    <input type="text" id="integrante3" name="integrante3" class="registro-tt-input"
+                        placeholder="Integrante 3" required="" />
+                </div>
+                <div class="hr"></div>
+                <label htmlFor="integrantes">Directores de Protocolo</label>
+                <p>Por favor ingresa el Nombre del Director e Indica si es un profesor interno o un externo.</p>
+                <div class="registro-tt-integrantes">
+                    <div class="director-datos">
+                        <input type="text" id="director1" name="director1" class="registro-tt-input-director readonly"
+                            placeholder="Director 1" required="" readonly />
+                        <select id="lider" name="lider" class="registro-tt-select readonly" required="" readonly>
+                            <option value="interno">Interno</option>
+                            <option value="externo">Externo</option>
+                        </select>
+                    </div>
+                    <input type="text" id="cedula1" name="cedula1" class="registro-tt-input readonly"
+                        placeholder="Cédula Profesional" required="" readonly/>
+                    <div class="director-datos">
+                        <input type="text" id="director2" name="director2" class="registro-tt-input-director readonly"
+                            placeholder="Director 2" required="" readonly/>
+                        <select id="lider" name="lider" class="registro-tt-select readonly" required="" readonly>
+                            <option value="interno">Interno</option>
+                            <option value="externo">Externo</option>
+                        </select>
+                    </div>
+                    <input type="text" id="cedula2" name="cedula2" class="registro-tt-input readonly"
+                        placeholder="Cédula Profesional" required="" readonly/>
+                </div>
+                <div class="hr"></div>
+                <label htmlFor="descripcion">Descripción del Proyecto</label>
+                <textarea id="descripcion" name="descripcion" class="registro-tt-textarea"
+                    placeholder="Describa brevemente el proyecto" rows="5" required="" defaultValue=""></textarea>
+                <label htmlFor="documento">Subir Documento</label>
+                <input type="file" id="documento" name="documento" class="registro-tt-file" accept=".pdf,.doc,.docx"
+                    required="" />
+                <button type="submit" class="registro-tt-btn-submit">
+                    Guardar Cambios
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!--    -->
+
+    <!--  FOOTER  -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <img src="assets/LogoPrincipal.png" alt="Logo" class="footer-logo-img">
+            </div>
+            <div class="footer-aside">
+                <p class="footer-text">
+                    Todos los derechos reservados.
+                </p>
+                <ul class="footer-menu">
+                    <li class="footer-item">
+                        <a href="/politica" class="footer-link">Política de Privacidad</a>
+                    </li>
+                    <li class="footer-item">
+                        <a href="/terminos" class="footer-link">Términos y Condiciones</a>
+                    </li>
+                    <li class="footer-item">
+                        <a href="/contacto" class="footer-link">Contacto</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    <!--    -->
+
+</body>
+
+</html>

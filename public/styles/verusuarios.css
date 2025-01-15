@@ -57,18 +57,35 @@
     margin: 0.5rem;
     padding: 0.5rem;
     display: flex;
-    width: 70%;
+    width: 75%;
     align-items: center;
     justify-content: center;
     justify-items: center;
     align-content: center;
     color: #000000;
     text-decoration: none;
-    display: flex;
 }
 
 .usuario-card:hover{
     scale: 1.025;
+}
+
+.usuario-imagen{
+    width: 20%;
+}
+
+.usuario-info{
+    width: 80%;
+}
+
+.usuario-datos{
+    padding: 1rem;
+}
+
+.usuario-botones{
+    text-align: center;
+    align-content: center;
+    height: 3rem;
 }
 
 .inactivo{
@@ -76,15 +93,24 @@
 }
 
 .img-perfil-usuario{
-    width: 20%;
-}
-
-.datos-usuario{
-    display: flex;
-    flex-direction: column;
-    padding: 2rem;
+    width: 100%;
 }
 
 .usuario-nombre{
     font-size: 1.5rem;
+}
+
+.boton-usuario{
+    background-color: #00569D;
+    color: white;
+    padding: 0.75rem;
+    border-radius: 1rem;
+    text-align: center;
+    text-decoration: none;
+    margin: 0rem 1rem 0rem 1rem;
+    width: 15%;
+}
+
+.boton-usuario:hover{
+    background-color: #64829b;
 }
