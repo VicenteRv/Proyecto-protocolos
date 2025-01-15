@@ -34,6 +34,11 @@ router.get('/',[
 ],obtenerProtocolos);
 //ruta para obtener datos del protocolo a editar (boletas)
 router.get('/modificar/:id',[
+    validarJWT,
+    validarAdminRole,
+    check('id').isMongoId().withMessage('No es un id valido de mongo'),
+    check('id').custom(existeProtocoloDB).withMessage('El protocolo no existe en la bd'),
+    validarCampos
 ],obtenerBoletasProtocoloEditar);
 //ruta para modificar protocolo - admin
 router.put('/:id',[

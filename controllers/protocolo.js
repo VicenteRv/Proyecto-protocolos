@@ -92,9 +92,23 @@ const obtenerProtocolos = async(req = request, res = response) => {
     }
 }
 const obtenerBoletasProtocoloEditar = async(req = request, res = response) => {
-    res.json({
-        msg: 'controlador get-protocolo-editar'
-    });
+    const { id } = req.params;
+    try {
+        const protocolo = await Protocolo.findById(id)
+            .populate('lider','boleta -_id')
+            .populate('integrantes','boleta -_id');
+        
+        res.status(200).json({
+            nombre: protocolo.nombre,
+            lider: protocolo.lider.boleta,
+            integrantes: protocolo.integrantes.map(integrante=>integrante.boleta)
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            msg: 'Hubo un problema al obtener los datos del protocolo, inténtelo de nuevo'
+        });
+    }
 }
 const modificarProtocolo = async(req = request, res = response) => {
     const { id } = req.params;
