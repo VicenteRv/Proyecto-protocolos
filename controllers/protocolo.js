@@ -127,8 +127,8 @@ const modificarProtocolo = async(req = request, res = response) => {
         protocolo.integrantes = nuevosIntegrantes;
         await protocolo.save();
         const protocoloEditado = await Protocolo.findById(id)
-            .populate('lider', 'nombre -_id')
-            .populate('integrantes', 'nombre -_id');
+        .populate('lider', 'nombre -_id')
+        .populate('integrantes', 'nombre -_id');
         res.status(200).json({
             msg: 'Protocolo modificado correctamente',
             protocoloEditado
@@ -141,9 +141,20 @@ const modificarProtocolo = async(req = request, res = response) => {
     }
 }
 const estadoProtocolo = async(req = request, res = response) => {
-    res.json({
-        msg:'controlador patch - protocolo'
-    })
+    const { id } = req.params;
+    const {estado} = req.body;
+    try {
+        const protocolo = await Protocolo.findByIdAndUpdate(id,{estado},{new:true});
+        res.status(200).json({
+            msg:'Estado actualizado correctamente',
+            protocolo
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(400).json({
+            msg: 'Error al intentar cambiar el status del protocolo'
+        })
+    }
 }
 const eliminarProtocolo = (req = request, res = response) => {
     res.json({

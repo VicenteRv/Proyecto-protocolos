@@ -6,6 +6,7 @@ const { crearProtocolo, obtenerProtocoloActual, obtenerProtocolos, modificarProt
 const { validarAlumnoRole, validarAdminRole } = require("../middlewares/validar-roles");
 const { validarIntegrantesUsuarioRol, validarIntegrantesUsuarioRolEditar } = require("../middlewares/validar-integrantes");
 const { existeProtocoloDB } = require("../helpers/db-validators");
+const { validarEstadoProtocolo } = require("../middlewares/validar-estado-protocolo");
 
 const router = Router();
 //ruta para registrar un protocolo
@@ -55,6 +56,12 @@ router.put('/admin/:id',[
 ],modificarProtocolo);
 //ruta para cambiar estado del protocolo
 router.patch('/admin/:id',[
+    validarJWT,
+    validarAdminRole,
+    check('id').isMongoId().withMessage('No es un id valido de mongo'),
+    check('id').custom(existeProtocoloDB).withMessage('El protocolo no existe en la bd'),
+    validarEstadoProtocolo,
+    validarCampos
 ],estadoProtocolo)
 //ruta para eliminar protocolo - admin
 router.delete('/:id',[
