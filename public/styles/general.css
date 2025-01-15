@@ -13,6 +13,10 @@ body {
     padding: 0;
 }
 
+.contenedor-principal{
+    min-height: 80vh;
+}
+
 .navbar-image{
     width: 12.5rem;
 }

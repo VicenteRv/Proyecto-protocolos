@@ -40,7 +40,7 @@
     <!--    -->
 
     <!--  PÁGINA PRINCIPAL  -->
-    <div className="contenedor-principal">
+    <div class="contenedor-principal">
         <div class="titulo">Visualizar Protocolos</div>
         <div class="protocolos-section">
             <div class="protocolos-contenedor">
@@ -114,8 +114,9 @@
                         credentials: "include"
                     });
                     const data = await response.json();
+                    console.log('Respuesta del servidor:', data);
 
-                    data.movimientos.forEach(protocolo => {
+                    data.protocolos.forEach(protocolo => {
                         console.log(protocolo);
                         const protocoloDiv = document.createElement('div');
                         protocoloDiv.classList.add('protocolo-card');
@@ -127,10 +128,10 @@
                                 <li>${protocolo.lider}</li>
                             </div>
                             <div class="protocolo-integrante2">
-                                <li>${protocolo.integrantes[0]}</li>
+                                <li>INTEGRANTE1</li>
                             </div>
                             <div class="protocolo-integrante3">
-                                <li>${protocolo.integrantes[1]}</li>
+                                <li>INTEGRANTE2</li>
                             </div>
                             <br>
                             <div class="protocolo-descripcion">${protocolo.descipcion}</div>

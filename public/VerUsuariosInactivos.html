@@ -40,7 +40,7 @@
     <!--    -->
 
     <!--  PÁGINA PRINCIPAL  -->
-    <div className="contenedor-principal">
+    <div class="contenedor-principal">
         <div class="titulo">Visualizar Usuarios</div>
         <div class="usuarios-section">
             <div class="navegacion-usuarios">
@@ -108,8 +108,7 @@
         document.addEventListener('DOMContentLoaded', async function () {
             try {
                 const UsuariosContainer = document.querySelector('.usuarios-contenedor');
-                // Realizar la petición al backend para obtener el saldo
-                const response = await fetch('/api/usuarios/obtenerUsuarios', {
+                const response = await fetch('/api/usuarios', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -118,7 +117,7 @@
                 });
                 const data = await response.json();
 
-                data.movimientos.forEach(usuario => {
+                data.usuarios.forEach(usuario => {
                     console.log(usuario);
                     const UsuarioDiv = document.createElement('div');
                     UsuarioDiv.classList.add('usuario-card');
@@ -133,7 +132,7 @@
                                 <div class="usuario-boleta">${usuario.boleta}</div>
                                 <div class="usuario-correo">${usuario.correo}</div>
                                 <br>
-                                <div class="usuario-biografia">${usuario.biografia}</div>
+                                <div class="usuario-biografia">Descipción de Usuario</div>
                             </div>
                             <br>
                             <div class="usuario-botones">
