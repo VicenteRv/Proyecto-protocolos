@@ -32,16 +32,7 @@
                     <a href="Login.html" class="navbar-link">Inicio de sesión</a>
                 </li>
                 <li class="navbar-item">
-                    <a href="RegistroUsuario.html" class="navbar-link">Registro Usuario</a>
-                </li>
-                <li class="navbar-item">
                     <a href="RegistroProtocolo.html" class="navbar-link">Registro Protocolo</a>
-                </li>
-                <li class="navbar-item">
-                    <a href="EvaluarProtocolo.html" class="navbar-link">Evaluar Protocolo</a>
-                </li>
-                <li class="navbar-item">
-                    <a href="Protocolo.html" class="navbar-link">Protocolo</a>
                 </li>
             </ul>
         </div>
@@ -53,6 +44,31 @@
         <div class="titulo">Visualizar Protocolos</div>
         <div class="protocolos-section">
             <div class="protocolos-contenedor">
+                <!-- <div class="protocolo-card">
+                    <div class="datos-protocolo">
+                        <div class="protocolo-nombre">Nombre de Protocolo</div>
+                        <br>
+                        <div class="protocolo-integrante1">
+                            <li>Integrante 1</li>
+                        </div>
+                        <div class="protocolo-integrante2">
+                            <li>Integrante 2</li>
+                        </div>
+                        <div class="protocolo-integrante3">
+                            <li>Integrante 3</li>
+                        </div>
+                        <br>
+                        <div class="protocolo-biografia">Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                            Tempora,
+                            laborum. Optio recusandae nisi atque explicabo libero sed alias hic officiis ipsa quaerat
+                            maiores a molestias magni veniam, mollitia vel soluta.</div>
+
+                    </div>
+                    <div class="protocolo-botones">
+                        <a href="Protocolo.html" class="boton-protocolo">Ver Protocolo</a>
+                        <a href="EvaluarProtocolo.html" class="boton-protocolo">Evaluar Protocolo</a>
+                    </div>
+                </div>
                 <div class="protocolo-card">
                     <div class="datos-protocolo">
                         <div class="protocolo-nombre">Nombre de Protocolo</div>
@@ -75,66 +91,97 @@
                     </div>
                     <div class="protocolo-botones">
                         <a href="Protocolo.html" class="boton-protocolo">Ver Protocolo</a>
+                        <a href="EvaluarProtocolo.html" class="boton-protocolo">Evaluar Protocolo</a>
                     </div>
-                </div>
-                <div class="protocolo-card">
-                    <div class="datos-protocolo">
-                        <div class="protocolo-nombre">Nombre de Protocolo</div>
-                        <br>
-                        <div class="protocolo-integrante1">
-                            <li>Integrante 1</li>
-                        </div>
-                        <div class="protocolo-integrante2">
-                            <li>Integrante 2</li>
-                        </div>
-                        <div class="protocolo-integrante3">
-                            <li>Integrante 3</li>
-                        </div>
-                        <br>
-                        <div class="protocolo-biografia">Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                            Tempora,
-                            laborum. Optio recusandae nisi atque explicabo libero sed alias hic officiis ipsa quaerat
-                            maiores a molestias magni veniam, mollitia vel soluta.</div>
-
-                    </div>
-                    <div class="protocolo-botones">
-                        <a href="Protocolo.html" class="boton-protocolo">Ver Protocolo</a>
-                    </div>
-                </div>
-                <div class="protocolo-card">
-                    <h4>No se han encontrado Protocolos. Vuelve más tarde</h4>
-                </div>
+                </div> -->
             </div>
+
         </div>
+        <!--    -->
 
-    </div>
-    <!--    -->
+        <!--  SCRIPT DE CONSULTA  -->
+        <script>
+            // Obtener Protocolos
+            document.addEventListener('DOMContentLoaded', async function () {
+                try {
+                    const protocolosContainer = document.querySelector('.protocolos-contenedor');
+                    // Realizar la petición al backend para obtener el saldo
+                    const response = await fetch('/api/protocolo/admin', {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        credentials: "include"
+                    });
+                    const data = await response.json();
 
-    <!--  FOOTER  -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-logo">
-                <img src="assets/LogoPrincipal.png" alt="Logo" class="footer-logo-img">
+                    data.movimientos.forEach(protocolo => {
+                        console.log(protocolo);
+                        const protocoloDiv = document.createElement('div');
+                        protocoloDiv.classList.add('protocolo-card');
+                        protocoloDiv.innerHTML = `
+                        <div class="datos-protocolo">
+                            <div class="protocolo-nombre">${protocolo.nombre}</div>
+                            <br>
+                            <div class="protocolo-integrante1">
+                                <li>${protocolo.lider}</li>
+                            </div>
+                            <div class="protocolo-integrante2">
+                                <li>${protocolo.integrantes[0]}</li>
+                            </div>
+                            <div class="protocolo-integrante3">
+                                <li>${protocolo.integrantes[1]}</li>
+                            </div>
+                            <br>
+                            <div class="protocolo-descripcion">${protocolo.descipcion}</div>
+                        </div>
+                        <div class="protocolo-botones">
+                            <a href="Protocolo.html" class="boton-protocolo">Ver Protocolo</a>
+                            <a href="EvaluarProtocolo.html" class="boton-protocolo">Evaluar Protocolo</a>
+                        </div>
+                    `;
+                        protocolosContainer.appendChild(protocoloDiv);
+                    });
+                } catch (error) {
+                    const protocolosContainer = document.querySelector('.protocolos-contenedor');
+                    const protocoloDiv = document.createElement('div');
+                    protocoloDiv.classList.add('protocolo-card');
+                    protocoloDiv.innerHTML = `
+                        <h4>No se han encontrado Protocolos. Vuelve más tarde</h4>
+                    `;
+                    protocolosContainer.appendChild(protocoloDiv);
+                    console.error('Error en la petición:', error);
+                    alert('Hubo un error al intentar obtener los protocolos.');
+
+                }
+            });
+        </script>
+
+        <!--  FOOTER  -->
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-logo">
+                    <img src="assets/LogoPrincipal.png" alt="Logo" class="footer-logo-img">
+                </div>
+                <div class="footer-aside">
+                    <p class="footer-text">
+                        Todos los derechos reservados.
+                    </p>
+                    <ul class="footer-menu">
+                        <li class="footer-item">
+                            <a href="/politica" class="footer-link">Política de Privacidad</a>
+                        </li>
+                        <li class="footer-item">
+                            <a href="/terminos" class="footer-link">Términos y Condiciones</a>
+                        </li>
+                        <li class="footer-item">
+                            <a href="/contacto" class="footer-link">Contacto</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="footer-aside">
-                <p class="footer-text">
-                    Todos los derechos reservados.
-                </p>
-                <ul class="footer-menu">
-                    <li class="footer-item">
-                        <a href="/politica" class="footer-link">Política de Privacidad</a>
-                    </li>
-                    <li class="footer-item">
-                        <a href="/terminos" class="footer-link">Términos y Condiciones</a>
-                    </li>
-                    <li class="footer-item">
-                        <a href="/contacto" class="footer-link">Contacto</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </footer>
-    <!--    -->
+        </footer>
+        <!--    -->
 
 </body>
 

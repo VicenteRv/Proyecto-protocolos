@@ -2,6 +2,10 @@
     margin: 1rem 5rem 1rem 5rem;
 }
 
+.protocolos-ver-1{
+    display: flex;
+}
+
 .ver-protocolo-info,
 .ver-protocolo-seguimiento {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
@@ -9,9 +13,6 @@
     padding: 3rem;
     margin-top: 1.5rem;
     display: flex;
-}
-
-.ver-protocolo-seguimiento {
     flex-direction: column;
 }
 

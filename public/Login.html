@@ -63,7 +63,7 @@
                     const data = await response.json();
                     if (response.ok) {
                         console.log('Usuario loggeado:', data);
-                        window.location.href = 'index.html'; // Redirige a la página principal
+                        window.location.href = 'Perfil.html'; // Redirige a la página principal
                     } else {
                         // Mostrar los errores en la interfaz de usuario
                         console.log('Respuesta del servidor:', data.errors.map(error => error.msg).join('\n'));

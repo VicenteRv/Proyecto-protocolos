@@ -32,16 +32,7 @@
                     <a href="Login.html" class="navbar-link">Inicio de sesión</a>
                 </li>
                 <li class="navbar-item">
-                    <a href="RegistroUsuario.html" class="navbar-link">Registro Usuario</a>
-                </li>
-                <li class="navbar-item">
                     <a href="RegistroProtocolo.html" class="navbar-link">Registro Protocolo</a>
-                </li>
-                <li class="navbar-item">
-                    <a href="EvaluarProtocolo.html" class="navbar-link">Evaluar Protocolo</a>
-                </li>
-                <li class="navbar-item">
-                    <a href="Protocolo.html" class="navbar-link">Protocolo</a>
                 </li>
             </ul>
         </div>
@@ -109,6 +100,39 @@
     </div>
 
     <!--    -->
+
+    <script>
+        async function crearProtocolo() {
+            let nombre = document.getElementById('nombre').value;
+            let lider = document.getElementById('integrante1').value;
+            let integrante2 = document.getElementById('integrante2').value;
+            let integrante3 = document.getElementById('integrante3').value;
+
+            console.log(nombre, correo, password, rol, boleta);
+            try {
+                const response = await fetch('/api/usuarios', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ nombre, lider, integrante2, integrante3 }),
+                    credentials: 'include'
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    console.log('Usuario creado:', data);
+                    alert("Se ha creado el Usuario con éxito. Por facor, inicia sesión.")
+                    window.location.href = 'Login.html';
+                } else {
+                    console.log('Respuesta del servidor:', data.errors.map(error => error.msg).join('\n'));
+                }
+            } catch (error) {
+                console.log('Error:', error);
+                alert(error)
+            }
+        }
+    </script>
+
 
     <!--  FOOTER  -->
     <footer class="footer">
