@@ -6,24 +6,38 @@ const crearProtocolo = async(req = request, res = response) => {
     if (!req.files || Object.keys(req.files).length === 0 || !req.files.archivo) {
         res.status(400).json({
             msg:'No su agrego un archivo al protocolo'
-    });
+        });
         return;
     }
     const {archivo} = req.files;
-    uploadPath = path.join(__dirname, '../uploads/', archivo.name);
+    const nombreCortado = archivo.name.split('.');
+    const extension = nombreCortado[nombreCortado.length-1];
+    const extensionValida = ['pdf'];
+    if(!extensionValida.includes(extension)){
+        return res.status(400).json({
+            msg: `La extension ${extension} no esta permitida`
+        })
+    }
+    res.json({
+        nombreCortado,
+        extension   
+    })
 
-    archivo.mv(uploadPath, (err) => {
-        if (err) {
-            console.log(err);
-        return res.status(500).json({
-            err
-        });
-        }
+    // uploadPath = path.join(__dirname, '../uploads/', archivo.name);
 
-        res.json({
-            msg: 'File uploaded to ' + uploadPath
-        });
-    });
+    // archivo.mv(uploadPath, (err) => {
+    //     if (err) {
+    //         console.log(err);
+    //     return res.status(500).json({
+    //         err
+    //     });
+    //     }
+
+    //     res.json({
+    //         msg: 'File uploaded to ' + uploadPath
+    //     });
+    // });
+
     // const { nombre, boletalider, boleta1, boleta2, descripcion, archivo = 'Archivo por defecto' } = req.body;
     // try {
     //     const boletas = [boletalider, boleta1, boleta2].filter(boleta => boleta !== undefined && boleta.trim() !== '');
