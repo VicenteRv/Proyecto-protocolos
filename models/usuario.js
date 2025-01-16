@@ -25,7 +25,11 @@ const UsuarioSchema = new Schema({
     boleta: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+    },
+    cedula: {
+        type: String, 
+        unique: true, 
     }
 });
 
