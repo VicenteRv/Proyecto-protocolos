@@ -116,13 +116,21 @@
             let cedula = document.getElementById('cedula').value;
 
             console.log(nombre, correo, password, rol, boleta, tipoProfe, numTrabajador, cedula);
+
+            let externo;
+            if (tipoProfe == "EXTERNO") {
+                externo = true;
+            }else{
+                externo = false;
+            }
+  
             try {
                 const response = await fetch('/api/usuarios', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ nombre, correo, password, rol, boleta }),
+                    body: JSON.stringify({ nombre, correo, password, rol, boleta, externo }),
                     credentials: 'include'
                 });
                 const data = await response.json();

@@ -74,7 +74,7 @@
             </div>
             <div class="perfil-grid-section">
                 <h3>Tus Protocolos</h3>
-                <div class="perfil-grid">
+                <!-- <div class="perfil-grid">
                     <a href="Protocolo.html" class="perfil-card">
                         <h4>Protocolo 1</h4>
                         <p>Fecha: 01/01/2024</p>
@@ -123,7 +123,7 @@
                         <p>Sinodal: Ing. Martínez</p>
                         <p>Descripción breve del trabajo.</p>
                     </a>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -171,12 +171,13 @@
                     credentials: "include"
                 });
                 const data = await response.json();
-                console.log('Respuesta del servidor:', data);
+                if (response.ok) {
+                    console.log('Respuesta del servidor:', data);
 
-                data.protocolos.forEach(protocolo => {
-                    console.log(protocolo);
-                    const protocoloDiv = document.createElement('div');
-                    protocoloDiv.innerHTML = `
+                    data.protocolos.forEach(protocolo => {
+                        console.log(protocolo);
+                        const protocoloDiv = document.createElement('div');
+                        protocoloDiv.innerHTML = `
                         <a href="Protocolo.html" class="perfil-card">
                             <h4>${protocolo.nombre}</h4>
                             <p>Fecha: 01/01/2024</p>
@@ -186,19 +187,31 @@
                             <p>${protocolo.descripcion}</p>
                         </a>
                     `;
+                        protocolosContainer.appendChild(protocoloDiv);
+                    });
+                } else {
+                    console.log('Respuesta del servidor:', data);
+                    const protocolosContainer = document.querySelector('.perfil-grid-section');
+                    const protocoloDiv = document.createElement('div');
+                    protocoloDiv.classList.add('noprotocolos');
+                    protocoloDiv.innerHTML = `
+                        <h4>Aún no tienes protocolos</h4>
+                    `;
                     protocolosContainer.appendChild(protocoloDiv);
-                });
-            } catch (error) {
-                const protocolosContainer = document.querySelector('.perfil-grid-section');
-                const protocoloDiv = document.createElement('div');
-                protocoloDiv.classList.add('noprotocolos');
-                protocoloDiv.innerHTML = `
-                    <h4>Aún no tienes protocolos</h4>
-                `;
-                protocolosContainer.appendChild(protocoloDiv);
-                console.error('Error en la petición:', error);
-                alert('Hubo un error al intentar obtener los protocolos.');
+                    console.error('Error en la petición:', error);
+                    alert('Hubo un error al intentar obtener los protocolos.');
+                }
 
+            } catch (error) {
+                // const protocolosContainer = document.querySelector('.perfil-grid-section');
+                // const protocoloDiv = document.createElement('div');
+                // protocoloDiv.classList.add('noprotocolos');
+                // protocoloDiv.innerHTML = `
+                //     <h4>Error</h4>
+                // `;
+                // protocolosContainer.appendChild(protocoloDiv);
+                console.error('Error en la petición:', error);
+                // alert('Hubo un error al intentar obtener los protocolos.');
             }
         });
     </script>

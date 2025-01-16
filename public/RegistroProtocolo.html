@@ -54,15 +54,15 @@
                 <p>Por favor ingresa la boleta de los integrantes.</p>
                 <div class="registro-tt-integrantes">
                     <input type="text" id="integrante1" name="integrante1" class="registro-tt-input"
-                        placeholder="Integrante 1 (Líder)" required="" />
+                        placeholder="Boleta Integrante 1 (Líder)" required="" />
                     <input type="text" id="integrante2" name="integrante2" class="registro-tt-input"
-                        placeholder="Integrante 2" required="" />
+                        placeholder="Boleta Integrante 2" required="" />
                     <input type="text" id="integrante3" name="integrante3" class="registro-tt-input"
-                        placeholder="Integrante 3" required="" />
+                        placeholder="Boleta Integrante 3" required="" />
                 </div>
                 <div class="hr"></div>
                 <label htmlFor="integrantes">Directores de Protocolo</label>
-                <p>Por favor ingresa el Nombre del Director o directores</p>
+                <p>Por favor ingresa el Número de Trabajador o Cédula Profesional del Director o directores</p>
                 <div class="registro-tt-integrantes">
                     <input type="text" id="director1" name="director1" class="registro-tt-input"
                         placeholder="Director 1" required="" />
@@ -88,10 +88,13 @@
     <script>
         async function crearProtocolo() {
             let nombre = document.getElementById('nombre').value;
-            let lider = document.getElementById('integrante1').value;
-            let integrante2 = document.getElementById('integrante2').value;
-            let integrante3 = document.getElementById('integrante3').value;
-
+            let boletalider = document.getElementById('integrante1').value;
+            let boleta1 = document.getElementById('integrante2').value;
+            let boleta2 = document.getElementById('integrante3').value;
+            let director1 = document.getElementById('director1').value;
+            let director2 = document.getElementById('director2').value;
+            let descripcion = document.getElementById('descripcion').value;
+            
             console.log(nombre, correo, password, rol, boleta);
             try {
                 const response = await fetch('/api/usuarios', {
@@ -99,7 +102,7 @@
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ nombre, lider, integrante2, integrante3 }),
+                    body: JSON.stringify({ nombre, boletalider, boleta1, boleta2, director1, director2, descripcion }),
                     credentials: 'include'
                 });
                 const data = await response.json();
