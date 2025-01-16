@@ -3,7 +3,7 @@ const { check } = require("express-validator");
 const { validarCampos , validarJWT, validarEstadoProtocolo, validarArchivoSubir, 
         validarAlumnoRole, validarAdminRole, validarIntegrantesUsuarioRol, 
         validarIntegrantesUsuarioRolEditar } = require("../middlewares");
-const { crearProtocolo, obtenerProtocoloActual, obtenerProtocolos, modificarProtocolo, eliminarProtocolo, obtenerBoletasProtocoloEditar, estadoProtocolo } = require("../controllers/protocolo");
+const { crearProtocolo, obtenerProtocoloActual, obtenerProtocolos, eliminarProtocolo, obtenerBoletasProtocoloEditar, estadoProtocolo, modificarProtocoloAdmin, modificarProtocoloAlumno } = require("../controllers/protocolo");
 const { existeProtocoloDB } = require("../helpers/db-validators");
 
 const router = Router();
@@ -39,6 +39,9 @@ router.get('/admin/modificar/:id',[
     check('id').custom(existeProtocoloDB).withMessage('El protocolo no existe en la bd'),
     validarCampos
 ],obtenerBoletasProtocoloEditar);
+//ruta para modificar protocolo - alumno
+router.put('/',[
+],modificarProtocoloAlumno)
 //ruta para modificar protocolo - admin
 router.put('/admin/:id',[
     validarJWT,
@@ -51,7 +54,7 @@ router.put('/admin/:id',[
     check('boleta1').optional().notEmpty().withMessage('Faltan datos del segundo integrante'),
     check('boleta2').optional().notEmpty().withMessage('Faltan datos del tercer integrante'),
     validarCampos
-],modificarProtocolo);
+],modificarProtocoloAdmin);
 //ruta para cambiar estado del protocolo
 router.patch('/admin/:id',[
     validarJWT,

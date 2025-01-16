@@ -114,7 +114,12 @@ const obtenerBoletasProtocoloEditar = async(req = request, res = response) => {
         });
     }
 }
-const modificarProtocolo = async(req = request, res = response) => {
+const modificarProtocoloAlumno = async(req = request, res = response) => {
+    res.json({
+        msg: 'Controlador put - modificar alumno'
+    })
+}
+const modificarProtocoloAdmin = async(req = request, res = response) => {
     const { id } = req.params;
     const { nombre, boletalider, boleta1, boleta2 } = req.body;
     try {
@@ -171,7 +176,8 @@ module.exports = {
     obtenerProtocoloActual,
     obtenerProtocolos,
     obtenerBoletasProtocoloEditar,
-    modificarProtocolo,
+    modificarProtocoloAlumno,
+    modificarProtocoloAdmin,
     estadoProtocolo,
     eliminarProtocolo,
 };
