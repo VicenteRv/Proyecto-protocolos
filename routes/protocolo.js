@@ -1,18 +1,17 @@
 const { Router } = require("express");
 const { check } = require("express-validator");
-const { validarCampos } = require("../middlewares/validar-campos");
-const { validarJWT } = require("../middlewares/validar-jwt");
+const { validarCampos , validarJWT, validarEstadoProtocolo, validarArchivoSubir, 
+        validarAlumnoRole, validarAdminRole, validarIntegrantesUsuarioRol, 
+        validarIntegrantesUsuarioRolEditar } = require("../middlewares");
 const { crearProtocolo, obtenerProtocoloActual, obtenerProtocolos, modificarProtocolo, eliminarProtocolo, obtenerBoletasProtocoloEditar, estadoProtocolo } = require("../controllers/protocolo");
-const { validarAlumnoRole, validarAdminRole } = require("../middlewares/validar-roles");
-const { validarIntegrantesUsuarioRol, validarIntegrantesUsuarioRolEditar } = require("../middlewares/validar-integrantes");
 const { existeProtocoloDB } = require("../helpers/db-validators");
-const { validarEstadoProtocolo } = require("../middlewares/validar-estado-protocolo");
 
 const router = Router();
 //ruta para registrar un protocolo
 router.post('/',[
     validarJWT,
     validarAlumnoRole,
+    validarArchivoSubir,
     check('nombre').notEmpty().withMessage('El nombre del protocolo es obligatorio'),
     check('boletalider').notEmpty().withMessage('La boleta del líder del equipo es obligatorio'),
     check('boleta1').optional().notEmpty().withMessage('Faltan datos del segundo integrante'),
