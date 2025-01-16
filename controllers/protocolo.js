@@ -46,6 +46,7 @@ const crearProtocolo = async(req = request, res = response) => {
 const obtenerProtocoloActual = async(req = request, res = response) => {
     const { _id } = req.usuario;
     try {
+        let protocolo = undefined;
         const lider = await Protocolo.findOne({ lider: _id })
             .populate('lider', 'nombre -_id')
             .populate('integrantes', 'nombre -_id');
@@ -58,16 +59,21 @@ const obtenerProtocoloActual = async(req = request, res = response) => {
                     msg: 'No se encontró un protocolo asignado a este usuario'
                 });
             }
-            res.status(200).json({
-                msg: 'Protocolo obtenido correctamente',
-                protocolo: integrante,
-            });
+            protocolo = integrante;
         }else{
-            res.status(200).json({
-                msg: 'Protocolo obtenido correctamente',
-                protocolo: lider,
-            });
+            protocolo = lider;
         }
+        if(protocolo.archivo){
+            const pathArchivo = path.join(__dirname, '../uploads','documents',protocolo.archivo);
+            if(fs.existsSync(pathArchivo)){
+                protocolo = protocolo.toObject();
+                protocolo.archivoURL = `/uploads/documents/${protocolo.archivo}`
+            }
+        }
+        res.status(200).json({
+            msg: 'Protocolo obtenido',
+            protocolo
+        })
     } catch (error) {
         console.log(error);
         res.status(500).json({
@@ -133,7 +139,7 @@ const modificarProtocoloAlumno = async(req = request, res = response) => {
             if(fs.existsSync(pathArchivo)){
                 fs.unlinkSync(pathArchivo);
             }
-            protocolo.archivo = await subirArchivo(req.files,['pdf'],'documents')
+            protocolo.archivo = await subirArchivo(req.files,['pdf'],'documents');
         }
         await protocolo.save();
 
