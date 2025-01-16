@@ -1,9 +1,21 @@
 const { Router } = require("express");
 const { check } = require("express-validator");
-const { validarCampos , validarJWT, validarEstadoProtocolo, validarArchivoSubir, 
-        validarAlumnoRole, validarAdminRole, validarIntegrantesUsuarioRol, 
+const { validarCampos , 
+        validarJWT, 
+        validarEstadoProtocolo, 
+        validarArchivoSubir, 
+        validarAlumnoRole, 
+        validarAdminRole, 
+        validarIntegrantesUsuarioRol, 
         validarIntegrantesUsuarioRolEditar } = require("../middlewares");
-const { crearProtocolo, obtenerProtocoloActual, obtenerProtocolos, eliminarProtocolo, obtenerBoletasProtocoloEditar, estadoProtocolo, modificarProtocoloAdmin, modificarProtocoloAlumno } = require("../controllers/protocolo");
+const { crearProtocolo, 
+        obtenerProtocoloActual, 
+        obtenerProtocolos, 
+        eliminarProtocolo, 
+        obtenerBoletasProtocoloEditar, 
+        estadoProtocolo, 
+        modificarProtocoloAdmin, 
+        modificarProtocoloAlumno } = require("../controllers/protocolo");
 const { existeProtocoloDB } = require("../helpers/db-validators");
 
 const router = Router();
@@ -40,7 +52,11 @@ router.get('/admin/modificar/:id',[
     validarCampos
 ],obtenerBoletasProtocoloEditar);
 //ruta para modificar protocolo - alumno
-router.put('/',[
+router.put('/lider',[
+    validarJWT,
+    validarAlumnoRole,
+    check('descripcion').notEmpty().withMessage('La descripcion es obligatoria'),
+    validarCampos
 ],modificarProtocoloAlumno)
 //ruta para modificar protocolo - admin
 router.put('/admin/:id',[
