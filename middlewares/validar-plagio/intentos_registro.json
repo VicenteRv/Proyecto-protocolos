@@ -1,0 +1,337 @@
+[
+    {
+        "titulo": "Plataforma de E-Commerce Flexible",
+        "descripcion": "Desarrollo de un sistema que permite a los usuarios configurar tiendas en línea a su medida, incluyendo opciones de pago y funciones para revisar las ventas.",
+        "estado": "rechazado"
+    },
+    {
+        "titulo": "Prueba",
+        "descripcion": "1",
+        "estado": "aceptado"
+    },
+    {
+        "titulo": "intento",
+        "descripcion": "primero",
+        "estado": "aceptado"
+    },
+    {
+        "titulo": "intento ",
+        "descripcion": "1",
+        "estado": "rechazado"
+    },
+    {
+        "titulo": "App Móvil para Gestión de Finanzas Personales",
+        "descripcion": "Desarrollo de una aplicación para controlar presupuestos, clasificar los gastos y generar reportes de ahorro, con una interfaz amigable y soporte para diversas monedas.",
+        "estado": "rechazado"
+    },
+    {
+        "titulo": "Sistema de Gestión de Donaciones de Sangre para Hospitales",
+        "descripcion": "Diseño de una plataforma digital que permita a los hospitales registrar donantes, gestionar inventarios de sangre y programar campañas de donación, con notificaciones automatizadas para requerimientos urgentes y recordatorios a los donantes.",
+        "estado": "aceptado"
+    },
+    {
+        "titulo": "PROTOTIPO DE SISTEMA DE VISIÓN ARTIFICIAL PARA LA IDENTIFICACIÓN AUTOMÁTICA DE LA OCUPACIÓN INDEBIDA  EN ESTACIONAMIENTOS PARA PERSONAS CON DISCAPACIDAD",
+        "descripcion": "El proyecto consiste en el desarrollo de un prototipo de sistema de visión artificial que utilice cámaras y algoritmos de procesamiento de imágenes para identificar de manera automática vehículos estacionados indebidamente en espacios reservados para personas con discapacidad. Este sistema busca generar alertas o reportes en tiempo real, promoviendo un uso adecuado de estos espacios y facilitando la intervención de las autoridades correspondientes.",
+        "estado": "aceptado"
+    },
+    {
+        "titulo": "Prototipo de Sistema de Inteligencia Artificial para Detectar Uso Indebido de Estacionamientos Reservados",
+        "descripcion": "Este proyecto desarrolla un sistema basado en inteligencia artificial que emplea cámaras y técnicas de análisis de imágenes para detectar automáticamente el uso incorrecto de espacios de estacionamiento destinados a personas con discapacidad. La solución incluye la generación de reportes instantáneos o alertas para garantizar el cumplimiento de las normativas y fomentar el respeto hacia estos lugares exclusivos.",
+        "estado": "rechazado"
+    },
+    {
+        "titulo": "Prototipo de Sistema de Inteligencia Artificial para Detectar Uso Indebido de Estacionamientos Reservados",
+        "descripcion": "Este proyecto desarrolla un sistema basado en inteligencia artificial que emplea cámaras y técnicas de análisis de imágenes para detectar automáticamente el uso incorrecto de espacios de estacionamiento destinados a personas con discapacidad. La solución incluye la generación de reportes instantáneos o alertas para garantizar el cumplimiento de las normativas y fomentar el respeto hacia estos lugares exclusivos.",
+        "estado": "rechazado"
+    },
+    {
+        "titulo": "prueba",
+        "descripcion": "1",
+        "estado": "rechazado"
+    },
+    {
+        "titulo": "prueba",
+        "descripcion": "1",
+        "estado": "rechazado"
+    },
+    {
+        "titulo": "hospital",
+        "descripcion": "registro camas",
+        "estado": "aceptado"
+    },
+    {
+        "titulo": "prueba",
+        "descripcion": "1",
+        "estado": "rechazado"
+    },
+    {
+        "titulo": "pruevaaa",
+        "descripcion": "2",
+        "estado": "aceptado"
+    },
+    {
+        "titulo": "prueba ahora",
+        "descripcion": "debido al desuso de esto debo probar antes",
+        "estado": "aceptado"
+    },
+    {
+        "titulo": "prueba ahora",
+        "descripcion": "debido al desuso de esto debo probar antes",
+        "estado": "rechazado"
+    },
+    {
+        "titulo": "ahora nuevop",
+        "descripcion": "lalalal",
+        "estado": "aceptado"
+    },
+    {
+        "titulo": "1234",
+        "descripcion": "nuenvopa\r\n",
+        "estado": "aceptado"
+    },
+    {
+        "titulo": "ahoraddd",
+        "descripcion": "safjf\r\n",
+        "estado": "aceptado"
+    },
+    {
+        "titulo": "adkandakd",
+        "descripcion": "fsfjbjf",
+        "estado": "aceptado"
+    },
+    {
+        "titulo": "adfvv",
+        "descripcion": "sdadadadgeg",
+        "estado": "aceptado"
+    },
+    {
+        "titulo": "ff",
+        "descripcion": "hh",
+        "estado": "aceptado"
+    },
+    {
+        "titulo": "nuebvo adnd",
+        "descripcion": "adaffaf",
+        "estado": "aceptado"
+    },
+    {
+        "titulo": "ff",
+        "descripcion": "hh",
+        "estado": "rechazado"
+    },
+    {
+        "titulo": "ff",
+        "descripcion": "hh",
+        "estado": "rechazado"
+    },
+    {
+        "titulo": "ff",
+        "descripcion": "hh",
+        "estado": "rechazado"
+    },
+    {
+        "titulo": "ff",
+        "descripcion": "hh",
+        "estado": "rechazado"
+    },
+    {
+        "titulo": "ff",
+        "descripcion": "hh",
+        "estado": "rechazado"
+    },
+    {
+        "titulo": "ff",
+        "descripcion": "hh",
+        "estado": "rechazado"
+    },
+    {
+        "titulo": "ff",
+        "descripcion": "hh",
+        "estado": "rechazado"
+    },
+    {
+        "titulo": "ff",
+        "descripcion": "hh",
+        "estado": "rechazado"
+    },
+    {
+        "titulo": "fsgsgg",
+        "descripcion": "sdsd",
+        "estado": "aceptado"
+    },
+    {
+        "titulo": "Sistema de Gestión de Donaciones de Sangre para Hospitales",
+        "descripcion": "Diseño de una plataforma digital que permita a los hospitales registrar donantes, gestionar inventarios de sangre y programar campañas de donación, con notificaciones automatizadas para requerimientos urgentes y recordatorios a los donantes.",
+        "estado": "rechazado"
+    },
+    {
+        "titulo": "Sistema de Gestión de Donaciones de Sangre para Hospitales",
+        "descripcion": "Diseño de una plataforma digital que permita a los hospitales registrar donantes, gestionar inventarios de sangre y programar campañas de donación, con notificaciones automatizadas para requerimientos urgentes y recordatorios a los donantes.",
+        "estado": "rechazado"
+    },
+    {
+        "titulo": "Sistema de servicio domicilio",
+        "descripcion": "prueba nueva",
+        "estado": "aceptado"
+    },
+    {
+        "titulo": "prueba",
+        "descripcion": "prueba nuevas",
+        "estado": "rechazado"
+    },
+    {
+        "titulo": "prueba",
+        "descripcion": "prueba nuevas",
+        "estado": "rechazado"
+    },
+    {
+        "titulo": "prueba",
+        "descripcion": "se supone que esto debe ser aprobado",
+        "estado": "aceptado"
+    },
+    {
+        "titulo": "ley de los?",
+        "descripcion": "audaces",
+        "estado": "aceptado"
+    },
+    {
+        "titulo": "analisis y diseno de alg",
+        "descripcion": "materia en escom",
+        "estado": "aceptado"
+    },
+    {
+        "titulo": "prueba",
+        "descripcion": "prueba nueva",
+        "estado": "rechazado"
+    },
+    {
+        "titulo": "wifi",
+        "descripcion": "prosys",
+        "estado": "aceptado"
+    },
+    {
+        "titulo": "cobra",
+        "descripcion": "kai",
+        "estado": "aceptado"
+    },
+    {
+        "titulo": "cobra",
+        "descripcion": "kai",
+        "estado": "rechazado"
+    },
+    {
+        "titulo": "jaun",
+        "descripcion": "jaun",
+        "estado": "aceptado"
+    },
+    {
+        "titulo": "jaun",
+        "descripcion": "jaun",
+        "estado": "rechazado"
+    },
+    {
+        "titulo": "miyagui",
+        "descripcion": "ultima checada",
+        "estado": "aceptado"
+    },
+    {
+        "titulo": "miyagui",
+        "descripcion": "ultima checada",
+        "estado": "rechazado"
+    },
+    {
+        "titulo": "Sistema de Predicción de Fallos en Redes",
+        "descripcion": "Desarrollo de un sistema basado en inteligencia artificial para predecir fallos en redes informáticas. Utiliza aprendizaje automático para analizar patrones en los datos de tráfico y prevenir interrupciones antes de que ocurran.",
+        "estado": "aceptado"
+    },
+    {
+        "titulo": "Plataforma Inteligente de Detección de Fallos en Redes",
+        "descripcion": "Creación de una solución impulsada por inteligencia artificial que predice problemas en infraestructuras de red. El sistema emplea algoritmos de aprendizaje automático para identificar patrones en el tráfico y evitar cortes de servicio de manera proactiva.\r\n\r\n",
+        "estado": "aceptado"
+    },
+    {
+        "titulo": "Aplicación de Gestión de Recursos en la Nube",
+        "descripcion": "Diseño de una aplicación que permite a las empresas optimizar el uso de recursos en plataformas de computación en la nube. Ofrece análisis en tiempo real y recomendaciones para reducir costos y mejorar el rendimiento.\r\n",
+        "estado": "aceptado"
+    },
+    {
+        "titulo": "Herramienta para Optimización de Recursos en Nube",
+        "descripcion": "Desarrollo de un software que ayuda a las organizaciones a gestionar eficientemente sus recursos en entornos de computación en la nube. Proporciona análisis dinámicos y sugerencias para minimizar gastos y maximizar la eficiencia operativa.\r\n",
+        "estado": "aceptado"
+    },
+    {
+        "titulo": "Sistema de Recomendación basado en IA",
+        "descripcion": "Un sistema que utiliza algoritmos de aprendizaje automático para analizar los datos de los usuarios y generar recomendaciones personalizadas en tiempo real, mejorando la experiencia del usuario.\r\n",
+        "estado": "aceptado"
+    },
+    {
+        "titulo": "Sistema de Recomendación basado en IA",
+        "descripcion": "Un sistema que utiliza algoritmos de aprendizaje automático para analizar los datos de los usuarios y generar recomendaciones personalizadas en tiempo real, mejorando la experiencia del usuario.\r\n",
+        "estado": "rechazado"
+    },
+    {
+        "titulo": "Motor de Recomendaciones con Inteligencia Artificial",
+        "descripcion": "Una plataforma que emplea machine learning para procesar información de los usuarios y ofrecer sugerencias personalizadas al instante, optimizando la interacción con el usuario\r\n",
+        "estado": "aceptado"
+    },
+    {
+        "titulo": "Sistema de Recomendación de Películas",
+        "descripcion": "Un sistema que utiliza el análisis de preferencias de usuarios para recomendar películas. El sistema analiza datos históricos de visualización y las preferencias para sugerir películas que se adapten a los gustos del usuario.\r\n",
+        "estado": "aceptado"
+    },
+    {
+        "titulo": "Recomendador de Películas Personalizado",
+        "descripcion": "Un sistema que analiza las preferencias de los usuarios a través de sus actividades pasadas para recomendarles películas. Se basa en los registros de visualización y las preferencias personales para hacer sugerencias que coincidan con los intereses del usuario.\r\n",
+        "estado": "aceptado"
+    },
+    {
+        "titulo": "Sistema de Recomendación de Libros",
+        "descripcion": "Este sistema utiliza las preferencias de lectura de los usuarios, basadas en sus libros anteriores, para recomendarles nuevos libros. Analiza los géneros, autores y temas preferidos para generar sugerencias personalizadas.\r\n",
+        "estado": "aceptado"
+    },
+    {
+        "titulo": "Recomendador de Libros Personalizado",
+        "descripcion": "Un sistema que ofrece recomendaciones de libros a los usuarios, basándose en sus lecturas pasadas. El sistema estudia los géneros, autores y temáticas de sus libros favoritos para hacer sugerencias personalizadas.\r\n",
+        "estado": "rechazado"
+    },
+    {
+        "titulo": "Aplicación de Clasificación de Imágenes",
+        "descripcion": "Un sistema basado en inteligencia artificial que permite clasificar imágenes según su contenido. Utiliza redes neuronales convolucionales (CNN) para analizar y reconocer patrones en las imágenes, categorizándolas en diversas clases, como animales, paisajes, etc.",
+        "estado": "aceptado"
+    },
+    {
+        "titulo": "Reconocimiento Automático de Imágenes",
+        "descripcion": "Un sistema de aprendizaje automático que clasifica imágenes en diferentes categorías. Emplea redes neuronales profundas para analizar características visuales y asignar etiquetas apropiadas a las imágenes, como animales, edificios, paisajes y más",
+        "estado": "aceptado"
+    },
+    {
+        "titulo": "Algoritmo de Predicción del Clima",
+        "descripcion": "Un algoritmo de aprendizaje automático que predice el clima basado en datos históricos. Utiliza modelos de series temporales para analizar patrones climáticos pasados y prever las condiciones meteorológicas futuras en una región específica.",
+        "estado": "rechazado"
+    },
+    {
+        "titulo": "Sistema de Predicción Meteorológica",
+        "descripcion": "Un sistema que predice el clima utilizando datos históricos y modelos de series temporales. El algoritmo analiza patrones de clima pasados y utiliza esa información para anticipar las condiciones meteorológicas futuras en una determinada área geográfica.",
+        "estado": "aceptado"
+    },
+    {
+        "titulo": "Sistema de Análisis de Sentimientos en Redes Sociales",
+        "descripcion": "Este sistema analiza los sentimientos expresados en publicaciones de redes sociales. Utiliza procesamiento de lenguaje natural (NLP) para clasificar los textos en categorías como positivo, negativo o neutral, permitiendo así evaluar la percepción pública sobre diversos temas.",
+        "estado": "aceptado"
+    },
+    {
+        "titulo": "Análisis de Opiniones en Redes Sociales",
+        "descripcion": "Un sistema que utiliza técnicas de procesamiento de lenguaje natural para evaluar los sentimientos en comentarios de redes sociales. Clasifica los textos en diferentes categorías, como positivos, negativos o neutros, lo que ayuda a comprender las opiniones públicas sobre productos o eventos.",
+        "estado": "rechazado"
+    },
+    {
+        "titulo": "Sistema de Detección de Fraude en Transacciones Financieras",
+        "descripcion": "Este sistema utiliza algoritmos de aprendizaje automático para identificar patrones sospechosos en transacciones financieras. Analiza datos en tiempo real y detecta comportamientos anómalos que podrían indicar actividades fraudulentas.",
+        "estado": "aceptado"
+    },
+    {
+        "titulo": "Algoritmo de Prevención de Fraude Financiero",
+        "descripcion": "Un sistema basado en técnicas de aprendizaje automático que evalúa las transacciones en tiempo real. Detecta patrones inusuales y señales de alerta que pueden indicar fraude en actividades financieras, proporcionando seguridad adicional a los sistemas bancarios.",
+        "estado": "rechazado"
+    }
+]

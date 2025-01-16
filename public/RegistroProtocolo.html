@@ -53,62 +53,62 @@
     <div class="registro-tt-container">
         <div class="registro-tt-box">
             <h1>Registrar Protocolo</h1>
-            <form action="submit.php" method="post" encType="multipart/form-data" class="registro-tt-formulario">
+            <!--  <form action="submit.php" method="post" encType="multipart/form-data" class="registro-tt-formulario">  -->
+            <form action="http://127.0.0.1:5000/registrar" method="post" enctype="multipart/form-data" class="registro-tt-formulario">
                 <div class="hr"></div>
-                <label htmlFor="nombre">Nombre del Proyecto</label>
-                <input type="text" id="nombre" name="nombre" class="registro-tt-input"
+                <label for="nombre">Nombre del Proyecto</label>
+                <input type="text" id="nombre" name="titulo" class="registro-tt-input"
                     placeholder="Ingrese el nombre del proyecto" required="" />
                 <div class="hr"></div>
-                <label htmlFor="integrantes">Integrantes del Equipo (Máximo 3)</label>
+                <label for="integrantes">Integrantes del Equipo (Máximo 3)</label>
                 <p>Por favor ingresa la boleta de los integrantes.</p>
                 <div class="registro-tt-integrantes">
                     <input type="text" id="integrante1" name="integrante1" class="registro-tt-input"
-                        placeholder="Integrante 1 (Líder)" required="" />
+                        placeholder="Integrante 1 (Líder)" />
                     <input type="text" id="integrante2" name="integrante2" class="registro-tt-input"
-                        placeholder="Integrante 2" required="" />
+                        placeholder="Integrante 2" />
                     <input type="text" id="integrante3" name="integrante3" class="registro-tt-input"
-                        placeholder="Integrante 3" required="" />
+                        placeholder="Integrante 3" />
                 </div>
                 <div class="hr"></div>
-                <label htmlFor="integrantes">Directores de Protocolo</label>
+                <label for="integrantes">Directores de Protocolo</label>
                 <p>Por favor ingresa el Nombre del Director e Indica si es un profesor interno o un externo.</p>
                 <div class="registro-tt-integrantes">
                     <div class="director-datos">
                         <input type="text" id="director1" name="director1" class="registro-tt-input-director"
-                            placeholder="Director 1" required="" />
-                        <select id="lider" name="lider" class="registro-tt-select" required="">
+                            placeholder="Director 1" />
+                        <select id="lider" name="lider" class="registro-tt-select">
                             <option value="interno">Interno</option>
                             <option value="externo">Externo</option>
                         </select>
                     </div>
                     <input type="text" id="cedula1" name="cedula1" class="registro-tt-input"
-                        placeholder="Cédula Profesional" required="" />
+                        placeholder="Cédula Profesional" />
                     <div class="director-datos">
                         <input type="text" id="director2" name="director2" class="registro-tt-input-director"
-                            placeholder="Director 2" required="" />
-                        <select id="lider" name="lider" class="registro-tt-select" required="">
+                            placeholder="Director 2" />
+                        <select id="lider" name="lider" class="registro-tt-select">
                             <option value="interno">Interno</option>
                             <option value="externo">Externo</option>
                         </select>
                     </div>
                     <input type="text" id="cedula2" name="cedula2" class="registro-tt-input"
-                        placeholder="Cédula Profesional" required="" />
+                        placeholder="Cédula Profesional" />
                 </div>
                 <div class="hr"></div>
-                <label htmlFor="descripcion">Descripción del Proyecto</label>
+                <label for="descripcion">Descripción del Proyecto</label>
                 <textarea id="descripcion" name="descripcion" class="registro-tt-textarea"
-                    placeholder="Describa brevemente el proyecto" rows="5" required="" defaultValue=""></textarea>
-                <label htmlFor="documento">Subir Documento</label>
-                <input type="file" id="documento" name="documento" class="registro-tt-file" accept=".pdf,.doc,.docx"
-                    required="" />
+                    placeholder="Describa brevemente el proyecto" rows="5" required=""></textarea>
+                <label for="documento">Subir Documento</label>
+                <input type="file" id="documento" name="documento" class="registro-tt-file" accept=".pdf,.doc,.docx" />
                 <button type="submit" class="registro-tt-btn-submit">
                     Registrar
                 </button>
+                <!-- Contenedor para los mensajes de respuesta -->
+                <div id="respuesta-servidor" class="respuesta-servidor"></div>
             </form>
         </div>
     </div>
-
-    <!--    -->
 
     <!--  FOOTER  -->
     <footer class="footer">
@@ -134,8 +134,42 @@
             </div>
         </div>
     </footer>
-    <!--    -->
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.querySelector(".registro-tt-formulario");
+            const mensajeContenedor = document.createElement("div");
+            mensajeContenedor.className = "mensaje-registro";
+            form.parentNode.insertBefore(mensajeContenedor, form.nextSibling);
+    
+            form.addEventListener("submit", async function (event) {
+                event.preventDefault();
+    
+                const formData = new FormData(form);
+    
+                try {
+                    const response = await fetch(form.action, {
+                        method: "POST",
+                        body: formData,
+                    });
+    
+                    if (!response.ok) {
+                        throw new Error("Error en la respuesta del servidor.");
+                    }
+    
+                    const result = await response.json();
+                    mensajeContenedor.textContent = result.message;
+                    mensajeContenedor.style.color = result.status === "aceptado" ? "green" : "red";
+    
+                } catch (error) {
+                    console.error("Error al registrar el proyecto:", error);
+                    mensajeContenedor.textContent = "Ocurrió un error al registrar el proyecto. Por favor, inténtalo de nuevo.";
+                    mensajeContenedor.style.color = "red";
+                }
+            });
+        });
+    </script>    
+    
 </body>
 
 </html>
