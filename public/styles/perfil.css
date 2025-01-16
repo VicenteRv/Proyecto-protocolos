@@ -91,3 +91,24 @@
 a{
     text-decoration: none;
 }
+
+.noprotocolos{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.btn-editar {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #007BFF;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-editar:hover {
+    background-color: #0056b3;
+}

@@ -28,6 +28,7 @@
     </script>
     <title>ProSys - Perfil</title>
 </head>
+
 <body>
     <!--  BARRA DE NAVEGACIÓN  -->
     <nav class="navbar">
@@ -62,11 +63,13 @@
             <h2 id="usuario-nombre">Nombre del Estudiante</h2>
             <p id="usuario-boleta">Número de Boleta: 12345678</p>
             <p id="usuario-correo">Correo: estudiante@correo.com</p>
+            <a href="EditarUsuario.html" class="btn-editar">Editar Perfil</a>
         </div>
         <div class="perfil-main-content">
             <div class="perfil-section">
                 <h3>Biografía</h3>
-                <p id="usuario-biografia">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum
+                <p id="usuario-biografia">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio
+                    vitae vestibulum
                     vestibulum. Cras venenatis euismod malesuada.</p>
             </div>
             <div class="perfil-grid-section">
@@ -144,9 +147,9 @@
                     document.getElementById('usuario-nombre').innerText = data.nombre;
                     document.getElementById('usuario-boleta').innerText = `Boleta: ${data.boleta}`;
                     document.getElementById('usuario-correo').innerText = `Correo: ${data.correo}`;
-                    document.getElementById('usuario-biografia').innerText = data.biografia;
+                    //document.getElementById('usuario-biografia').innerText = data.biografia;
                 }
-                if(response.ok === false){
+                if (response.ok === false) {
                     console.log('Respuesta del servidor:', data.msg);
                 }
             } catch (error) {
@@ -155,41 +158,49 @@
             }
         });
 
-        // // Obtener Protocolos
-        // document.addEventListener('DOMContentLoaded', async function () {
-        //     try {
-        //         const protocolosContainer = document.querySelector('.perfil-grid');
-        //         // Realizar la petición al backend para obtener el saldo
-        //         const response = await fetch('/api/operaciones/consulta-Movimientos', {
-        //             method: 'GET',
-        //             headers: {
-        //                 'Content-Type': 'application/json',
-        //             },
-        //             credentials: "include"
-        //         });
-        //         const data = await response.json();
+        // Obtener Protocolos
+        document.addEventListener('DOMContentLoaded', async function () {
+            try {
+                const protocolosContainer = document.querySelector('.perfil-grid');
+                // Realizar la petición al backend para obtener el saldo
+                const response = await fetch('/api/protocolos/me', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    credentials: "include"
+                });
+                const data = await response.json();
+                console.log('Respuesta del servidor:', data);
 
-        //         data.movimientos.forEach(protocolo => {
-        //             console.log(protocolo);
-        //             const protocoloDiv = document.createElement('div');
-        //             protocoloDiv.classList.add('protocol');
-        //             protocoloDiv.innerHTML = `
-        //                 <a href="Protocolo.html" class="perfil-card">
-        //                     <h4>${protocolo.nombre}</h4>
-        //                     <p>Fecha: ${protocolo.fecha}</p>
-        //                     <p>${protocolo.sinodal1}</p>
-        //                     <p>${protocolo.sinodal2}</p>
-        //                     <p>${protocolo.sinodal3}</p>
-        //                     <p>${protocolo.descripcion}</p>
-        //                 </a>
-        //             `;
-        //             protocolosContainer.appendChild(protocoloDiv);
-        //         });
-        //     } catch (error) {
-        //         console.error('Error en la petición:', error);
-        //         alert('Hubo un error al intentar obtener los protocolos.');
-        //     }
-        // });
+                data.protocolos.forEach(protocolo => {
+                    console.log(protocolo);
+                    const protocoloDiv = document.createElement('div');
+                    protocoloDiv.innerHTML = `
+                        <a href="Protocolo.html" class="perfil-card">
+                            <h4>${protocolo.nombre}</h4>
+                            <p>Fecha: 01/01/2024</p>
+                            <p>Sinodal: Dr. Pérez</p>
+                            <p>Sinodal: Mtro. García</p>
+                            <p>Sinodal: Dr. Sánchez</p>
+                            <p>${protocolo.descripcion}</p>
+                        </a>
+                    `;
+                    protocolosContainer.appendChild(protocoloDiv);
+                });
+            } catch (error) {
+                const protocolosContainer = document.querySelector('.perfil-grid-section');
+                const protocoloDiv = document.createElement('div');
+                protocoloDiv.classList.add('noprotocolos');
+                protocoloDiv.innerHTML = `
+                    <h4>Aún no tienes protocolos</h4>
+                `;
+                protocolosContainer.appendChild(protocoloDiv);
+                console.error('Error en la petición:', error);
+                alert('Hubo un error al intentar obtener los protocolos.');
+
+            }
+        });
     </script>
 
     <!--  FOOTER  -->

@@ -21,16 +21,16 @@
                 </div>
                 <div class="form-group">
                     <label htmlFor="boleta">Boleta</label>
-                    <input type="text" id="boleta" placeholder="Ingrese su correo" required />
+                    <input type="text" id="boleta" placeholder="Ingrese su boleta" required />
                 </div>
                 <div class="form-group">
                     <label htmlFor="correo">Correo</label>
                     <input type="text" id="correo" placeholder="Ingrese su correo" required />
                 </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label htmlFor="biografia">Biografía</label>
-                    <input type="text" id="biografia" placeholder="Ingrese su bio" required />
-                </div>
+                    <input type="text" id="biografia" placeholder="Ingrese su biografía" required />
+                </div> -->
                 <div class="button-group" style="justify-content: center;">
                     <button type="submit" class="login-button">Actualizar Usuario</button>
                 </div>
@@ -39,7 +39,7 @@
     </div>
 
     <script>
-        // Obtener Usuario
+        // Obtener datos actuales
         document.addEventListener('DOMContentLoaded', async function () {
             try {
                 const response = await fetch('/api/usuarios/me', {
@@ -52,19 +52,18 @@
                 const data = await response.json();
                 if (response.ok) {
                     console.log('Usuario:', data);
-                    // // Actualizar datos de usuario en la interfaz de usuario
+
                     const nombreInput = document.getElementById('nombre');
                     nombreInput.value = data.nombre;
                     const boletaInput = document.getElementById('boleta');
-                    if (data.boleta == "undefined") {
-                        boletaInput.value = data.boleta;
-                    }
+                    boletaInput.value = data.boleta;
                     const correoInput = document.getElementById('correo');
-                    correoInput.value = data.correo
-                    const biografiaInput = document.getElementById('biografia');
-                    if (data.biografia == "undefined") {
-                        biografiaInput.value = data.biografia
-                    }
+                    correoInput.value = data.correo;
+                    // const biografiaInput = document.getElementById('biografia');
+                    // data.biografia = "Biografia";
+                    // if (data.biografia == "undefined") {
+                    //     biografiaInput.value = data.biografia
+                    // }
                     if (response.ok === false) {
                         console.log('Respuesta del servidor:', data.msg);
                     }
@@ -74,6 +73,11 @@
                 alert('Hubo un error al intentar obtener el usuario.');
             }
         });
+
+        // Modificar datos
+
+        
+
     </script>
 
 </body>
