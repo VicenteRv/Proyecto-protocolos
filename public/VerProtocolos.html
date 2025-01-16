@@ -106,7 +106,7 @@
                 try {
                     const protocolosContainer = document.querySelector('.protocolos-contenedor');
                     // Realizar la petición al backend para obtener el saldo
-                    const response = await fetch('/api/protocolo/admin', {
+                    const response = await fetch('/api/protocolos/admin', {
                         method: 'GET',
                         headers: {
                             'Content-Type': 'application/json',
@@ -151,7 +151,7 @@
                         <h4>No se han encontrado Protocolos. Vuelve más tarde</h4>
                     `;
                     protocolosContainer.appendChild(protocoloDiv);
-                    //console.error('Error en la petición:', error);
+                    console.error('Error en la petición:', error);
                     alert('Hubo un error al intentar obtener los protocolos.');
 
                 }

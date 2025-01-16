@@ -56,11 +56,15 @@
                     const nombreInput = document.getElementById('nombre');
                     nombreInput.value = data.nombre;
                     const boletaInput = document.getElementById('boleta');
-                    boletaInput.value = data.boleta
+                    if (data.boleta == "undefined") {
+                        boletaInput.value = data.boleta;
+                    }
                     const correoInput = document.getElementById('correo');
-                    correoInput.value = data.correo;
+                    correoInput.value = data.correo
                     const biografiaInput = document.getElementById('biografia');
-                    biografiaInput.value = data.biografia;
+                    if (data.biografia == "undefined") {
+                        biografiaInput.value = data.biografia
+                    }
                     if (response.ok === false) {
                         console.log('Respuesta del servidor:', data.msg);
                     }
