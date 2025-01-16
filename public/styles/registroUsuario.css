@@ -23,3 +23,7 @@
     background-color: #267b3c;
     transform: scale(0.98);
 }
+
+.hidden {
+    display: none;
+}
