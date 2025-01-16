@@ -18,7 +18,6 @@ router.post('/',[
     check('boleta1').optional().notEmpty().withMessage('Faltan datos del segundo integrante'),
     check('boleta2').optional().notEmpty().withMessage('Faltan datos del tercer integrante'),
     check('descripcion').notEmpty().withMessage('La descripción del protocolo es obligatoria'),
-    // check('archivo').notEmpty().withMessage('El archivo es obligatorio'),   
     validarIntegrantesUsuarioRol,
     validarCampos,
 ],crearProtocolo);
