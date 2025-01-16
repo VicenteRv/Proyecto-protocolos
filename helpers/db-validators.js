@@ -9,9 +9,12 @@ const usuarioExistente = async(correo = '')=>{
     }
 }
 const boletaExistente = async(boleta = '')=>{
-    const existeBoleta = await Usuario.findOne({boleta});
-    if(existeBoleta){
-        throw new Error(`La boleta: ${boleta} ya esta registrada en la bd`)
+    const existeBoleta = await Usuario.findOne({ boleta });
+    const existeCedula = await Usuario.findOne({ cedula: boleta });
+
+    if (existeBoleta || existeCedula)  {
+        const campo = existeBoleta ? 'boleta' : 'cedula';
+        throw new Error(`El dato ingresado ${boleta} ya está registrada en la BD`);
     }
 }
 const esAlumnoBoleta = async(boleta = '')=>{

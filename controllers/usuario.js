@@ -3,7 +3,7 @@ const bcryptjs = require('bcryptjs');
 const {Usuario,Role} = require("../models");
 
 const crearUsuario = async(req = request, res = response) => {
-    const {nombre, correo, password, rol, boleta} = req.body;
+    const {nombre, correo, password, rol, boleta, externo} = req.body;
     try {
         //buscar el rol en bd para asignarlo
         const newRol = await Role.findOne({rol})
@@ -13,8 +13,12 @@ const crearUsuario = async(req = request, res = response) => {
             correo,
             password,
             rol: newRol._id,
-            boleta
         })
+        if (externo) {
+            usuario.cedula = boleta || '';
+        } else {
+            usuario.boleta = boleta || '';
+        }
         //encryptar contraseña
         const salt = bcryptjs.genSaltSync();
         usuario.password = bcryptjs.hashSync(password,salt);
