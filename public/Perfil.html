@@ -74,8 +74,8 @@
             </div>
             <div class="perfil-grid-section">
                 <h3>Tus Protocolos</h3>
-                <!-- <div class="perfil-grid">
-                    <a href="Protocolo.html" class="perfil-card">
+                <div class="perfil-grid">
+                    <!-- <a href="Protocolo.html" class="perfil-card">
                         <h4>Protocolo 1</h4>
                         <p>Fecha: 01/01/2024</p>
                         <p>Sinodal: Dr. Pérez</p>
@@ -122,8 +122,8 @@
                         <p>Sinodal: Dr. Pérez</p>
                         <p>Sinodal: Ing. Martínez</p>
                         <p>Descripción breve del trabajo.</p>
-                    </a>
-                </div> -->
+                    </a> -->
+                </div>
             </div>
         </div>
     </div>
@@ -174,21 +174,40 @@
                 if (response.ok) {
                     console.log('Respuesta del servidor:', data);
 
-                    data.protocolos.forEach(protocolo => {
-                        console.log(protocolo);
-                        const protocoloDiv = document.createElement('div');
-                        protocoloDiv.innerHTML = `
-                        <a href="Protocolo.html" class="perfil-card">
-                            <h4>${protocolo.nombre}</h4>
-                            <p>Fecha: 01/01/2024</p>
+                    const protocolosContainer = document.querySelector('.perfil-grid');
+                    const protocoloLink = document.createElement('a');
+                    protocoloLink.href = "Protocolo.html";
+                    protocoloLink.className = "perfil-card";
+                    protocoloLink.innerHTML = `
+                            <h4>${data.protocolo.nombre}</h4>
+                            <hr>
+                            <p>Director: Dr. Pérez</p>
+                            <p>Director: Mtro. García</p>
+                            <hr>
                             <p>Sinodal: Dr. Pérez</p>
                             <p>Sinodal: Mtro. García</p>
                             <p>Sinodal: Dr. Sánchez</p>
-                            <p>${protocolo.descripcion}</p>
-                        </a>
+                            <hr>
+                            <p>${data.protocolo.descripcion}</p>
                     `;
-                        protocolosContainer.appendChild(protocoloDiv);
-                    });
+                    protocolosContainer.appendChild(protocoloLink);
+
+                    // data.protocolo.forEach(protocolo => {
+                    //     console.log(protocolo);
+                    //     const protocoloDiv = document.createElement('div');
+                    //     protocoloDiv.innerHTML = `
+                    //     <a href="Protocolo.html" class="perfil-card">
+                    //         <h4>${protocolo.nombre}</h4>
+                    //         <p>Fecha: 01/01/2024</p>
+                    //         <p>Sinodal: Dr. Pérez</p>
+                    //         <p>Sinodal: Mtro. García</p>
+                    //         <p>Sinodal: Dr. Sánchez</p>
+                    //         <p>${protocolo.descripcion}</p>
+                    //     </a>
+                    // `;
+                    //     protocolosContainer.appendChild(protocoloDiv);
+                    // });
+
                 } else {
                     console.log('Respuesta del servidor:', data);
                     const protocolosContainer = document.querySelector('.perfil-grid-section');

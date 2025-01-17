@@ -60,6 +60,9 @@
                 <div class="button-group">
                     <button type="button" onclick="crearUsuario()" class="create-button-registro">Crear usuario</button>
                 </div>
+                <div id="errorMessages" style="color: red;">
+                    <!-- Los errores se mostrarán aquí -->
+                </div>
             </form>
             <a href="Login.html">¿Ya tienes una cuenta?</a>
         </div>
@@ -115,6 +118,10 @@
             let numTrabajador = document.getElementById('no-trabajador').value;
             let cedula = document.getElementById('cedula').value;
 
+            // Limpiar mensajes de error previos
+            document.getElementById('errorMessages').innerHTML = '';
+            document.getElementById('errorMessages').style.display = 'none';
+
             console.log(nombre, correo, password, rol, boleta, tipoProfe, numTrabajador, cedula);
 
             let externo;
@@ -140,6 +147,20 @@
                     window.location.href = 'Login.html';
                 } else {
                     console.log('Respuesta del servidor:', data.errors.map(error => error.msg).join('\n'));
+                    if (data.errors && data.errors.length > 0) {
+                            let errorMessages = '';
+                            data.errors.forEach(error => {
+                                errorMessages += `<p><strong>${error.msg}</strong></p>`;
+                            });
+
+                            // Mostrar los errores en el contenedor
+                            document.getElementById('errorMessages').innerHTML = errorMessages;
+                            document.getElementById('errorMessages').style.display = 'block';
+                        } else {
+                            errorMessage = `<p><strong>${data.msg}</strong></p>`;
+                            document.getElementById('errorMessages').innerHTML = errorMessage;
+                            document.getElementById('errorMessages').style.display = 'block';
+                        }
                 }
             } catch (error) {
                 console.log('Error:', error);
