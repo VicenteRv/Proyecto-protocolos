@@ -5,9 +5,10 @@ const {Protocolo, Usuario} = require("../models");
 const { subirArchivo } = require("../helpers/subir-archivo");
 
 const crearProtocolo = async(req = request, res = response) => {
-    const { nombre, boletalider, boleta1, boleta2, descripcion } = req.body;
+    const { nombre, boletalider, boleta1, boleta2, descripcion, director1, director2 } = req.body;
     try {
         const boletas = [boletalider, boleta1, boleta2].filter(boleta => boleta !== undefined && boleta.trim() !== '');
+        const boletasDir = [director1,director2].filter(boleta => boleta !== undefined && boleta.trim() !== '');
         const integrantes = await Promise.all(
             boletas.map(async (boleta) => {
                 const {id} = await Usuario.findOne({ boleta });
@@ -17,6 +18,17 @@ const crearProtocolo = async(req = request, res = response) => {
                 return id;
             })
         );
+        const directores = await Promise.all(
+            boletasDir.map(async (boleta) => {
+                const { id } = await Usuario.findOne({
+                    $or: [{ boleta: boleta }, { cedula: boleta }],
+                });
+                if (!id) {
+                    throw new Error(`No se encontró un usuario con la boleta: ${boleta}`);
+                }
+                return id;
+            })
+        );        
         // const uuid = await subirArchivo(req.files,undefined,'documents')
         // const uuid = await subirArchivo(req.files,['pdf'],'documents')
         const uuidDoc = await subirArchivo(req.files,['pdf'],'documents')
@@ -24,6 +36,7 @@ const crearProtocolo = async(req = request, res = response) => {
             nombre,
             lider: integrantes[0],
             integrantes: integrantes.slice(1),
+            directores,
             descripcion,
             archivo: uuidDoc,
         });

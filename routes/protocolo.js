@@ -17,6 +17,7 @@ const { crearProtocolo,
         modificarProtocoloAdmin, 
         modificarProtocoloAlumno } = require("../controllers/protocolo");
 const { existeProtocoloDB } = require("../helpers/db-validators");
+const { validarDirectores } = require("../middlewares/validar-directores");
 
 const router = Router();
 //ruta para registrar un protocolo
@@ -30,6 +31,7 @@ router.post('/',[
     check('boleta2').optional().notEmpty().withMessage('Faltan datos del tercer integrante'),
     check('descripcion').notEmpty().withMessage('La descripción del protocolo es obligatoria'),
     validarIntegrantesUsuarioRol,
+    validarDirectores,
     validarCampos,
 ],crearProtocolo);
 //ruta para obtener el protocolo del usuario loggeado

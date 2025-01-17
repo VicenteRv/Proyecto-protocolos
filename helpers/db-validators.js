@@ -65,6 +65,13 @@ const validarCorreoUsuario = async(correo = '')=>{
         throw new Error(`El correo/contraseña son incorrectos - correo`)
     }
 }
+const boletaExiste = async(boleta) =>{ 
+    const boletaExiste = await Usuario.findOne({ boleta });
+    const cedulaExiste = await Usuario.findOne({ cedula: boleta });
+    if (!boletaExiste || !cedulaExiste)  {
+        throw new Error(`La boleta ${boleta} ingresada no existe en la bd `);
+    }
+}
 //verificar roles
 const roleAdmin = async(id)=>{
     const esRolAdmin = await Role.findById(id);
@@ -85,13 +92,11 @@ const roleAlumno = async(id)=>{
     }
 }
 const roleProfesor = async(id)=>{
-    const esRolSinodal = await Role.findById(id);
-    if(!esRolSinodal){
-        throw new Error(`El rol con id ${id} no existe en la bd`)
+    const esRolProfesor = await Role.findById(id);
+    if(esRolProfesor.rol !== ROLES.PROFESOR){
+        throw new Error(`El usuario no es un Profesor`)
     }
-    if(esRolSinodal.rol !== ROLES.PROFESOR){
-        throw new Error(`El usuario no es un sinodal`)
-    }
+    return true;
 }
 //potocolos
 const existeProtocoloDB = async(id)=>{
@@ -115,4 +120,5 @@ module.exports = {
     boletaExistente,
     esAlumnoBoleta,
     existeProtocoloDB,
+    boletaExiste,
 };
