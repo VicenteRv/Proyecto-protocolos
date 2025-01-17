@@ -11,13 +11,14 @@ const router = Router();
 //ruta para registrar un usuario
 router.post('/',[
     check('nombre').notEmpty().withMessage('El nombre es obligatorio'),
-    check('boleta').notEmpty().withMessage('La boleta es obligatoria')
-        .custom(boletaExistente),
     check('correo').notEmpty().withMessage('El correo es obligatorio')
         .isEmail().withMessage('El correo no es valido')
         .custom(usuarioExistente),
     check('password').notEmpty().withMessage('La contraseña es obligatoria')
         .isLength({min:8}).withMessage('La contraseña debe de tener mas de 8 caracteres'),
+    check('externo').isBoolean().withMessage('El campo externo debe ser un valor booleano'),
+    check('boleta').notEmpty().withMessage('La boleta es obligatoria')
+        .custom(boletaExistente),
     check('rol').notEmpty().withMessage('El tipo de usuario es obligatorio')
         .custom(validacionRol),
     validarCampos

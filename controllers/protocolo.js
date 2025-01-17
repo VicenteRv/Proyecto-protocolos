@@ -1,10 +1,14 @@
+const path = require('path');
+const fs = require('fs')
 const { request, response } = require("express");
 const {Protocolo, Usuario} = require("../models");
+const { subirArchivo } = require("../helpers/subir-archivo");
 
 const crearProtocolo = async(req = request, res = response) => {
-    const { nombre, boletalider, boleta1, boleta2, descripcion, archivo = 'Archivo por defecto' } = req.body;
+    const { nombre, boletalider, boleta1, boleta2, descripcion, director1, director2 } = req.body;
     try {
         const boletas = [boletalider, boleta1, boleta2].filter(boleta => boleta !== undefined && boleta.trim() !== '');
+        const boletasDir = [director1,director2].filter(boleta => boleta !== undefined && boleta.trim() !== '');
         const integrantes = await Promise.all(
             boletas.map(async (boleta) => {
                 const {id} = await Usuario.findOne({ boleta });
@@ -14,12 +18,27 @@ const crearProtocolo = async(req = request, res = response) => {
                 return id;
             })
         );
+        const directores = await Promise.all(
+            boletasDir.map(async (boleta) => {
+                const { id } = await Usuario.findOne({
+                    $or: [{ boleta: boleta }, { cedula: boleta }],
+                });
+                if (!id) {
+                    throw new Error(`No se encontró un usuario con la boleta: ${boleta}`);
+                }
+                return id;
+            })
+        );        
+        // const uuid = await subirArchivo(req.files,undefined,'documents')
+        // const uuid = await subirArchivo(req.files,['pdf'],'documents')
+        const uuidDoc = await subirArchivo(req.files,['pdf'],'documents')
         const newProtocolo = new Protocolo({
             nombre,
             lider: integrantes[0],
             integrantes: integrantes.slice(1),
+            directores,
             descripcion,
-            archivo
+            archivo: uuidDoc,
         });
         const guardado = await newProtocolo.save();
         const protocolo = await Protocolo.findById(guardado._id)
@@ -31,15 +50,16 @@ const crearProtocolo = async(req = request, res = response) => {
         });
     } catch (error) {
         console.log(error);
-        res.status(500).json({
-            msg: 'Hubo un problema al guardar en la base de datos, inténtelo de nuevo'
-        });
+        res.status(400).json({
+            msg: `Hubo un problema: ${error}`
+        })
     }
 }
 
 const obtenerProtocoloActual = async(req = request, res = response) => {
     const { _id } = req.usuario;
     try {
+        let protocolo = undefined;
         const lider = await Protocolo.findOne({ lider: _id })
             .populate('lider', 'nombre -_id')
             .populate('integrantes', 'nombre -_id');
@@ -52,16 +72,21 @@ const obtenerProtocoloActual = async(req = request, res = response) => {
                     msg: 'No se encontró un protocolo asignado a este usuario'
                 });
             }
-            res.status(200).json({
-                msg: 'Protocolo obtenido correctamente',
-                protocolo: integrante,
-            });
+            protocolo = integrante;
         }else{
-            res.status(200).json({
-                msg: 'Protocolo obtenido correctamente',
-                protocolo: lider,
-            });
+            protocolo = lider;
         }
+        if(protocolo.archivo){
+            const pathArchivo = path.join(__dirname, '../uploads','documents',protocolo.archivo);
+            if(fs.existsSync(pathArchivo)){
+                protocolo = protocolo.toObject();
+                protocolo.archivoURL = `/uploads/documents/${protocolo.archivo}`
+            }
+        }
+        res.status(200).json({
+            msg: 'Protocolo obtenido',
+            protocolo
+        })
     } catch (error) {
         console.log(error);
         res.status(500).json({
@@ -110,7 +135,39 @@ const obtenerBoletasProtocoloEditar = async(req = request, res = response) => {
         });
     }
 }
-const modificarProtocolo = async(req = request, res = response) => {
+const modificarProtocoloAlumno = async(req = request, res = response) => {
+    const {descripcion} = req.body;
+    // const {archivo = false} = req.files;
+    const { _id } = req.usuario;
+    try {
+        const protocolo = await Protocolo.findOne({ lider: _id });
+        if (!protocolo) {
+            return res.status(400).json({
+                msg: 'No se encontro protocolo o no eres el lider de este'
+            })
+        }
+        protocolo.descripcion = descripcion
+        if(req.files && req.files.archivo){
+            const pathArchivo = path.join(__dirname, '../uploads','documents',protocolo.archivo);
+            if(fs.existsSync(pathArchivo)){
+                fs.unlinkSync(pathArchivo);
+            }
+            protocolo.archivo = await subirArchivo(req.files,['pdf'],'documents');
+        }
+        await protocolo.save();
+
+        res.status(200).json({
+            msg: 'modificaciones realizadas en bd',
+            protocolo
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({
+            msg: `Hubo un problema: ${error}`
+        })
+    }
+}
+const modificarProtocoloAdmin = async(req = request, res = response) => {
     const { id } = req.params;
     const { nombre, boletalider, boleta1, boleta2 } = req.body;
     try {
@@ -167,7 +224,8 @@ module.exports = {
     obtenerProtocoloActual,
     obtenerProtocolos,
     obtenerBoletasProtocoloEditar,
-    modificarProtocolo,
+    modificarProtocoloAlumno,
+    modificarProtocoloAdmin,
     estadoProtocolo,
     eliminarProtocolo,
 };

@@ -1,25 +1,37 @@
 const { Router } = require("express");
 const { check } = require("express-validator");
-const { validarCampos } = require("../middlewares/validar-campos");
-const { validarJWT } = require("../middlewares/validar-jwt");
-const { crearProtocolo, obtenerProtocoloActual, obtenerProtocolos, modificarProtocolo, eliminarProtocolo, obtenerBoletasProtocoloEditar, estadoProtocolo } = require("../controllers/protocolo");
-const { validarAlumnoRole, validarAdminRole } = require("../middlewares/validar-roles");
-const { validarIntegrantesUsuarioRol, validarIntegrantesUsuarioRolEditar } = require("../middlewares/validar-integrantes");
+const { validarCampos , 
+        validarJWT, 
+        validarEstadoProtocolo, 
+        validarArchivoSubir, 
+        validarAlumnoRole, 
+        validarAdminRole, 
+        validarIntegrantesUsuarioRol, 
+        validarIntegrantesUsuarioRolEditar } = require("../middlewares");
+const { crearProtocolo, 
+        obtenerProtocoloActual, 
+        obtenerProtocolos, 
+        eliminarProtocolo, 
+        obtenerBoletasProtocoloEditar, 
+        estadoProtocolo, 
+        modificarProtocoloAdmin, 
+        modificarProtocoloAlumno } = require("../controllers/protocolo");
 const { existeProtocoloDB } = require("../helpers/db-validators");
-const { validarEstadoProtocolo } = require("../middlewares/validar-estado-protocolo");
+const { validarDirectores } = require("../middlewares/validar-directores");
 
 const router = Router();
 //ruta para registrar un protocolo
 router.post('/',[
     validarJWT,
     validarAlumnoRole,
+    validarArchivoSubir,
     check('nombre').notEmpty().withMessage('El nombre del protocolo es obligatorio'),
     check('boletalider').notEmpty().withMessage('La boleta del líder del equipo es obligatorio'),
     check('boleta1').optional().notEmpty().withMessage('Faltan datos del segundo integrante'),
     check('boleta2').optional().notEmpty().withMessage('Faltan datos del tercer integrante'),
     check('descripcion').notEmpty().withMessage('La descripción del protocolo es obligatoria'),
-    // check('archivo').notEmpty().withMessage('El archivo es obligatorio'),   
     validarIntegrantesUsuarioRol,
+    validarDirectores,
     validarCampos,
 ],crearProtocolo);
 //ruta para obtener el protocolo del usuario loggeado
@@ -41,6 +53,13 @@ router.get('/admin/modificar/:id',[
     check('id').custom(existeProtocoloDB).withMessage('El protocolo no existe en la bd'),
     validarCampos
 ],obtenerBoletasProtocoloEditar);
+//ruta para modificar protocolo - alumno
+router.put('/lider',[
+    validarJWT,
+    validarAlumnoRole,
+    check('descripcion').notEmpty().withMessage('La descripcion es obligatoria'),
+    validarCampos
+],modificarProtocoloAlumno)
 //ruta para modificar protocolo - admin
 router.put('/admin/:id',[
     validarJWT,
@@ -53,7 +72,7 @@ router.put('/admin/:id',[
     check('boleta1').optional().notEmpty().withMessage('Faltan datos del segundo integrante'),
     check('boleta2').optional().notEmpty().withMessage('Faltan datos del tercer integrante'),
     validarCampos
-],modificarProtocolo);
+],modificarProtocoloAdmin);
 //ruta para cambiar estado del protocolo
 router.patch('/admin/:id',[
     validarJWT,

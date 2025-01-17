@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose');
-const arrayLimit = (val) => val.length <= 3;
+const arrayLimit3 = (val) => val.length <= 3;
+const arrayLimit2 = (val) => val.length <= 2;
 const ProtocoloSchema = new Schema({
     nombre: {
         type: String,
@@ -18,8 +19,20 @@ const ProtocoloSchema = new Schema({
             }
         ],
         validate: {
-            validator: arrayLimit,
-            message: 'El protocolo no puede tener más de 3 integrantes'
+            validator: arrayLimit2,
+            message: 'El protocolo no puede tener más de 2 integrantes'
+        }
+    },
+    directores: {
+        type: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'Usuario'
+            }
+        ],
+        validate: {
+            validator: arrayLimit2,
+            message: 'El protocolo no puede tener más de 2 directores'
         }
     },
     sinodales: {
@@ -30,7 +43,7 @@ const ProtocoloSchema = new Schema({
             }
         ],
         validate: {
-            validator: arrayLimit,
+            validator: arrayLimit3,
             message: 'El protocolo no puede tener más de 3 sinodales'
         }
     },

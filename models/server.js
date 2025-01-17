@@ -1,7 +1,8 @@
 const express = require('express');
 const cors = require('cors');
-const { port } = require('../config/config');
 const cookieParser = require('cookie-parser');  // Importa cookie-parser
+const fileUpload = require('express-fileupload');
+const { port } = require('../config/config');
 const { dbConnection } = require('../database/config');
 
 class Server {
@@ -33,6 +34,12 @@ class Server {
         this.app.use(cookieParser());
         // Directorio Público
         this.app.use( express.static('public') );
+        //FileUpload - cargar de archivos
+        this.app.use(fileUpload({
+            useTempFiles : true,
+            tempFileDir : '/tmp/',
+            createParentPath: true
+        }));
     }
     routes() {
         this.app.use(this.paths.usuarios,require('../routes/usuario'));
