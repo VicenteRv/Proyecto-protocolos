@@ -113,24 +113,35 @@
             let correo = document.getElementById('email').value;
             let password = document.getElementById('password').value;
             let rol = document.getElementById('rol').value;
-            let boleta = document.getElementById('boleta').value;
             let tipoProfe = document.getElementById('rol-profesor').value;
-            let numTrabajador = document.getElementById('no-trabajador').value;
-            let cedula = document.getElementById('cedula').value;
+            let usuario = document.getElementById('boleta').value;
+            let pInt = document.getElementById('no-trabajador').value;
+            let pExt = document.getElementById('cedula').value;
+            let boleta;
+            
+            if (usuario) {
+                boleta = usuario;
+            }
+            if (pInt) {
+                boleta = pInt;
+            }
+            if (pExt) {
+                boleta = pExt;
+            }
+
+            console.log(boleta);
 
             // Limpiar mensajes de error previos
             document.getElementById('errorMessages').innerHTML = '';
             document.getElementById('errorMessages').style.display = 'none';
-
-            console.log(nombre, correo, password, rol, boleta, tipoProfe, numTrabajador, cedula);
-
+            
             let externo;
             if (tipoProfe == "EXTERNO") {
                 externo = true;
             }else{
                 externo = false;
             }
-  
+            
             try {
                 const response = await fetch('/api/usuarios', {
                     method: 'POST',

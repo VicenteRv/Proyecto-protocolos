@@ -11,142 +11,101 @@
 </head>
 
 <body>
-
     <!--  BARRA DE NAVEGACIÓN  -->
     <nav class="navbar">
         <div class="navbar-container">
             <a href="index.html" class="navbar-logo">
-                <img class="navbar-image" src="assets/LogoHorizontal.png" alt="">
+                <img class="navbar-image" src="assets/LogoHorizontal.png" alt="Logo">
             </a>
             <ul class="navbar-menu">
-                <li class="navbar-item">
-                    <a href="index.html" class="navbar-link">Inicio</a>
-                </li>
-                <li class="navbar-item">
-                    <a href="Documentos.html" class="navbar-link">Documentos</a>
-                </li>
-                <li class="navbar-item">
-                    <a href="Perfil.html" class="navbar-link">Perfil</a>
-                </li>
-                <li class="navbar-item">
-                    <a href="Login.html" class="navbar-link">Inicio de sesión</a>
-                </li>
-                <li class="navbar-item">
-                    <a href="RegistroProtocolo.html" class="navbar-link">Registro Protocolo</a>
-                </li>
+                <li class="navbar-item"><a href="index.html" class="navbar-link">Inicio</a></li>
+                <li class="navbar-item"><a href="Documentos.html" class="navbar-link">Documentos</a></li>
+                <li class="navbar-item"><a href="Perfil.html" class="navbar-link">Perfil</a></li>
+                <li class="navbar-item"><a href="Login.html" class="navbar-link">Inicio de sesión</a></li>
+                <li class="navbar-item"><a href="RegistroProtocolo.html" class="navbar-link">Registro Protocolo</a></li>
             </ul>
         </div>
     </nav>
-    <!--    -->
 
-    <!--  PÁGINA   -->
-
+    <!--  PÁGINA PRINCIPAL  -->
     <div class="registro-tt-container">
         <div class="registro-tt-box">
             <h1>Registrar Protocolo</h1>
-            <form action="submit.php" method="post" encType="multipart/form-data" class="registro-tt-formulario">
+            <form id="protocoloForm">
                 <div class="hr"></div>
-                <label htmlFor="nombre">Nombre del Proyecto</label>
-                <input type="text" id="nombre" name="nombre" class="registro-tt-input"
-                    placeholder="Ingrese el nombre del proyecto" required="" />
+                <label for="nombre">Nombre del Proyecto</label>
+                <input type="text" id="nombre" name="nombre" class="registro-tt-input" placeholder="Ingrese el nombre del proyecto" required>
                 <div class="hr"></div>
-                <label htmlFor="integrantes">Integrantes del Equipo (Máximo 3)</label>
+
+                <label for="integrantes">Integrantes del Equipo (Máximo 3)</label>
                 <p>Por favor ingresa la boleta de los integrantes.</p>
                 <div class="registro-tt-integrantes">
-                    <input type="text" id="integrante1" name="integrante1" class="registro-tt-input"
-                        placeholder="Boleta Integrante 1 (Líder)" required="" />
-                    <input type="text" id="integrante2" name="integrante2" class="registro-tt-input"
-                        placeholder="Boleta Integrante 2" required="" />
-                    <input type="text" id="integrante3" name="integrante3" class="registro-tt-input"
-                        placeholder="Boleta Integrante 3" required="" />
+                    <input type="text" id="boletalider" name="boletalider" class="registro-tt-input" placeholder="Boleta Integrante 1 (Líder)" required>
+                    <input type="text" id="boleta1" name="boleta1" class="registro-tt-input" placeholder="Boleta Integrante 2">
+                    <input type="text" id="boleta2" name="boleta2" class="registro-tt-input" placeholder="Boleta Integrante 3">
                 </div>
+
                 <div class="hr"></div>
-                <label htmlFor="integrantes">Directores de Protocolo</label>
-                <p>Por favor ingresa el Número de Trabajador o Cédula Profesional del Director o directores</p>
+                <label for="directores">Directores de Protocolo</label>
+                <p>Por favor ingresa el Número de Trabajador o Cédula Profesional del Director o Directores.</p>
                 <div class="registro-tt-integrantes">
-                    <input type="text" id="director1" name="director1" class="registro-tt-input"
-                        placeholder="Director 1" required="" />
-                    <input type="text" id="director2" name="director2" class="registro-tt-input"
-                        placeholder="Director 2" required="" />
+                    <input type="text" id="director1" name="director1" class="registro-tt-input" placeholder="Director 1" required>
+                    <input type="text" id="director2" name="director2" class="registro-tt-input" placeholder="Director 2">
                 </div>
+
                 <div class="hr"></div>
-                <label htmlFor="descripcion">Descripción del Proyecto</label>
-                <textarea id="descripcion" name="descripcion" class="registro-tt-textarea"
-                    placeholder="Describa brevemente el proyecto" rows="5" required="" defaultValue=""></textarea>
-                <label htmlFor="documento">Subir Documento</label>
-                <input type="file" id="documento" name="documento" class="registro-tt-file" accept=".pdf,.doc,.docx"
-                    required="" />
-                <button type="submit" class="registro-tt-btn-submit">
-                    Registrar
-                </button>
+                <label for="descripcion">Descripción del Proyecto</label>
+                <textarea id="descripcion" name="descripcion" class="registro-tt-textarea" placeholder="Describa brevemente el proyecto" rows="5" required></textarea>
+                <label for="archivo">Subir archivo</label>
+                <input type="file" id="archivo" name="archivo" class="registro-tt-file" accept=".pdf" required>
+                <button type="button" onclick="subirProtocolo()" class="registro-tt-btn-submit">Registrar Protocolo</button>
             </form>
         </div>
     </div>
-
-    <!--    -->
-
+    <!-- SCRIPT -->
     <script>
-        async function crearProtocolo() {
-            let nombre = document.getElementById('nombre').value;
-            let boletalider = document.getElementById('integrante1').value;
-            let boleta1 = document.getElementById('integrante2').value;
-            let boleta2 = document.getElementById('integrante3').value;
-            let director1 = document.getElementById('director1').value;
-            let director2 = document.getElementById('director2').value;
-            let descripcion = document.getElementById('descripcion').value;
-            
-            console.log(nombre, correo, password, rol, boleta);
+        async function subirProtocolo() {
+            const form = document.getElementById('protocoloForm');
+            const formData = new FormData(form);
+
             try {
-                const response = await fetch('/api/usuarios', {
+                const response = await fetch('/api/protocolos', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ nombre, boletalider, boleta1, boleta2, director1, director2, descripcion }),
-                    credentials: 'include'
+                    body: formData,
+                    credentials: 'include',
                 });
-                const data = await response.json();
+
                 if (response.ok) {
-                    console.log('Usuario creado:', data);
-                    alert("Se ha creado el Usuario con éxito. Por facor, inicia sesión.")
-                    window.location.href = 'Login.html';
+                    const data = await response.json();
+                    alert('Protocolo subido con éxito');
+                    console.log(data);
                 } else {
-                    console.log('Respuesta del servidor:', data.errors.map(error => error.msg).join('\n'));
+                    const error = await response.json();
+                    console.error('Error en la solicitud:', error.msg);
+
+                    // Si el error contiene un arreglo de errores, los procesamos
+                    if (error.errors && Array.isArray(error.errors)) {
+                        const mensajesDeError = error.errors.map(err => `• ${err.msg}`).join('\n');
+                        alert(`Se encontraron los siguientes errores:\n${mensajesDeError}`);
+                    }
                 }
-            } catch (error) {
-                console.log('Error:', error);
-                alert(error)
+            } catch (err) {
+                console.error('Error al enviar la solicitud:', err);
+                alert('Hubo un problema al subir el protocolo.');
             }
         }
     </script>
 
-
-    <!--  FOOTER  -->
+    <!-- FOOTER -->
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-logo">
                 <img src="assets/LogoPrincipal.png" alt="Logo" class="footer-logo-img">
             </div>
             <div class="footer-aside">
-                <p class="footer-text">
-                    Todos los derechos reservados.
-                </p>
-                <ul class="footer-menu">
-                    <li class="footer-item">
-                        <a href="/politica" class="footer-link">Política de Privacidad</a>
-                    </li>
-                    <li class="footer-item">
-                        <a href="/terminos" class="footer-link">Términos y Condiciones</a>
-                    </li>
-                    <li class="footer-item">
-                        <a href="/contacto" class="footer-link">Contacto</a>
-                    </li>
-                </ul>
+                <p class="footer-text">Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
-    <!--    -->
-
 </body>
-
 </html>
