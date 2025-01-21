@@ -141,12 +141,19 @@
                     credentials: "include"
                 });
                 const data = await response.json();
+                console.log(data);
                 if (response.ok) {
                     console.log('Usuario:', data);
                     // // Actualizar datos de usuario en la interfaz de usuario
                     document.getElementById('usuario-nombre').innerText = data.nombre;
-                    document.getElementById('usuario-boleta').innerText = `Boleta: ${data.boleta}`;
                     document.getElementById('usuario-correo').innerText = `Correo: ${data.correo}`;
+                    if(data.boleta){
+                        document.getElementById('usuario-boleta').innerText = `Boleta: ${data.boleta}`;
+                    }
+                    if(data.cedula){
+                        document.getElementById('usuario-boleta').innerText = `Boleta: ${data.cedula}`;
+                    }
+                    
                     //document.getElementById('usuario-biografia').innerText = data.biografia;
                 }
                 if (response.ok === false) {

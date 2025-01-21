@@ -37,11 +37,13 @@ const crearUsuario = async(req = request, res = response) => {
     }
 }
 const obtenerUsuarioActual = async(req = request, res = response) => {
-    const {nombre,correo,boleta} = req.usuario;
+    const {nombre,correo,boleta,cedula} = req.usuario;
+
     res.status(200).json({
         nombre,
         correo,
-        boleta
+        boleta,
+        cedula
     })
 }
 

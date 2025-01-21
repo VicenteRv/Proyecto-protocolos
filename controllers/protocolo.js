@@ -127,11 +127,13 @@ const obtenerProtocoloActual = async(req = request, res = response) => {
         let protocolo = undefined;
         const lider = await Protocolo.findOne({ lider: _id })
             .populate('lider', 'nombre -_id')
-            .populate('integrantes', 'nombre -_id');
-        if (!lider) {
-            const integrante = await Protocolo.findOne({ integrantes: _id })
+            .populate('integrantes', 'nombre -_id')
+            .populate('directores','nombre -_id');
+            if (!lider) {
+                const integrante = await Protocolo.findOne({ integrantes: _id })
                 .populate('lider', 'nombre -_id')
-                .populate('integrantes', 'nombre -_id');
+                .populate('integrantes', 'nombre -_id')
+                .populate('directores','nombre -_id');
             if (!integrante) {
                 return res.status(400).json({
                     msg: 'No se encontró un protocolo asignado a este usuario'
@@ -148,6 +150,7 @@ const obtenerProtocoloActual = async(req = request, res = response) => {
                 protocolo.archivoURL = `/uploads/documents/${protocolo.archivo}`
             }
         }
+
         res.status(200).json({
             msg: 'Protocolo obtenido',
             protocolo
