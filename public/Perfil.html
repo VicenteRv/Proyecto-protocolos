@@ -65,6 +65,7 @@
             <img id="perfil-img" src="assets/FotoPerfil.jpg" alt="Foto de perfil" class="perfil-img" />
             <h2 id="usuario-nombre">Nombre del Estudiante</h2>
             <p id="usuario-boleta">Número de Boleta: 12345678</p>
+            <p id="rol-usuario"></p>
             <p id="usuario-correo">Correo: estudiante@correo.com</p>
             <a href="EditarUsuario.html" class="btn-editar">Editar Perfil</a>
         </div>
@@ -80,6 +81,7 @@
 
     <!--  SCRIPT DE CONSULTA  -->
     <script>
+        let rol = null;
         // Obtener Usuario
         document.addEventListener('DOMContentLoaded', async function () {
             try {
@@ -103,20 +105,27 @@
                     if(data.cedula){
                         document.getElementById('usuario-boleta').innerText = `Boleta: ${data.cedula}`;
                     }
+                    document.getElementById('rol-usuario').innerText = `${data.tipoUsuario}`;
                     // Actualizar la imagen de perfil si existe
                     const imgPerfilURL = data.imgPerfilURL ? data.imgPerfilURL : 'assets/FotoPerfil.jpg';
                     document.getElementById('perfil-img').src = imgPerfilURL;
+
+                    // Decidir si se realiza la petición de protocolos
+                    if (data.tipoUsuario === 'ALUMNO' || data.tipoUsuario === 'PROFESOR') {
+                        obtenerProtocolos();
+                    } else if (data.tipoUsuario === 'ADMINISTRADOR') {
+                        mostrarBotonesAdmin();
+                    }
                 }
                 if (response.ok === false) {
                     console.log('Respuesta del servidor:', data.msg);
                 }
             } catch (error) {
-                console.error('Error en la petición:', error);
-                alert('Hubo un error al intentar obtener el usuario.');
+                console.log('Error en la petición:', error);
             }
         });
         // Obtener Protocolos
-        document.addEventListener('DOMContentLoaded', async function () {
+        async function obtenerProtocolos() {
             try {
                 const protocolosContainer = document.querySelector('.perfil-grid');
                 // Realizar la petición al backend para obtener el saldo
@@ -203,14 +212,28 @@
                     <h4>Aún no tienes protocolos</h4>
                     `;
                     protocolosContainer.appendChild(protocoloDiv);
-                    console.error('Error en la petición:', error);
-                    alert('Hubo un error al intentar obtener los protocolos.');
+                    console.log('Error en la petición:', error);
                 }
 
             } catch (error) {
-                console.error('Error en la petición:', error);
+                console.log('Error en la petición:', error);
             }
-        });
+        }
+        //admin
+        function mostrarBotonesAdmin() {
+            const protocolosContainer = document.querySelector('.perfil-grid-section');
+            const adminActionsDiv = document.createElement('div');
+            adminActionsDiv.className = 'admin-actions';
+
+            adminActionsDiv.innerHTML = `
+                <button onclick="window.location.href='VerProtocolos.html'">VER PROTOCOLOS</button>
+                <button onclick="window.location.href='VerUsuariosActivos.html'">VER USUARIOS ACTIVOS</button>
+                <button onclick="window.location.href='VerUsuariosInactivos.html'">VER USUARIOS INACTIVOS</button>
+            `;
+
+            protocolosContainer.appendChild(adminActionsDiv);
+        }
+
         //Cerrar sesion
         async function cerrarSesion() {
         try {

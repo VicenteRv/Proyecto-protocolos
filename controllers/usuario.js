@@ -73,8 +73,22 @@ const obtenerUsuarioActual = async(req = request, res = response) => {
 }
 
 const obtenerUsuarios = async(req = request, res = response) => {
-    const {limite = 10, desde = 0} = req.query;
-    const query = {estado:true};
+    const {limite = 10, desde = 0, activo} = req.query;
+    let query = null;
+    const activoBoolean = (activo === 'true');  // Compara como string para convertir a booleano
+
+    console.log('Valor de activo:', activo);
+    console.log('Valor de activo convertido a booleano:', activoBoolean);
+
+    // Si activo es true o false, construimos la consulta
+    if (activoBoolean) {
+        query = { estado: true };
+    } else if (activoBoolean === false) {
+        query = { estado: false };
+    } else {
+        // Si no se pasa 'activo' o tiene otro valor, no aplicamos filtro
+        query = {};
+    }
     try {
         const [total,usuarios] = await Promise.all([
             Usuario.countDocuments(query),
@@ -82,9 +96,20 @@ const obtenerUsuarios = async(req = request, res = response) => {
             .skip(desde)
             .limit(limite)
         ])
+        // Modificar cada usuario para incluir la URL de la imagen
+        const usuariosConImagen = usuarios.map(usuario => {
+            const imgPerfilURL = usuario.img ? `/uploads/images/${usuario.img}` : null;
+            return {
+                nombre: usuario.nombre,
+                correo: usuario.correo,
+                boleta: usuario.boleta,
+                imgPerfilURL, // Aquí agregamos la URL de la imagen
+                rol: usuario.rol.nombre
+            };
+        });
         res.status(200).json({
             total,
-            usuarios
+            usuarios: usuariosConImagen,
         })    
     } catch (error) {
         console.log(error);

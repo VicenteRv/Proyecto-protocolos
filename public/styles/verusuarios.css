@@ -115,3 +115,14 @@
 .boton-usuario:hover{
     background-color: #64829b;
 }
+.img-perfil-usuario {
+    width: 100%; /* Se ajustará al ancho del contenedor */
+    max-width: 325px; /* Limita el tamaño máximo a 325px */
+    height: auto; /* Mantiene la proporción */
+    aspect-ratio: 1 / 1; /* Asegura que siempre sea un círculo */
+    border-radius: 50%; /* Círculo perfecto */
+    margin-top: 15px;
+    margin-bottom: 15px;
+    object-fit: cover; /* Recorta para llenar el contenedor */
+    border: 2px solid #fff;
+}

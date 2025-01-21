@@ -117,3 +117,34 @@ a{
 .btn-editar:hover {
     background-color: #0056b3;
 }
+
+.admin-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    margin-top: 85px;
+}
+
+.admin-actions button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 200px;
+    text-align: center;
+}
+
+.admin-actions button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.admin-actions button:active {
+    background-color: #004080;
+    transform: scale(0.95);
+}

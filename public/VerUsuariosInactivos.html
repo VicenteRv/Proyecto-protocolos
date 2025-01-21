@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <!-- <script>
+    <script>
         document.addEventListener('DOMContentLoaded', async function () {
             try {
                 const response = await fetch('/api/auth/verificarJWT', {
@@ -20,7 +20,7 @@
                 window.location.href = '/Login.html';
             }
         });
-    </script> -->
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="assets/LogoImg.png">
@@ -67,54 +67,6 @@
                 <a class="navegacion-activa">Usuarios Inactivos</a>
             </div>
             <div class="usuarios-contenedor">
-                <!-- <div class="usuario-card inactivo">
-                    <div class="usuario-imagen">
-                        <img src="assets/FotoPerfil.jpg" alt="Usuario" class="img-perfil-usuario">
-                    </div>
-                    <div class="usuario-info">
-                        <div class="usuario-datos">
-                            <div class="usuario-nombre">Nombre de Usuario</div>
-                            <div class="usuario-boleta">Boleta de Usuario</div>
-                            <div class="usuario-correo">Correo de Usuario</div>
-                            <br>
-                            <div class="usuario-biografia">Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                                Tempora,
-                                laborum. Optio recusandae nisi atque explicabo libero sed alias hic officiis ipsa
-                                quaerat
-                                maiores a molestias magni veniam, mollitia vel soluta.
-                            </div>
-                        </div>
-                        <br>
-                        <div class="usuario-botones">
-                            <a href="Perfil.html" class="boton-usuario">Ver Perfil</a>
-                            <a href="index.html" class="boton-usuario">Activar</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="usuario-card inactivo">
-                    <div class="usuario-imagen">
-                        <img src="assets/FotoPerfil.jpg" alt="Usuario" class="img-perfil-usuario">
-                    </div>
-                    <div class="usuario-info">
-                        <div class="usuario-datos">
-                            <div class="usuario-nombre">Nombre de Usuario</div>
-                            <div class="usuario-boleta">Boleta de Usuario</div>
-                            <div class="usuario-correo">Correo de Usuario</div>
-                            <br>
-                            <div class="usuario-biografia">Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                                Tempora,
-                                laborum. Optio recusandae nisi atque explicabo libero sed alias hic officiis ipsa
-                                quaerat
-                                maiores a molestias magni veniam, mollitia vel soluta.
-                            </div>
-                        </div>
-                        <br>
-                        <div class="usuario-botones">
-                            <a href="Perfil.html" class="boton-usuario">Ver Perfil</a>
-                            <a href="index.html" class="boton-usuario">Activar</a>
-                        </div>
-                    </div>
-                </div> -->
             </div>
         </div>
 
@@ -126,51 +78,62 @@
         // Obtener Usuario
         document.addEventListener('DOMContentLoaded', async function () {
             try {
+                const activo = 'false';
                 const UsuariosContainer = document.querySelector('.usuarios-contenedor');
-                const response = await fetch('/api/usuarios', {
+                const response = await fetch(`/api/usuarios?activo=${activo}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    credentials: "include"
+                    credentials: "include",
                 });
+    
                 const data = await response.json();
-
-                data.usuarios.forEach(usuario => {
-                    console.log(usuario);
-                    const UsuarioDiv = document.createElement('div');
-                    UsuarioDiv.classList.add('usuario-card');
-                    UsuarioDiv.classList.add('inactivo');
-                    UsuarioDiv.innerHTML = `
-                        <div class="usuario-imagen">
-                        <img src="assets/FotoPerfil.jpg" alt="Usuario" class="img-perfil-usuario">
-                        </div>
-                        <div class="usuario-info">
-                            <div class="usuario-datos">
-                                <div class="usuario-nombre">${usuario.nombre}</div>
-                                <div class="usuario-boleta">${usuario.boleta}</div>
-                                <div class="usuario-correo">${usuario.correo}</div>
+                console.log(data);
+                // Validar que 'usuarios' exista antes de intentar iterar
+                if (Array.isArray(data.usuarios)) {
+                    data.usuarios.forEach(usuario => {
+                        console.log(usuario);
+                        // Eliminar la parte del botón "Ver Perfil"
+                        const UsuarioDiv = document.createElement('div');
+                        UsuarioDiv.classList.add('usuario-card');
+                        UsuarioDiv.innerHTML = `
+                            <div class="usuario-imagen">
+                                <!-- Cambiar la fuente de la imagen dependiendo de si hay imagen o no -->
+                                <img src="${usuario.imgPerfilURL ? usuario.imgPerfilURL : 'assets/FotoPerfil.jpg'}" alt="Usuario" class="img-perfil-usuario">
+                            </div>
+                            <div class="usuario-info">
+                                <div class="usuario-datos">
+                                    <div class="usuario-nombre">${usuario.nombre}</div>
+                                    <br>
+                                    <div class="usuario-boleta">${usuario.boleta}</div>
+                                    <br>
+                                    <div class="usuario-correo">${usuario.correo}</div>
+                                    
+                                </div>
                                 <br>
-                                <div class="usuario-biografia">Descipción de Usuario</div>
+                                <div class="usuario-botones">
+                                    <!-- Eliminar el botón de "Ver Perfil" -->
+                                    <a href="index.html" class="boton-usuario">Reactivar</a>
+                                </div>
                             </div>
-                            <br>
-                            <div class="usuario-botones">
-                                <a href="Perfil.html" class="boton-usuario">Ver Perfil</a>
-                                <a href="index.html" class="boton-usuario">Deshabilitar</a>
-                            </div>
-                        </div>
-                    `;
-                    UsuariosContainer.appendChild(UsuarioDiv);
-                });
+                        `;
+                        UsuariosContainer.appendChild(UsuarioDiv);
+    
+                    });
+                } else {
+                    throw new Error('No se encontraron usuarios');
+                }
             } catch (error) {
                 const UsuariosContainer = document.querySelector('.usuarios-contenedor');
                 const UsuarioDiv = document.createElement('div');
                 UsuarioDiv.classList.add('usuario-card');
                 UsuarioDiv.innerHTML = `
-                    <h4>No se han encontrado Usuarios Inactivos. Vuelve más tarde</h4>
+                    <h4>No se han encontrado Usuarios Activos. Vuelve más tarde</h4>
                 `;
                 UsuariosContainer.appendChild(UsuarioDiv);
                 console.error('Error en la petición:', error);
+                alert('Hubo un error al intentar obtener los usuarios.');
             }
         });
     </script>

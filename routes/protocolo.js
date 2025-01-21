@@ -20,7 +20,7 @@ const { existeProtocoloDB } = require("../helpers/db-validators");
 const { validarDirectores } = require("../middlewares/validar-directores");
 
 const router = Router();
-//ruta para registrar un protocolo
+//ruta para registrar un protocolo - Completado
 router.post('/',[
     validarJWT,
     validarAlumnoRole,
@@ -34,12 +34,12 @@ router.post('/',[
     validarDirectores,
     validarCampos,
 ],crearProtocolo);
-//ruta para obtener el protocolo del usuario loggeado
+//ruta para obtener el protocolo del usuario loggeado - Completado
 router.get('/me',[
     validarJWT,
     validarCampos
 ],obtenerProtocoloActual);
-//ruta para obtener todos los protocolos
+//ruta para obtener todos los protocolos - Completado
 router.get('/admin',[
     validarJWT,
     validarAdminRole,
