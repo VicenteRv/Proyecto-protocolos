@@ -66,63 +66,10 @@
             <a href="EditarUsuario.html" class="btn-editar">Editar Perfil</a>
         </div>
         <div class="perfil-main-content">
-            <div class="perfil-section">
-                <h3>Biografía</h3>
-                <p id="usuario-biografia">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio
-                    vitae vestibulum
-                    vestibulum. Cras venenatis euismod malesuada.</p>
-            </div>
             <div class="perfil-grid-section">
                 <h3>Tus Protocolos</h3>
                 <div class="perfil-grid">
-                    <!-- <a href="Protocolo.html" class="perfil-card">
-                        <h4>Protocolo 1</h4>
-                        <p>Fecha: 01/01/2024</p>
-                        <p>Sinodal: Dr. Pérez</p>
-                        <p>Sinodal: Mtro. García</p>
-                        <p>Sinodal: Dr. Sánchez</p>
-                        <p>Descripción breve del trabajo.</p>
-                    </a>
-                    <a href="Protocolo.html" class="perfil-card">
-                        <h4>Protocolo 2</h4>
-                        <p>Fecha: 15/03/2024</p>
-                        <p>Sinodal: Mtro. García</p>
-                        <p>Sinodal: Dr. Pérez</p>
-                        <p>Sinodal: Dr. Sánchez</p>
-                        <p>Descripción breve del trabajo.</p>
-                    </a>
-                    <a href="Protocolo.html" class="perfil-card">
-                        <h4>Protocolo 3</h4>
-                        <p>Fecha: 20/05/2024</p>
-                        <p>Sinodal: Dra. López</p>
-                        <p>Sinodal: Mtro. García</p>
-                        <p>Sinodal: Dr. Pérez</p>
-                        <p>Descripción breve del trabajo.</p>
-                    </a>
-                    <a href="Protocolo.html" class="perfil-card">
-                        <h4>Protocolo 4</h4>
-                        <p>Fecha: 10/07/2024</p>
-                        <p>Sinodal: Ing. Martínez</p>
-                        <p>Sinodal: Dr. Sánchez</p>
-                        <p>Sinodal: Lic. Ruiz</p>
-                        <p>Descripción breve del trabajo.</p>
-                    </a>
-                    <a href="Protocolo.html" class="perfil-card">
-                        <h4>Protocolo 5</h4>
-                        <p>Fecha: 25/09/2024</p>
-                        <p>Sinodal: Lic. Ruiz</p>
-                        <p>Sinodal: Mtro. García</p>
-                        <p>Sinodal: Dr. Pérez</p>
-                        <p>Descripción breve del trabajo.</p>
-                    </a>
-                    <a href="Protocolo.html" class="perfil-card">
-                        <h4>Protocolo 6</h4>
-                        <p>Fecha: 05/12/2024</p>
-                        <p>Sinodal: Dr. Sánchez</p>
-                        <p>Sinodal: Dr. Pérez</p>
-                        <p>Sinodal: Ing. Martínez</p>
-                        <p>Descripción breve del trabajo.</p>
-                    </a> -->
+                    
                 </div>
             </div>
         </div>
@@ -153,8 +100,6 @@
                     if(data.cedula){
                         document.getElementById('usuario-boleta').innerText = `Boleta: ${data.cedula}`;
                     }
-                    
-                    //document.getElementById('usuario-biografia').innerText = data.biografia;
                 }
                 if (response.ok === false) {
                     console.log('Respuesta del servidor:', data.msg);
@@ -164,7 +109,6 @@
                 alert('Hubo un error al intentar obtener el usuario.');
             }
         });
-
         // Obtener Protocolos
         document.addEventListener('DOMContentLoaded', async function () {
             try {
@@ -179,49 +123,78 @@
                 });
                 const data = await response.json();
                 if (response.ok) {
-                    console.log('Respuesta del servidor:', data);
+                    console.log('Respuesta del servidor:', data); // Verifica que los datos lleguen correctamente
 
                     const protocolosContainer = document.querySelector('.perfil-grid');
                     const protocoloLink = document.createElement('a');
                     protocoloLink.href = "Protocolo.html";
                     protocoloLink.className = "perfil-card";
+
+                    // Acceso directo al objeto
+                    const nombre = data?.protocolo?.nombre ?? "Sin nombre";
+                    const lider = data?.protocolo?.lider?.nombre ?? "Líder no asignado";
+                    const descripcion = data?.protocolo?.descripcion ?? "Sin descripción disponible";
+                    const estado = data?.protocolo?.estado ?? "Estado no definido";
+
+                    // Leer los integrantes
+                    let integrantesHTML = '';
+                    if (Array.isArray(data.protocolo.integrantes) && data.protocolo.integrantes.length > 0) {
+                        integrantesHTML = '<h5>Integrantes:</h5>';
+                        data.protocolo.integrantes.forEach((integrante, index) => {
+                            integrantesHTML += `<p>Integrante ${index + 1}: ${integrante?.nombre || "Nombre no disponible"}</p>`;
+                        });
+                    } else {
+                        integrantesHTML = '<p>No hay integrantes asignados</p>';
+                    }
+
+                    // Leer los directores
+                    let directoresHTML = '';
+                    if (Array.isArray(data.protocolo.directores) && data.protocolo.directores.length > 0) {
+                        directoresHTML = '<h5>Directores:</h5>';
+                        data.protocolo.directores.forEach((director, index) => {
+                            directoresHTML += `<p>Director ${index + 1}: ${director?.nombre || "Nombre no disponible"}</p>`;
+                        });
+                    } else {
+                        directoresHTML = '<p>No hay directores asignados</p>';
+                    }
+
+                    // Leer los sinodales
+                    let sinodalesHTML = '';
+                    if (Array.isArray(data.sinodales) && data.sinodales.length > 0) {
+                        sinodalesHTML = '<h5>Sinodales:</h5>';
+                        data.sinodales.forEach((sinodal, index) => {
+                            sinodalesHTML += `<p>Sinodal ${index + 1}: ${sinodal?.nombre || "Nombre no disponible"}</p>`;
+                        });
+                    } else {
+                        sinodalesHTML = '<p>No hay sinodales asignados</p>';
+                    }
+
+                    // Crear el HTML final
                     protocoloLink.innerHTML = `
-                            <h4>${data.protocolo.nombre}</h4>
-                            <hr>
-                            <p>Director: Dr. Pérez</p>
-                            <p>Director: Mtro. García</p>
-                            <hr>
-                            <p>Sinodal: Dr. Pérez</p>
-                            <p>Sinodal: Mtro. García</p>
-                            <p>Sinodal: Dr. Sánchez</p>
-                            <hr>
-                            <p>${data.protocolo.descripcion}</p>
+                        <h4>Nombre del protocolo:<br>${nombre}</h4>
+                        <hr>
+                        <p><strong>Líder:</strong> ${lider}</p>
+                        <hr>
+                        ${integrantesHTML}
+                        <hr>
+                        ${directoresHTML}
+                        <hr>
+                        ${sinodalesHTML}
+                        <hr>
+                        <p><strong>Descripción:</strong> ${descripcion}</p>
+                        <hr>
+                        <p><strong>Estado:</strong> ${estado}</p>
                     `;
+
                     protocolosContainer.appendChild(protocoloLink);
-
-                    // data.protocolo.forEach(protocolo => {
-                    //     console.log(protocolo);
-                    //     const protocoloDiv = document.createElement('div');
-                    //     protocoloDiv.innerHTML = `
-                    //     <a href="Protocolo.html" class="perfil-card">
-                    //         <h4>${protocolo.nombre}</h4>
-                    //         <p>Fecha: 01/01/2024</p>
-                    //         <p>Sinodal: Dr. Pérez</p>
-                    //         <p>Sinodal: Mtro. García</p>
-                    //         <p>Sinodal: Dr. Sánchez</p>
-                    //         <p>${protocolo.descripcion}</p>
-                    //     </a>
-                    // `;
-                    //     protocolosContainer.appendChild(protocoloDiv);
-                    // });
-
+                    
                 } else {
                     console.log('Respuesta del servidor:', data);
                     const protocolosContainer = document.querySelector('.perfil-grid-section');
                     const protocoloDiv = document.createElement('div');
                     protocoloDiv.classList.add('noprotocolos');
                     protocoloDiv.innerHTML = `
-                        <h4>Aún no tienes protocolos</h4>
+                    <h4>Aún no tienes protocolos</h4>
                     `;
                     protocolosContainer.appendChild(protocoloDiv);
                     console.error('Error en la petición:', error);
@@ -229,15 +202,7 @@
                 }
 
             } catch (error) {
-                // const protocolosContainer = document.querySelector('.perfil-grid-section');
-                // const protocoloDiv = document.createElement('div');
-                // protocoloDiv.classList.add('noprotocolos');
-                // protocoloDiv.innerHTML = `
-                //     <h4>Error</h4>
-                // `;
-                // protocolosContainer.appendChild(protocoloDiv);
                 console.error('Error en la petición:', error);
-                // alert('Hubo un error al intentar obtener los protocolos.');
             }
         });
     </script>
