@@ -62,7 +62,7 @@
     <!--  PÁGINA   -->
     <div class="perfil-container">
         <div class="perfil-sidebar">
-            <img src="assets/FotoPerfil.jpg" alt="Foto de perfil" class="perfil-img" />
+            <img id="perfil-img" src="assets/FotoPerfil.jpg" alt="Foto de perfil" class="perfil-img" />
             <h2 id="usuario-nombre">Nombre del Estudiante</h2>
             <p id="usuario-boleta">Número de Boleta: 12345678</p>
             <p id="usuario-correo">Correo: estudiante@correo.com</p>
@@ -103,6 +103,9 @@
                     if(data.cedula){
                         document.getElementById('usuario-boleta').innerText = `Boleta: ${data.cedula}`;
                     }
+                    // Actualizar la imagen de perfil si existe
+                    const imgPerfilURL = data.imgPerfilURL ? data.imgPerfilURL : 'assets/FotoPerfil.jpg';
+                    document.getElementById('perfil-img').src = imgPerfilURL;
                 }
                 if (response.ok === false) {
                     console.log('Respuesta del servidor:', data.msg);

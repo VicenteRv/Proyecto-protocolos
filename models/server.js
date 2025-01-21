@@ -34,6 +34,8 @@ class Server {
         this.app.use(cookieParser());
         // Directorio Público
         this.app.use( express.static('public') );
+        // Servir los archivos estáticos de la carpeta 'uploads'
+        this.app.use('/uploads', express.static('uploads'));
         //FileUpload - cargar de archivos
         this.app.use(fileUpload({
             useTempFiles : true,

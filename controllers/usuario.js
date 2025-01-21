@@ -40,13 +40,14 @@ const crearUsuario = async(req = request, res = response) => {
     }
 }
 const obtenerUsuarioActual = async(req = request, res = response) => {
-    const {nombre,correo,boleta,cedula} = req.usuario;
-
+    const {nombre,correo,boleta,cedula,img} = req.usuario;
+    const imgPerfilURL = img ? `/uploads/images/${img}` : null;  
     res.status(200).json({
         nombre,
         correo,
         boleta,
-        cedula
+        cedula,
+        imgPerfilURL,
     })
 }
 
@@ -108,7 +109,6 @@ const modificarUsuarioActual = async(req = request, res = response) => {
                 }
             }
             archivo = req.files.archivo
-            console.log('img',archivo);
             // Renombrar y guardar el archivo
             const uuidImg = await subirArchivo(req.files,undefined, 'images');
             datosActualizados.img = uuidImg;
