@@ -1,6 +1,9 @@
 const { request, response } = require("express");
+const path = require('path');
+const fs = require('fs');
 const bcryptjs = require('bcryptjs');
 const {Usuario,Role} = require("../models");
+const { subirArchivo } = require("../helpers/subir-archivo");
 
 const crearUsuario = async(req = request, res = response) => {
     const {nombre, correo, password, rol, boleta, externo} = req.body;
@@ -84,19 +87,31 @@ const obtenerUsuario = async(req = request, res = response) => {
     }
 }
 const modificarUsuarioActual = async(req = request, res = response) => {
-    const {id} = req.usuario;
+    const {id,img} = req.usuario;
+    let archivo = undefined;
     const {nombre,correo,password} = req.body;
     try {
         const datosActualizados = { };
+        datosActualizados.nombre = nombre;
+        datosActualizados.correo = correo;
         if (password) {
             const salt = bcryptjs.genSaltSync();
             datosActualizados.password = bcryptjs.hashSync(password, salt);
         }
-        if (nombre) {
-            datosActualizados.nombre = nombre;
-        }
-        if (correo) {
-            datosActualizados.correo = correo;
+        if (req.files && req.files.archivo) {
+            //limpiar img previa    
+            if(img){
+                //borrar la img del servidor
+                const pathImagen = path.join(__dirname,'../uploads', 'images',img);
+                if(fs.existsSync(pathImagen)){
+                    fs.unlinkSync(pathImagen);
+                }
+            }
+            archivo = req.files.archivo
+            console.log('img',archivo);
+            // Renombrar y guardar el archivo
+            const uuidImg = await subirArchivo(req.files,undefined, 'images');
+            datosActualizados.img = uuidImg;
         }
         if (Object.keys(datosActualizados).length === 0) {
             return res.status(400).json({

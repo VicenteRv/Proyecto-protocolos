@@ -98,6 +98,7 @@
                     const data = await response.json();
                     alert('Protocolo subido con éxito');
                     console.log(data);
+                    window.location.href = '/Perfil.html';
                 } else {
                     const error = await response.json();
                     console.error('Error en la solicitud:', error.msg);

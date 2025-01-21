@@ -27,7 +27,10 @@ const UsuarioSchema = new Schema({
     },
     cedula: {
         type: String,
-    }
+    },
+    img: {
+        type: String,
+    }, 
 });
 
 UsuarioSchema.methods.toJSON = function(){

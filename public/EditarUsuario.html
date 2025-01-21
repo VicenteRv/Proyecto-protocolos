@@ -33,27 +33,23 @@
     <div class="login-container">
         <div class="login-box">
             <h2>Editar Usuario</h2>
+            <h3>Contraseña y foto son opcionales</h3>
             <form class="loginform" id="login-Form">
                 <div class="form-group">
                     <label htmlFor="nombre">Nombre</label>
                     <input type="text" id="nombre" placeholder="Ingrese su Nombre" required />
                 </div>
                 <div class="form-group">
-                    <label htmlFor="boleta">Boleta</label>
-                    <input type="text" id="boleta" placeholder="Ingrese su boleta" required />
+                    <label htmlFor="password">Contraseña</label>
+                    <input type="password" id="password" placeholder="Ingrese su contraseña" autocomplete="off"/>
                 </div>
                 <div class="form-group">
                     <label htmlFor="correo">Correo</label>
                     <input type="text" id="correo" placeholder="Ingrese su correo" required />
                 </div>
-                <!-- <div class="form-group">
-                    <label htmlFor="biografia">Biografía</label>
-                    <input type="text" id="biografia" placeholder="Ingrese su biografía" required />
-                </div> -->
                 <div class="form-group">
-                    <label htmlFor="foto-perfil">Foto de Perfil</label>
-                    <input type="file" id="foto-perfil" name="foto-perfil" class="registro-tt-file"
-                        accept=".pdf,.doc,.docx" required="" />
+                    <label htmlFor="archivo">Foto de Perfil</label>
+                    <input type="file" id="archivo" name="archivo" class="registro-tt-file"/>
                 </div>
                 <div class="button-group" style="justify-content: center;">
                     <button type="submit" class="login-button">Actualizar Usuario</button>
@@ -79,15 +75,11 @@
 
                     const nombreInput = document.getElementById('nombre');
                     nombreInput.value = data.nombre;
-                    const boletaInput = document.getElementById('boleta');
-                    boletaInput.value = data.boleta;
                     const correoInput = document.getElementById('correo');
+                    // Limpiar el campo de la contraseña si no hay un valor
+                    document.getElementById('password').value = '';
+
                     correoInput.value = data.correo;
-                    // const biografiaInput = document.getElementById('biografia');
-                    // data.biografia = "Biografia";
-                    // if (data.biografia == "undefined") {
-                    //     biografiaInput.value = data.biografia
-                    // }
                     if (response.ok === false) {
                         console.log('Respuesta del servidor:', data.msg);
                     }
@@ -98,11 +90,42 @@
         });
 
         // Modificar datos
+        document.getElementById('login-Form').addEventListener('submit', async function (event) {
+        event.preventDefault(); // Evitar envío por defecto del formulario
 
+        const nombre = document.getElementById('nombre').value.trim();
+        const correo = document.getElementById('correo').value.trim();
+        const password = document.getElementById('password').value.trim();
+        const fotoPerfil = document.getElementById('archivo').files[0];
 
+        // Crear el FormData para la solicitud
+        const formData = new FormData();
+        formData.append('nombre', nombre);
+        formData.append('correo', correo);
+        if (password) {
+            formData.append('password', password);
+        }
+        if (fotoPerfil) {
+            formData.append('archivo', fotoPerfil);
+        }
+        try {
+            const response = await fetch('/api/usuarios', {
+                method: 'PUT',
+                body: formData,
+                credentials: 'include',
+            });
 
+            const result = await response.json();
+            if (response.ok) {
+                console.log('Usuario actualizado correctamente.',result);
+                window.location.href = '/Perfil.html';
+            } else {
+                console.log(`Error al actualizar: ${result.msg}`);
+            }
+        } catch (error) {
+            console.error('Error al enviar los datos:', error);
+        }
+    });
     </script>
-
 </body>
-
 </html>
