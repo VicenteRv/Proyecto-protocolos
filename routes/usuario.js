@@ -28,6 +28,7 @@ router.get('/me',[
 //ruta para obtener todos los usuarios
 router.get('/',[
     validarJWT,
+    validarAdminRole,
     validarCampos
 ],obtenerUsuarios);
 //ruta para buscar un usuario - solo aministrador

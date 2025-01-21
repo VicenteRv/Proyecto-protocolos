@@ -170,7 +170,8 @@ const obtenerProtocolos = async(req = request, res = response) => {
             .skip(desde)
             .limit(limite)
             .populate('lider', 'nombre -_id')
-            .populate('integrantes', 'nombre -_id'),
+            .populate('integrantes', 'nombre -_id')
+            .populate('directores', 'nombre -_id'),
         ])
         res.status(200).json({
             total,

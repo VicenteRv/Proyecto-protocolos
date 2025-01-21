@@ -64,3 +64,10 @@
 .boton-protocolo:hover{
     background-color: #64829b;
 }
+.contador-protocolos {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: #333;
+    font-weight: bold;
+}

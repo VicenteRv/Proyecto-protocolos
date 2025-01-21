@@ -54,7 +54,6 @@ const obtenerUsuarioActual = async(req = request, res = response) => {
 const obtenerUsuarios = async(req = request, res = response) => {
     const {limite = 10, desde = 0} = req.query;
     const query = {estado:true};
-
     try {
         const [total,usuarios] = await Promise.all([
             Usuario.countDocuments(query),
