@@ -150,7 +150,6 @@ const obtenerProtocoloActual = async(req = request, res = response) => {
                 protocolo.archivoURL = `/uploads/documents/${protocolo.archivo}`
             }
         }
-        console.log(protocolo);
         res.status(200).json({
             msg: 'Protocolo obtenido',
             protocolo

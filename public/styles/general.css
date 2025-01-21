@@ -21,57 +21,61 @@ body {
     width: 12.5rem;
 }
 
-/* Estilos generales de la barra de navegación */
+/* Estilos generales para la barra de navegación */
 .navbar {
-    background-color: #00569D;
-    padding: 10px 20px;
-    /* position: fixed; */
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-/* Estilos para el contenedor de la barra */
-.navbar-container {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
+    align-items: center; /* Asegura que los elementos estén alineados verticalmente al centro */
+    background-color: #333;
+    /* background-color: rgb(0, 86, 157); */
+    padding: 10px 20px;
 }
 
-/* Estilos del logo o nombre del sitio */
-.navbar-logo {
-    color: #ecf0f1;
-    font-size: 1.8rem;
-    font-weight: bold;
-    text-decoration: none;
-}
-
-/* Estilos para el menú de navegación */
-.navbar-menu {
-    list-style: none;
+.navbar-container {
     display: flex;
+    align-items: center; /* Alineación vertical centrada de los elementos */
+    width: 100%;
+}
+
+.navbar-menu {
+    display: flex;
+    list-style-type: none;
     margin: 0;
     padding: 0;
+    gap: 20px; /* Espaciado entre los elementos del menú */
+    margin-left: auto;
 }
 
-/* Estilos de los ítems del menú */
 .navbar-item {
-    margin-left: 20px;
+    display: flex;
+    align-items: center; /* Alineación vertical centrada para cada ítem */
 }
 
-/* Estilos para los enlaces */
 .navbar-link {
-    color: #ecf0f1;
     text-decoration: none;
-    font-size: 1rem;
-    transition: color 0.3s ease;
+    color: white;
+    font-size: 16px;
+    padding: 8px 16px; /* Espaciado en los enlaces */
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
 }
 
-/* Cambio de color en hover */
 .navbar-link:hover {
-    color: #3498db;
+    background-color: #555; /* Cambio de color al pasar el cursor */
+}
+
+.btn-cerrar-sesion {
+    padding: 8px 16px; /* Similar al estilo de los otros enlaces */
+    background-color: #ff4d4d; /* Color de fondo para el botón */
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-cerrar-sesion:hover {
+    background-color: #e60000; /* Cambio de color al pasar el cursor */
 }
 
 /* Estilos generales del footer */
@@ -83,6 +87,13 @@ body {
     bottom: 0;
     width: 100%;
     text-align: center;
+}
+/* Estilos del logo o nombre del sitio */
+.navbar-logo {
+    color: #ecf0f1;
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-decoration: none;
 }
 
 /* Contenedor del contenido del footer */

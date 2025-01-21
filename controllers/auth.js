@@ -44,7 +44,17 @@ const token = async(req = request, res = response) =>{
     });
 }
 
+const cerrarSesion = (req = request, res = response) =>{
+    res.clearCookie('token', { 
+        httpOnly: true,
+        sameSite: 'Strict',
+        secure: process.env.NODE_ENV === 'production'  // Solo si está en producción
+    });
+    return res.status(200).json({ msg: 'Sesión cerrada correctamente' });
+}
+
 module.exports = {
     login,
-    token
+    token,
+    cerrarSesion,
 };

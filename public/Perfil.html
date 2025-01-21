@@ -52,6 +52,9 @@
                 <li class="navbar-item">
                     <a href="RegistroProtocolo.html" class="navbar-link">Registro Protocolo</a>
                 </li>
+                <li class="navbar-item">
+                    <a href="javascript:void(0);" class="btn-cerrar-sesion" onclick="cerrarSesion()">Cerrar sesión</a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -205,6 +208,32 @@
                 console.error('Error en la petición:', error);
             }
         });
+        //Cerrar sesion
+        async function cerrarSesion() {
+        try {
+            const response = await fetch('/api/auth/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+            });
+            const data = await response;
+            console.log(data);
+            // Verifica si la respuesta es exitosa
+            if (response.ok) {
+                // Redirige al usuario a la página de login
+                window.location.href = '/Login.html';
+            } else {
+                const data = await response.json(); // Obtener la respuesta del servidor
+                console.log('Respuesta del servidor:', data); // Verifica la respuesta
+            }
+        } catch (error) {
+            console.error('Error en la solicitud de cierre de sesión:', error);
+        }
+    }
+
+
     </script>
 
     <!--  FOOTER  -->
