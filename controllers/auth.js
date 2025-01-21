@@ -38,6 +38,13 @@ const login = async(req = request, res = response) => {
     }
 }
 
+const token = async(req = request, res = response) =>{
+    res.status(200).json({
+        msg: 'Token verificado - correcto'
+    });
+}
+
 module.exports = {
-    login
+    login,
+    token
 };
