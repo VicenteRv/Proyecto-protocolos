@@ -4,6 +4,8 @@ const fs = require('fs');
 const bcryptjs = require('bcryptjs');
 const {Usuario,Role} = require("../models");
 const { subirArchivo } = require("../helpers/subir-archivo");
+const { roleAlumno } = require("../helpers/db-validators");
+const ROLES = require("../config/roles");
 
 const crearUsuario = async(req = request, res = response) => {
     const {nombre, correo, password, rol, boleta, externo} = req.body;
@@ -40,15 +42,34 @@ const crearUsuario = async(req = request, res = response) => {
     }
 }
 const obtenerUsuarioActual = async(req = request, res = response) => {
-    const {nombre,correo,boleta,cedula,img} = req.usuario;
-    const imgPerfilURL = img ? `/uploads/images/${img}` : null;  
-    res.status(200).json({
-        nombre,
-        correo,
-        boleta,
-        cedula,
-        imgPerfilURL,
-    })
+    const {nombre,correo,boleta,cedula,img,rol} = req.usuario;
+    const imgPerfilURL = img ? `/uploads/images/${img}` : null;
+    let tipoUsuario;
+    try {
+        const Rol = await Role.findById(rol);
+        if(Rol.rol == ROLES.ALUMNO){
+            tipoUsuario = "ALUMNO";
+        }
+        if(Rol.rol == ROLES.PROFESOR){
+            tipoUsuario = "PROFESOR";
+        }
+        if(Rol.rol == ROLES.ADMIN){
+            tipoUsuario = "ADMINISTRADOR";
+        }
+        res.status(200).json({
+            nombre,
+            correo,
+            boleta,
+            cedula,
+            imgPerfilURL,
+            tipoUsuario,
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({
+            msg: 'Hubo un error al tratar de mandar los datos del usuario'
+        })
+    }  
 }
 
 const obtenerUsuarios = async(req = request, res = response) => {
