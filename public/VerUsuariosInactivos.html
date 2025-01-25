@@ -114,12 +114,38 @@
                                 <br>
                                 <div class="usuario-botones">
                                     <!-- Eliminar el botón de "Ver Perfil" -->
-                                    <a href="index.html" class="boton-usuario">Reactivar</a>
+                                    <button class="boton-usuario" data-id="${usuario.id}">Reactivar</button>
                                 </div>
                             </div>
                         `;
                         UsuariosContainer.appendChild(UsuarioDiv);
-    
+                    });
+                    //boton de reactivar despues de que se crean
+                    document.querySelectorAll('.boton-usuario').forEach(button => {
+                        button.addEventListener('click', async (event) => {
+                            const id = event.target.getAttribute('data-id');
+                            if (confirm(`¿Estás seguro de reactivar al usuario con ID: ${id}?`)) {
+                                try {
+                                    const response = await fetch(`/api/usuarios/admin/${id}`, {
+                                        method: 'PATCH',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                        },
+                                        credentials: "include",
+                                    });
+                                    const data = await response.json();
+                                    if (response.ok) {
+                                        alert('Usuario reactivado correctamente');
+                                        location.reload();
+                                    } else {
+                                        alert(`Error al reactivar usuario: ${data.msg || 'Error desconocido'}`);
+                                    }
+                                } catch (error) {
+                                    console.log('Error al reactivar el usuario:', error);
+                                    alert('Error al reactivar el usuario. Intenta nuevamente.');
+                                }
+                            }
+                        });
                     });
                 } else {
                     throw new Error('No se encontraron usuarios');

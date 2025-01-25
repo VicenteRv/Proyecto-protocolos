@@ -74,20 +74,14 @@ const obtenerUsuarioActual = async(req = request, res = response) => {
 
 const obtenerUsuarios = async(req = request, res = response) => {
     const {limite = 10, desde = 0, activo} = req.query;
+    //activo como llega como string ya que todo lo que venga en query es string
     let query = null;
     const activoBoolean = (activo === 'true');  // Compara como string para convertir a booleano
-
-    console.log('Valor de activo:', activo);
-    console.log('Valor de activo convertido a booleano:', activoBoolean);
-
     // Si activo es true o false, construimos la consulta
     if (activoBoolean) {
         query = { estado: true };
     } else if (activoBoolean === false) {
         query = { estado: false };
-    } else {
-        // Si no se pasa 'activo' o tiene otro valor, no aplicamos filtro
-        query = {};
     }
     try {
         const [total,usuarios] = await Promise.all([
@@ -100,11 +94,12 @@ const obtenerUsuarios = async(req = request, res = response) => {
         const usuariosConImagen = usuarios.map(usuario => {
             const imgPerfilURL = usuario.img ? `/uploads/images/${usuario.img}` : null;
             return {
+                
                 nombre: usuario.nombre,
                 correo: usuario.correo,
                 boleta: usuario.boleta,
                 imgPerfilURL, // Aquí agregamos la URL de la imagen
-                rol: usuario.rol.nombre
+                id: usuario._id,
             };
         });
         res.status(200).json({
@@ -204,6 +199,7 @@ const modificarUsuarioAdmin = async(req = request, res = response) => {
 }
 const borrarUsuario = async(req = request, res = response) => {
     const {id} = req.params;
+    console.log('id usuario eliminar',id);
     try {
         const usuario = await Usuario.findByIdAndUpdate(id,{estado:false},{new:true});
         res.status(200).json({
@@ -213,7 +209,7 @@ const borrarUsuario = async(req = request, res = response) => {
     } catch (error) {
         console.log(error);
         res.status(500).json({
-            msg: 'Error al borrar el usuario'
+            msg: 'Error al borrar el usuario backend'
         })
     }
 }

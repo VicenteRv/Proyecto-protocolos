@@ -87,19 +87,14 @@
                     },
                     credentials: "include",
                 });
-    
                 const data = await response.json();
                 console.log(data);
-                // Validar que 'usuarios' exista antes de intentar iterar
                 if (Array.isArray(data.usuarios)) {
                     data.usuarios.forEach(usuario => {
-                        console.log(usuario);
-                        // Eliminar la parte del botón "Ver Perfil"
                         const UsuarioDiv = document.createElement('div');
                         UsuarioDiv.classList.add('usuario-card');
                         UsuarioDiv.innerHTML = `
                             <div class="usuario-imagen">
-                                <!-- Cambiar la fuente de la imagen dependiendo de si hay imagen o no -->
                                 <img src="${usuario.imgPerfilURL ? usuario.imgPerfilURL : 'assets/FotoPerfil.jpg'}" alt="Usuario" class="img-perfil-usuario">
                             </div>
                             <div class="usuario-info">
@@ -109,17 +104,44 @@
                                     <div class="usuario-boleta">${usuario.boleta}</div>
                                     <br>
                                     <div class="usuario-correo">${usuario.correo}</div>
-                                    
+                                    <br>
+                                    <div class="usuario-correo">${usuario.id}</div>
                                 </div>
                                 <br>
                                 <div class="usuario-botones">
-                                    <!-- Eliminar el botón de "Ver Perfil" -->
-                                    <a href="index.html" class="boton-usuario">Desactivar</a>
+                                    <button class="boton-usuario" data-id="${usuario.id}">Desactivar</button>
                                 </div>
                             </div>
                         `;
                         UsuariosContainer.appendChild(UsuarioDiv);
-    
+                    });
+                    // Agregar eventos a los botones
+                    document.querySelectorAll('.boton-usuario').forEach(button => {
+                        button.addEventListener('click', async (event) => {
+                            const id = event.target.getAttribute('data-id');
+                            if (confirm(`¿Estás seguro de desactivar al usuario con ID: ${id}?`)) {
+                                try {
+                                    const response = await fetch(`/api/usuarios/admin/${id}`, {
+                                        method: 'DELETE',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                        },
+                                        credentials: "include",
+                                    });
+                                    if (response.ok) {
+                                        const data = await response.json();
+                                        alert('Usuario desactivado correctamente');
+                                        location.reload();
+                                    } else {
+                                        const errorData = await response.json();
+                                        alert(`Error al desactivar usuario: ${errorData.msg || 'Error desconocido'}`);
+                                    }
+                                } catch (error) {
+                                    console.error('Error al desactivar el usuario:', error);
+                                    alert('Error al desactivar el usuario. Intenta nuevamente.');
+                                }
+                            }
+                        });
                     });
                 } else {
                     throw new Error('No se encontraron usuarios');

@@ -67,7 +67,7 @@ router.put('/admin/:id',[
             .custom(boletaExistente),
     validarCampos
 ],modificarUsuarioAdmin);
-//ruta para descativar usuario - solo admin
+//ruta para desactivar usuario - solo admin - Completado
 router.delete('/admin/:id',[
     validarJWT,
     validarAdminRole,
@@ -77,7 +77,7 @@ router.delete('/admin/:id',[
     check('id').custom(existeUsuarioActivo),
     validarCampos
 ],borrarUsuario)
-//ruta para activar usuario - solo admin
+//ruta para activar usuario - solo admin - Completado
 router.patch('/admin/:id',[
     validarJWT,
     validarAdminRole,
