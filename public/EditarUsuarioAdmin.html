@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script>
+        document.addEventListener('DOMContentLoaded', async function () {
+            try {
+                const response = await fetch('/api/auth/verificarJWT', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include'
+                });
+                if (!response.ok) {
+                    window.location.href = '/Login.html';
+                }
+            } catch (error) {
+                console.error('Error al verificar el JWT:', error);
+                window.location.href = '/Login.html';
+            }
+        });
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="assets/LogoImg.png">
+    <link rel="stylesheet" href="styles/general.css">
+    <link rel="stylesheet" href="styles/login.css">
+    <title>ProSys - Editar Usuario</title>
+</head>
+
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <h2>Editar Usuario</h2>
+            <h3>Modificar Rol y Boleta</h3>
+            <form class="loginform" id="editar-usuario-form">
+                <div class="form-group">
+                    <label htmlFor="nombre">Nombre</label>
+                    <input type="text" id="nombre" placeholder="Nombre" readonly />
+                </div>
+                <div class="form-group">
+                    <label htmlFor="correo">Correo</label>
+                    <input type="text" id="correo" placeholder="Correo" readonly />
+                </div>
+                <div class="form-group">
+                    <label htmlFor="rol">Rol</label>
+                    <select id="rol" required>
+                        <option value="ALUMNO_ROL">Alumno</option>
+                        <option value="PROFESOR_ROL">Profesor</option>
+                        <option value="ADMIN_ROL">Administrador</option>
+                    </select>
+                </div>
+                <!-- Campo adicional solo para profesores, se moverá antes de "Boleta" -->
+                <div class="form-group" id="campo-externo" style="display: none;">
+                    <label htmlFor="externo">¿Es profesor externo?</label>
+                    <select id="externo">
+                        <option value="false">No</option>
+                        <option value="true">Sí</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label htmlFor="boleta" id="boleta-label">Boleta</label>
+                    <input type="text" id="boleta" placeholder="Boleta" required />
+                </div>
+                <div class="button-group" style="justify-content: center;">
+                    <button type="submit" class="login-button">Actualizar Usuario</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const usuarioId = urlParams.get('id');  // Obtener el id del usuario desde la URL
+            try {
+                const response = await fetch(`/api/usuarios/admin/${usuarioId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    credentials: "include"
+                });
+                const data = await response.json();
+
+                console.log('data', data);
+                if (response.ok) {
+                    document.getElementById('nombre').value = data.usuario.nombre;
+                    document.getElementById('correo').value = data.usuario.correo;
+                    document.getElementById('boleta').value = data.usuario.boleta;
+                    const rol = data.usuario.rol.rol;
+                    if (rol === 'ADMIN_ROL' || rol === 'PROFESOR_ROL' || rol === 'ALUMNO_ROL') {
+                        document.getElementById('rol').value = rol;
+                    }
+                    if (rol === 'PROFESOR_ROL') {
+                        document.getElementById('campo-externo').style.display = 'block';
+                    } else {
+                        document.getElementById('campo-externo').style.display = 'none';
+                    }
+                } else {
+                    console.log('Error al obtener datos del usuario', data);
+                }
+            } catch (error) {
+                console.error('Error al obtener los datos:', error);
+            }
+        });
+        // Escuchar el cambio de rol para mostrar u ocultar el campo "externo"
+        document.getElementById('rol').addEventListener('change', function () {
+            const rol = document.getElementById('rol').value;
+            if (rol === 'PROFESOR_ROL') {
+                document.getElementById('campo-externo').style.display = 'block';
+            } else {
+                document.getElementById('campo-externo').style.display = 'none';
+            }
+        });
+        // Escuchar el cambio en el campo "¿Es profesor externo?" para cambiar el título de Boleta
+        document.getElementById('externo').addEventListener('change', function () {
+            const externo = document.getElementById('externo').value;
+            const boletaLabel = document.getElementById('boleta-label');
+
+            if (externo === 'true') {
+                boletaLabel.textContent = 'Cédula';
+            } else {
+                boletaLabel.textContent = 'Boleta';
+            }
+        });
+        //subir los cambios
+        document.getElementById('editar-usuario-form').addEventListener('submit', async function (event) {
+            event.preventDefault();
+            const usuarioId = new URLSearchParams(window.location.search).get('id');
+            const rol = document.getElementById('rol').value.trim();
+            const boleta = document.getElementById('boleta').value.trim();
+            let externo = false;
+            if (rol === 'PROFESOR_ROL') {
+                // Asignamos 'true' si es profesor externo, 'false' si no lo es
+                externo = document.getElementById('externo').value === 'true'; // Convierte 'true'/'false' a booleano
+            }
+
+            try {
+                const response = await fetch(`/api/usuarios/admin/${usuarioId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify({ rol, boleta, externo }) // Enviamos siempre 'externo' con un valor de true/false
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    console.log('Usuario actualizado correctamente.', result);
+                    location.reload();
+                } else {
+                    console.log('Respuesta del servidor:', result.errors.map(error => error.msg).join('\n'));
+                }
+            } catch (error) {
+                console.error('Error al enviar los datos:', error);
+            }
+        });
+    </script>
+</body>
+
+</html>

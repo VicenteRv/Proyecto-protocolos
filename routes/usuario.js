@@ -32,7 +32,7 @@ router.get('/',[
         check('activo').notEmpty().withMessage('Activo es obligatorio'),
     validarCampos
 ],obtenerUsuarios);
-//ruta para buscar un usuario - solo aministrador - no implementado
+//ruta para buscar un usuario - solo aministrador - Completado
 router.get('/admin/:id',[
     validarJWT,
     validarAdminRole,
@@ -65,6 +65,7 @@ router.put('/admin/:id',[
             .custom(validacionRol),
     check('boleta').optional().notEmpty().withMessage('La boleta es obligatoria')
             .custom(boletaExistente),
+    check('externo').isBoolean().withMessage('El campo externo debe ser un valor booleano'),
     validarCampos
 ],modificarUsuarioAdmin);
 //ruta para desactivar usuario - solo admin - Completado

@@ -10,7 +10,6 @@
     flex-direction: column;
     align-items: center;
 }
-
 .navegacion-usuarios{
     border-bottom: 3px solid #00569D;
     display: flex;
@@ -113,6 +112,20 @@
 }
 
 .boton-usuario:hover{
+    background-color: #64829b;
+}
+.boton-ver-usuario{
+    background-color: #00569D;
+    color: white;
+    padding: 0.75rem;
+    border-radius: 1rem;
+    text-align: center;
+    text-decoration: none;
+    margin: 0rem 1rem 0rem 1rem;
+    width: 15%;
+}
+
+.boton-ver-usuario:hover{
     background-color: #64829b;
 }
 .img-perfil-usuario {

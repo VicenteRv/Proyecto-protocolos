@@ -6,6 +6,7 @@ const {Usuario,Role} = require("../models");
 const { subirArchivo } = require("../helpers/subir-archivo");
 const { roleAlumno } = require("../helpers/db-validators");
 const ROLES = require("../config/roles");
+const { populate } = require("../models/usuario");
 
 const crearUsuario = async(req = request, res = response) => {
     const {nombre, correo, password, rol, boleta, externo} = req.body;
@@ -116,7 +117,8 @@ const obtenerUsuarios = async(req = request, res = response) => {
 const obtenerUsuario = async(req = request, res = response) => {
     const {id} = req.params;
     try {
-        const usuario = await Usuario.findById(id);
+        const usuario = await Usuario.findById(id)
+            .populate('rol','rol -_id');
         res.status(200).json({
             usuario
         })
@@ -172,34 +174,40 @@ const modificarUsuarioActual = async(req = request, res = response) => {
 }
 const modificarUsuarioAdmin = async(req = request, res = response) => {
     const {id} = req.params;
-    const {rol,boleta} = req.body;
-    try {
-        const datosActualizados = {};
-        if (rol) {
-            datosActualizados.rol = await Role.findOne({rol});
-        }
-        if (boleta) {
-            datosActualizados.boleta = boleta;
-        }
-        if (Object.keys(datosActualizados).length === 0) {
-            return res.status(400).json({
-                msg: 'No se proporcionaron datos para modificar',
-            });
-        }
-        const usuario = await Usuario.findByIdAndUpdate(id, datosActualizados, { new: true });
-        res.status(200).json({
-            usuario
-        });
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({
-            msg: 'Error al actualizar el usuario'
-        });
-    }
+    const {rol,boleta,externo} = req.body;
+    console.log('id',id);
+    console.log('boleta',boleta);
+    console.log('rol',rol);
+    console.log('externo',externo);
+    res.status(200).json({
+        msg: 'datos recibidos'
+    })
+    // try {
+    //     const datosActualizados = {};
+    //     if (rol) {
+    //         datosActualizados.rol = await Role.findOne({rol});
+    //     }
+    //     if (boleta) {
+    //         datosActualizados.boleta = boleta;
+    //     }
+    //     if (Object.keys(datosActualizados).length === 0) {
+    //         return res.status(400).json({
+    //             msg: 'No se proporcionaron datos para modificar',
+    //         });
+    //     }
+    //     const usuario = await Usuario.findByIdAndUpdate(id, datosActualizados, { new: true });
+    //     res.status(200).json({
+    //         usuario
+    //     });
+    // } catch (error) {
+    //     console.log(error);
+    //     res.status(500).json({
+    //         msg: 'Error al actualizar el usuario'
+    //     });
+    // }
 }
 const borrarUsuario = async(req = request, res = response) => {
     const {id} = req.params;
-    console.log('id usuario eliminar',id);
     try {
         const usuario = await Usuario.findByIdAndUpdate(id,{estado:false},{new:true});
         res.status(200).json({
