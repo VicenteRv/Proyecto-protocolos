@@ -1,3 +1,4 @@
+const { request } = require("express");
 const ROLES = require("../config/roles");
 const {Role,Usuario,Protocolo} = require("../models");
 
@@ -8,13 +9,14 @@ const usuarioExistente = async(correo = '')=>{
         throw new Error(`El correo: ${correo} ya esta registrado en la bd`)
     }
 }
-const boletaExistente = async(boleta = '')=>{
-    const existeBoleta = await Usuario.findOne({ boleta });
-    const existeCedula = await Usuario.findOne({ cedula: boleta });
+const boletaExistente = async(boleta = '',{req} = request)=>{
+    const {id} = req.params;
+    const existeBoleta = await Usuario.findOne({ boleta,_id:{$ne:id} });
+    const existeCedula = await Usuario.findOne({ cedula: boleta,_id:{$ne:id} });
 
     if (existeBoleta || existeCedula)  {
         const campo = existeBoleta ? 'boleta' : 'cedula';
-        throw new Error(`El dato ingresado ${boleta} ya está registrada en la BD`);
+        throw new Error(`El valor ingresado ${boleta} ya está registrado`);
     }
 }
 const esAlumnoBoleta = async(boleta = '')=>{

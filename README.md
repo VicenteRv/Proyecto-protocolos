@@ -151,9 +151,7 @@ Para iniciar el servidor en modo desarrollo:
 ```bash
 nodemon app.js
 ```
-cuando
 
----
 
 ## Endpoints de la API
 
@@ -477,6 +475,10 @@ Este proyecto aún está en desarrollo. Algunas funcionalidades que se planean i
 - [ ] Verificar que al editar a un usuario que si esta como alumno y se va a cambiar el rol que no este registrado en un protocolo, y si lo esta decir que lo saquen
 - [ ] Verificar que en la parte de editar usuario por el admin no se agregue un boleta ya añadida
 - [ ] paginar la parte donde se muestran lso protocolos ya que solo se mandan 10 igual para la parte de los usuarios
+- [ ] Verificar que una vez iniciada sesion no pueda volver a iniciar sesion nuevamente si ya esta loggeado
+- [ ] Verificar que si ya tiene un protocolo no pueda registrar otro
+- [ ] Verificar la flexibilidad con respecto a si debe de meter otro protocolo por reprobar el primero
+- [ ] Verificar que cuando cierre sesion no pueda regresar con la flecha de regresar
 
 
 ## Errores Comunes y Soluciones

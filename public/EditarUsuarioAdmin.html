@@ -51,7 +51,6 @@
                         <option value="ADMIN_ROL">Administrador</option>
                     </select>
                 </div>
-                <!-- Campo adicional solo para profesores, se moverá antes de "Boleta" -->
                 <div class="form-group" id="campo-externo" style="display: none;">
                     <label htmlFor="externo">¿Es profesor externo?</label>
                     <select id="externo">
@@ -71,6 +70,7 @@
     </div>
 
     <script>
+        // funcion automatica para traer los datos del usuario con el id que esta en la url
         document.addEventListener('DOMContentLoaded', async function () {
             const urlParams = new URLSearchParams(window.location.search);
             const usuarioId = urlParams.get('id');  // Obtener el id del usuario desde la URL
@@ -88,13 +88,25 @@
                 if (response.ok) {
                     document.getElementById('nombre').value = data.usuario.nombre;
                     document.getElementById('correo').value = data.usuario.correo;
-                    document.getElementById('boleta').value = data.usuario.boleta;
+                    const boletaLabel = document.getElementById('boleta-label');
+                    if(!data.usuario.boleta){
+                        document.getElementById('boleta').value = data.usuario.cedula;
+                        boletaLabel.textContent = 'Cédula';
+                    }else{
+                        document.getElementById('boleta').value = data.usuario.boleta;
+                        boletaLabel.textContent = 'Boleta';
+                    }
                     const rol = data.usuario.rol.rol;
                     if (rol === 'ADMIN_ROL' || rol === 'PROFESOR_ROL' || rol === 'ALUMNO_ROL') {
                         document.getElementById('rol').value = rol;
                     }
                     if (rol === 'PROFESOR_ROL') {
                         document.getElementById('campo-externo').style.display = 'block';
+                        if(!data.usuario.boleta){
+                            document.getElementById('externo').value = 'true';
+                        }else{
+                            document.getElementById('externo').value = 'false';
+                        }
                     } else {
                         document.getElementById('campo-externo').style.display = 'none';
                     }
@@ -136,7 +148,6 @@
                 // Asignamos 'true' si es profesor externo, 'false' si no lo es
                 externo = document.getElementById('externo').value === 'true'; // Convierte 'true'/'false' a booleano
             }
-
             try {
                 const response = await fetch(`/api/usuarios/admin/${usuarioId}`, {
                     method: 'PUT',
@@ -153,6 +164,7 @@
                     location.reload();
                 } else {
                     console.log('Respuesta del servidor:', result.errors.map(error => error.msg).join('\n'));
+                    alert('Error: '+result.errors.map(error => error.msg).join('\n'));
                 }
             } catch (error) {
                 console.error('Error al enviar los datos:', error);

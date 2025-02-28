@@ -5,7 +5,7 @@ const { validacionRol, usuarioExistente, existeUsuarioDB, existeUsuarioDBdesacti
 const { validarJWT, validarAdminRole , validarCampos, validarCorreoUnico } = require("../middlewares");
 
 const router = Router();
-//ruta para registrar un usuario - Completado
+//ruta para registrar un usuario- usuarios - Completado
 router.post('/',[
     check('nombre').notEmpty().withMessage('El nombre es obligatorio'),
     check('correo').notEmpty().withMessage('El correo es obligatorio')
@@ -20,19 +20,19 @@ router.post('/',[
         .custom(validacionRol),
     validarCampos
 ],crearUsuario);
-//ruta para obtener el usuario actual - Completado
+//ruta para obtener el usuario actual - usuarios - Completado
 router.get('/me',[
     validarJWT,
     validarCampos
 ],obtenerUsuarioActual);
-//ruta para obtener todos los usuarios - Completado 
+//ruta para obtener todos los usuarios - solo administrador - Completado 
 router.get('/',[
     validarJWT,
     validarAdminRole,
-        check('activo').notEmpty().withMessage('Activo es obligatorio'),
+    check('activo').notEmpty().withMessage('Activo es obligatorio'),
     validarCampos
 ],obtenerUsuarios);
-//ruta para buscar un usuario - solo aministrador - Completado
+//ruta para buscar un usuario - solo administrador - Completado
 router.get('/admin/:id',[
     validarJWT,
     validarAdminRole,
@@ -53,7 +53,7 @@ router.put('/',[
         .isLength({min:8}).withMessage('La contraseña debe de tener mas de 8 caracteres'),
     validarCampos
 ],modificarUsuarioActual);
-//ruta para modificar usuario - solo admin 
+//ruta para modificar usuario - solo admin - Completado
 router.put('/admin/:id',[
     validarJWT,
     validarAdminRole,
@@ -68,7 +68,7 @@ router.put('/admin/:id',[
     check('externo').isBoolean().withMessage('El campo externo debe ser un valor booleano'),
     validarCampos
 ],modificarUsuarioAdmin);
-//ruta para desactivar usuario - solo admin - Completado
+//ruta para desactivar usuario - solo admin - Completado back y front
 router.delete('/admin/:id',[
     validarJWT,
     validarAdminRole,
@@ -78,7 +78,7 @@ router.delete('/admin/:id',[
     check('id').custom(existeUsuarioActivo),
     validarCampos
 ],borrarUsuario)
-//ruta para activar usuario - solo admin - Completado
+//ruta para activar usuario - solo admin - Completado back y front
 router.patch('/admin/:id',[
     validarJWT,
     validarAdminRole,

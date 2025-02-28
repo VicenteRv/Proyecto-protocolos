@@ -120,7 +120,7 @@
                 console.log('Usuario actualizado correctamente.',result);
                 window.location.href = '/Perfil.html';
             } else {
-                console.log(`Error al actualizar: ${result.msg}`);
+                console.log(`Error al actualizar: ${result.errors.map(error => error.msg).join('\n')}`);
             }
         } catch (error) {
             console.error('Error al enviar los datos:', error);

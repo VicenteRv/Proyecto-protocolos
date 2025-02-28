@@ -45,7 +45,7 @@ router.get('/admin',[
     validarAdminRole,
     validarCampos
 ],obtenerProtocolos);
-//ruta para obtener datos del protocolo a editar (boletas)
+//ruta para obtener datos del protocolo a editar (boletas) -- Completado??
 router.get('/admin/modificar/:id',[
     validarJWT,
     validarAdminRole,

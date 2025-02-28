@@ -6,7 +6,6 @@ const {Usuario,Role} = require("../models");
 const { subirArchivo } = require("../helpers/subir-archivo");
 const { roleAlumno } = require("../helpers/db-validators");
 const ROLES = require("../config/roles");
-const { populate } = require("../models/usuario");
 
 const crearUsuario = async(req = request, res = response) => {
     const {nombre, correo, password, rol, boleta, externo} = req.body;
@@ -75,6 +74,13 @@ const obtenerUsuarioActual = async(req = request, res = response) => {
 
 const obtenerUsuarios = async(req = request, res = response) => {
     const {limite = 10, desde = 0, activo} = req.query;
+    //descomentarlo cuando vaya a hacer un commit para modificar este controlador ya que
+    //se necesita que el parametro activo sea obligatorio y si no manda un error
+    // if (activo === undefined) {
+    //     return res.status(400).json({
+    //         msg: "El parámetro 'activo' es obligatorio (true o false)."
+    //     });
+    // }
     //activo como llega como string ya que todo lo que venga en query es string
     let query = null;
     const activoBoolean = (activo === 'true');  // Compara como string para convertir a booleano
@@ -175,36 +181,34 @@ const modificarUsuarioActual = async(req = request, res = response) => {
 const modificarUsuarioAdmin = async(req = request, res = response) => {
     const {id} = req.params;
     const {rol,boleta,externo} = req.body;
-    console.log('id',id);
-    console.log('boleta',boleta);
-    console.log('rol',rol);
-    console.log('externo',externo);
-    res.status(200).json({
-        msg: 'datos recibidos'
-    })
-    // try {
-    //     const datosActualizados = {};
-    //     if (rol) {
-    //         datosActualizados.rol = await Role.findOne({rol});
-    //     }
-    //     if (boleta) {
-    //         datosActualizados.boleta = boleta;
-    //     }
-    //     if (Object.keys(datosActualizados).length === 0) {
-    //         return res.status(400).json({
-    //             msg: 'No se proporcionaron datos para modificar',
-    //         });
-    //     }
-    //     const usuario = await Usuario.findByIdAndUpdate(id, datosActualizados, { new: true });
-    //     res.status(200).json({
-    //         usuario
-    //     });
-    // } catch (error) {
-    //     console.log(error);
-    //     res.status(500).json({
-    //         msg: 'Error al actualizar el usuario'
-    //     });
-    // }
+    try {
+        const datosActualizados = {};
+        //es para agregar el id del rol no si existe el rol
+        if (rol) {
+            datosActualizados.rol = await Role.findOne({rol});
+        }
+        if(externo){
+            datosActualizados.cedula = boleta;
+            datosActualizados.$unset = {boleta: ""};
+        }else{
+            datosActualizados.boleta = boleta;
+            datosActualizados.$unset = {cedula: ""};
+        }
+        if (Object.keys(datosActualizados).length === 0) {
+            return res.status(400).json({
+                msg: 'No se proporcionaron datos para modificar',
+            });
+        }
+        const usuario = await Usuario.findByIdAndUpdate(id, datosActualizados, { new: true });
+        res.status(200).json({
+            datosActualizados
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            msg: 'Error al actualizar el usuario'
+        });
+    }
 }
 const borrarUsuario = async(req = request, res = response) => {
     const {id} = req.params;

@@ -5,7 +5,7 @@ const {Protocolo, Usuario} = require("../models");
 const { subirArchivo } = require("../helpers/subir-archivo");
 
 const crearProtocolo = async(req = request, res = response) => {
-    const { nombre = 'prueba1', descripcion = "s/d", boletalider, boleta1, boleta2, director1, director2 } = req.body;
+    const { nombre, descripcion, boletalider, boleta1, boleta2, director1, director2 } = req.body;
     try {
         // Obtener archivo del requests
         const { archivo } = req.files;
@@ -46,8 +46,6 @@ const crearProtocolo = async(req = request, res = response) => {
             directores: directoresIds,
             archivo: uuidDoc,
         });
-
-        // Guardar protocolo
         await newProtocolo.save();
 
         res.status(201).json({
