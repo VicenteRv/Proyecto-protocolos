@@ -467,18 +467,19 @@ Este proyecto utiliza las siguientes tecnologías y herramientas:
 Este proyecto aún está en desarrollo. Algunas funcionalidades que se planean implementar incluyen:
 
 - [ ] Regresar el archivo pdf al front-end
-- [ ] Modificar a un usuario solo por el admin
+- [x] Modificar a un usuario solo por el admin
 - [ ] Modificar un protocolo (usuario) - front-end
 - [ ] Modificar un protocolo (admin) - front-end
 - [ ] Cambiar el estado de un protocolo - front-end
 - [ ] Verificar que pasa si un alumno recursa y tiene que meter un protocolo, verificar cuantas veces maximo puedo meter protocolo un alumno
 - [ ] Verificar que al editar a un usuario que si esta como alumno y se va a cambiar el rol que no este registrado en un protocolo, y si lo esta decir que lo saquen
-- [ ] Verificar que en la parte de editar usuario por el admin no se agregue un boleta ya añadida
+- [x] Verificar que en la parte de editar usuario por el admin no se agregue un boleta ya añadida
 - [ ] paginar la parte donde se muestran lso protocolos ya que solo se mandan 10 igual para la parte de los usuarios
 - [ ] Verificar que una vez iniciada sesion no pueda volver a iniciar sesion nuevamente si ya esta loggeado
 - [ ] Verificar que si ya tiene un protocolo no pueda registrar otro
 - [ ] Verificar la flexibilidad con respecto a si debe de meter otro protocolo por reprobar el primero
 - [ ] Verificar que cuando cierre sesion no pueda regresar con la flecha de regresar
+- [ ] Falta terminar todas las rutas faltantes de protocolos
 
 
 ## Errores Comunes y Soluciones
